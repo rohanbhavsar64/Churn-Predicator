@@ -181,10 +181,7 @@ df['wickets']=df.groupby('match_id')['player_dismissed'].cumsum()
 
 
 
-# In[208]:
-
-
-df[df['wickets']>10].shape
+# In[208]
 
 
 # In[209]:
