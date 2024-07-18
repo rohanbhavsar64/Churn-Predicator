@@ -13,6 +13,7 @@ import numpy as np
 
 
 df=pd.read_csv('deliver (3).csv')
+df1=df
 
 
 # In[182]:
