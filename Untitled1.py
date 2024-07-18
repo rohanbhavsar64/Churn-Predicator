@@ -230,7 +230,7 @@ df['last_10_wicket']=last_ten
 # In[213]:
 
 
-df
+
 
 
 # In[214]:
@@ -331,7 +331,7 @@ new_df['winner']=new_df.apply(result,axis=1)
 
 new_df['batsman']=new_df['batsman'].str.split(' ').str.get(-1)
 new_df['non_striker']=new_df['non_striker'].str.split(' ').str.get(-1)
-new_df
+
 
 
 # In[232]:
@@ -357,7 +357,7 @@ new_df=new_df.dropna()
 
 data_to_add={'batting_team':'India','bowling_team':'Australia','venue':'Brisbane Cricket Ground, Woolloongabba','toss_winner':['India','Australia'],'score':[48,98],'wickets':1,'batsman':['Gill','Kohli'],'non_striker':['Kohli','Gill'],'runs_left':[200,150],'balls_left':[240,180],'crr':[4.8,4.9],'rrr':[5.0,5.0],'last_10':[48.0,50.0],'last_10_wicket':[1.0,0],'winner':[0,1]}
 addendom=pd.DataFrame(columns=new_df.columns,data=data_to_add)
-addendom
+
 
 
 # In[236]:
@@ -365,7 +365,7 @@ addendom
 
 data_to_add={'batting_team':'India','bowling_team':'Australia','venue':'Brisbane Cricket Ground, Woolloongabba','toss_winner':['India','Australia'],'score':[48,98],'wickets':1,'batsman':['Returaj','Kohli'],'non_striker':['Kohli','Returaj'],'runs_left':[200,150],'balls_left':[240,180],'crr':[4.8,4.9],'rrr':[5.0,5.0],'last_10':[48.0,50.0],'last_10_wicket':[1.0,0],'winner':[0,1]}
 addendom1=pd.DataFrame(columns=new_df.columns,data=data_to_add)
-addendom1
+
 
 
 # In[237]:
@@ -431,8 +431,6 @@ trf=ColumnTransformer([
 
 # In[246]:
 
-
-ohe.categories_
 
 
 # In[247]:
