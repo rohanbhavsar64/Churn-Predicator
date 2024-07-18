@@ -502,7 +502,7 @@ with col1:
 with col2:
     b1 = st.selectbox('bowling team', sorted(batting))
 with col3:
-    c1 = st.selectbox('Season', sorted(match['season'].unique()))
+    c1 = st.selectbox('Season', sorted(match['year'].unique()))
 
 match = match[match['team2'] == a1]
 match = match[match['team1'] == b1]
