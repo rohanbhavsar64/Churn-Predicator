@@ -8,12 +8,6 @@ import pandas as pd
 import numpy as np
 
 
-# In[180]:
-
-
-from  matplotlib  import pyplot as plt
-import seaborn as sns
-
 
 # In[181]:
 
