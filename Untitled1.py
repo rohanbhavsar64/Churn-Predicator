@@ -118,10 +118,7 @@ df['score']=df.groupby('match_id').cumsum()['total']
 df.describe()
 
 
-# In[195]:
 
-
-df1=pd.read_csv('deliveries.csv')
 
 
 # In[196]:
