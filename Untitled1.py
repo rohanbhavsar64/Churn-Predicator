@@ -550,7 +550,6 @@ fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='line
 fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over'))
 
 fig.update_layout(title='Target-' + str(target))
-
 import streamlit as st
 st.write(fig)
 
