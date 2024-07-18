@@ -495,6 +495,7 @@ df2.to_csv()
 import streamlit as st
 
 # In[255]:
+batting=df['batting_team'].unique()
 col1, col2, col3 = st.columns(3)
 with col1:
     a1 = st.selectbox('batting team', sorted(batting))
