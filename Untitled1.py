@@ -35,7 +35,7 @@ match_df=pd.read_csv('matches (2).csv')
 # In[183]:
 
 
-match=pd.read_csv('matches (2).csv',usecols=['id','venue','winner','toss_winner'])
+match=pd.read_csv('matches (2).csv')
 
 
 # In[184]:
@@ -495,6 +495,19 @@ df2.to_csv()
 
 
 # In[255]:
+col1, col2, col3 = st.columns(3)
+with col1:
+    a1 = st.selectbox('batting team', sorted(batting))
+with col2:
+    b1 = st.selectbox('bowling team', sorted(batting))
+with col3:
+    c1 = st.selectbox('Season', sorted(match['season'].unique()))
+
+match = match[match['team2'] == a1]
+match = match[match['team1'] == b1]
+match = match[match['season'] == c1]
+g = match['id'].unique()
+l = st.selectbox('Match_id', g)
 
 
 def match_progression(x_df,match_id,pipe):
@@ -531,7 +544,7 @@ def match_progression(x_df,match_id,pipe):
 # In[270]:
 
 
-temp_df,target = match_progression(df,1251,pipe)
+temp_df,target = match_progression(df,l,pipe)
 temp_df
 
 
