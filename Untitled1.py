@@ -506,7 +506,6 @@ def match_progression(x_df,match_id,pipe):
     temp_df = temp_df[temp_df['balls_left'] != 0]
     if temp_df.empty:
         print("Error: Match is not Existed")
-        a=1
         return None, None
     result = pipe.predict_proba(temp_df)
     temp_df['lose'] = np.round(result.T[0]*100,1)
@@ -534,7 +533,7 @@ def match_progression(x_df,match_id,pipe):
 # In[270]:
 
 
-temp_df,target = match_progression(df,72,pipe)
+temp_df,target = match_progression(df,1251,pipe)
 temp_df
 
 
