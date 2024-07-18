@@ -177,7 +177,7 @@ df['player_dismissed']=df['player_dismissed'].astype(int)
 # In[206]:
 
 
-df['wickets']=df.groupby('match_id').cumsum()['player_dismissed']
+df['wickets']=df.groupby('match_id')['player_dismissed'].cumsum()
 
 
 # In[207]:
