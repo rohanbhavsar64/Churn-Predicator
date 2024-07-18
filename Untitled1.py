@@ -502,7 +502,7 @@ g = match['id'].unique()
 p= match['date'].unique()
 f=st.selectbox('Date', p)
 match = match[match['date'] == f]
-l = match['id'].unique()
+l = match['id'].unique()[0]
 
 
 def match_progression(x_df,match_id,pipe):
