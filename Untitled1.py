@@ -18,7 +18,6 @@ df=pd.read_csv('deliver (3).csv')
 # In[182]:
 
 
-df
 
 
 # In[272]:
@@ -30,7 +29,6 @@ match_df=pd.read_csv('matches (2).csv')
 # In[273]:
 
 
-match_df
 
 
 # In[183]:
@@ -42,13 +40,10 @@ match=pd.read_csv('matches (2).csv',usecols=['id','venue','winner','toss_winner'
 # In[184]:
 
 
-match['venue'].unique()
-
 
 # In[185]:
 
 
-match.head()
 
 
 # In[186]:
@@ -59,8 +54,6 @@ df=df.merge(match[['venue','winner','toss_winner','id']],left_on='match_id',righ
 
 # In[187]:
 
-
-df.head(10)
 
 
 # In[188]:
@@ -79,7 +72,6 @@ df.drop(columns=[
 # In[189]:
 
 
-df
 
 
 # In[190]:
@@ -97,7 +89,7 @@ df.drop(columns=[
 # In[191]:
 
 
-df
+
 
 
 # In[192]:
@@ -109,13 +101,13 @@ df=df[df['inning']==2]
 # In[193]:
 
 
-df['score']=df.groupby('match_id').cumsum()['total']
+df['score']=df.groupby('match_id')['total'].cumsum()
 
 
 # In[194]:
 
 
-df.describe()
+
 
 
 
@@ -124,7 +116,6 @@ df.describe()
 # In[196]:
 
 
-df
 
 
 # In[197]:
@@ -157,14 +148,13 @@ df.drop(columns=[
 # In[201]:
 
 
-df
+
 
 
 # In[202]:
 
 
 df['player_dismissed']=df['player_dismissed'].fillna("0")
-df
 
 
 # In[203]:
@@ -182,7 +172,6 @@ df['player_dismissed']=df['player_dismissed'].astype(int)
 # In[205]:
 
 
-df
 
 
 # In[206]:
@@ -194,7 +183,7 @@ df['wickets']=df.groupby('match_id').cumsum()['player_dismissed']
 # In[207]:
 
 
-df
+
 
 
 # In[208]:
@@ -252,13 +241,13 @@ df=df.fillna(0)
 # In[215]:
 
 
-df.head()
+
 
 
 # In[216]:
 
 
-df1
+
 
 
 # In[217]:
@@ -270,7 +259,7 @@ df1=df1[df1['inning']==1]
 # In[218]:
 
 
-df1
+
 
 
 # In[219]:
@@ -279,16 +268,7 @@ df1
 df = df1.groupby('match_id').sum()['total'].reset_index().merge(df,on='match_id')
 
 
-# In[220]:
 
-
-df
-
-
-# In[221]:
-
-
-df.info()
 
 
 # In[222]:
@@ -318,7 +298,6 @@ df=df[df['runs_left']>=0]
 # In[226]:
 
 
-df.info()
 
 
 # In[227]:
@@ -330,7 +309,7 @@ new_df=df[['batting_team','bowling_team','venue','toss_winner','score','wickets'
 # In[228]:
 
 
-new_df
+
 
 
 # In[229]:
@@ -357,7 +336,6 @@ new_df
 # In[232]:
 
 
-new_df.info()
 
 
 # In[233]:
@@ -370,7 +348,7 @@ new_df=new_df[new_df['rrr']<4000]
 
 
 new_df=new_df.dropna()
-new_df
+
 
 
 # In[235]:
@@ -398,10 +376,7 @@ new_df=pd.concat([new_df,addendom1])
 new_df=new_df.reset_index(drop=True)
 
 
-# In[238]:
 
-
-new_df
 
 
 # In[239]:
@@ -420,13 +395,7 @@ y=new_df['winner']
 # In[241]:
 
 
-X
 
-
-# In[242]:
-
-
-y
 
 
 # In[243]:
@@ -527,37 +496,6 @@ df2.to_csv()
 
 
 # In[255]:
-
-
-X.sample(5)
-
-
-# In[256]:
-
-
-import pickle
-
-
-# In[257]:
-
-
-filename = 'Win Predicator.log'
-pickle.dump(pipe, open(filename, 'wb'))
-
-
-# In[258]:
-
-
-loaded_model = pickle.load(open('Win Predicator.log', 'rb'))
-
-
-# In[259]:
-
-
-loaded_model.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali','Pakistan',185,4,'Rahul','Pandya',93,108,5.6,5.41,42.0,3.0]).reshape(1,14))).astype(float)
-
-
-# In[260]:
 
 
 def match_progression(x_df,match_id,pipe):
