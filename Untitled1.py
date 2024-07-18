@@ -506,7 +506,7 @@ with col3:
 
 match = match[match['team2'] == a1]
 match = match[match['team1'] == b1]
-match = match[match['season'] == c1]
+match = match[match['year'] == c1]
 g = match['id'].unique()
 l = st.selectbox('Match_id', g)
 
