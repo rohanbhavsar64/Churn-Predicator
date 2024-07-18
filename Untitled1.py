@@ -487,21 +487,21 @@ import streamlit as st
 
 # In[255]:
 batting=df['batting_team'].unique()
-col1, col2, col3 ,col4= st.columns(4)
+col1, col2, col3 = st.columns(3)
 with col1:
     a1 = st.selectbox('team1', sorted(batting))
 with col2:
     b1 = st.selectbox('team2', sorted(batting))
 with col3:
     c1 = st.selectbox('Season', sorted(match['year'].unique()))
-with col4:
-    d1 = st.selectbox('Season', sorted(match['date'].unique()))  
-
 match = match[match['team2'] == a1]
 match = match[match['team1'] == b1]
 match = match[match['year'] == c1]
-match = match[match['date'] == d1]
+#match = match[match['date'] == d1]
 g = match['id'].unique()
+p= match['date'].unique()
+f=st.selectbox('Date', p)
+match = match[match['date'] == p]
 l = st.selectbox('Match_id', g)
 
 
