@@ -543,7 +543,7 @@ temp_df
 
 import plotly.graph_objects as go
 fig = go.Figure()
-wicket=fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['wickets_in_over'], mode='markers',name='Wickets in Over', marker=dict(color='yellow')))
+#wicket=fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['wickets_in_over'], mode='markers',name='Wickets in Over', marker=dict(color='yellow')))
 batting_team=fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines',name='Batting side', line=dict(color='#00a65a', width=3)))
 bowling_team=fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines',name='Bowling Side', line=dict(color='red', width=4)))
 runs=fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'],name='Runs in Over'))
