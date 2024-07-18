@@ -512,27 +512,31 @@ def match_progression(x_df,match_id,pipe):
     temp_df = temp_df[temp_df['balls_left'] != 0]
     if temp_df.empty:
         print("Error: Match is not Existed")
+        a=1
         return None, None
     result = pipe.predict_proba(temp_df)
     temp_df['lose'] = np.round(result.T[0]*100,1)
     temp_df['win'] = np.round(result.T[1]*100,1)
     temp_df['end_of_over'] = range(1,temp_df.shape[0]+1)
     
-    target = (temp_df['score']+temp_df['runs_left']).values[0]
+    target = (temp_df['score']+temp_df['runs_left']+1).values[0]
     runs = list(temp_df['runs_left'].values)
     new_runs = runs[:]
     runs.insert(0,target)
     temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
-    wickets = list(temp_df['wickets'].values)
+    temp_df['batsman']=match['batsman']
+    temp_df['non_striker']=match['non_striker']
+    wickets = list(10-temp_df['wickets'].values)
     new_wickets = wickets[:]
     new_wickets.insert(0,10)
     wickets.append(0)
     w = np.array(wickets)
     nw = np.array(new_wickets)
-    temp_df['wickets_in_over'] = (w-nw)[0:temp_df.shape[0]]
-    
+    temp_df['wickets_in_over'] = (nw-w)[0:temp_df.shape[0]]
+    temp_df['wickets']=temp_df['wickets_in_over'].cumsum()
+    temp_df['score']=match['score']
     print("Target-",target)
-    temp_df = temp_df[['end_of_over','runs_after_over','wickets_in_over','lose','win']]
+    temp_df = temp_df[['end_of_over','runs_after_over','wickets_in_over','batsman','non_striker','score','wickets','lose','win']]
     return temp_df,target
 
 
