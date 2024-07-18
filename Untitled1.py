@@ -550,28 +550,29 @@ temp_df
 # In[271]:
 import plotly.graph_objects as go
 
-    if a1 == b1:
-        st.write('No match Available')
+if a1 == b1:
+    st.write('No match Available')
+else:
+    if temp_df is None:
+        st.write("Error: Match is not Existed")
     else:
-        if temp_df is None:
-            st.write("Error: Match is not Existed")
-        else:
-            fig = go.Figure()
-            runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
-            wicket_text = temp_df['wickets_in_over'].astype(str)
-            wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
-            wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
+        fig = go.Figure()
+        runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
+        wicket_text = temp_df['wickets_in_over'].astype(str)
+        wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
+        wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
 
-            wicket = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
-                                               mode='markers', name='Wickets in Over',
-                                               marker=dict(color='orange', size=10),
-                                               text=wicket_text, textposition='top center'))
+        wicket = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
+                                            mode='markers', name='Wickets in Over',
+                                            marker=dict(color='orange', size=10),
+                                            text=wicket_text, textposition='top center'))
 
 # Line plots for batting and bowling teams
-            batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=a1,
-                                              line=dict(color='#00a65a', width=3)))
-            bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=b1,
-                                              line=dict(color='red', width=4)))
+        batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=a1,
+                                            line=dict(color='#00a65a', width=3)))
+        bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=b1,
+                                            line=dict(color='red', width=4)))
+        st.write(fig)
 
 
 
