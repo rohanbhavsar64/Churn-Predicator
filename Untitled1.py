@@ -200,7 +200,7 @@ groups = df.groupby('match_id')
 match_ids = df['match_id'].unique()
 last_ten = []
 for id in match_ids:
-    last_ten.extend(groups.get_group(id).rolling(window=60).sum()['total'].values.tolist())
+    last_ten.extend(groups.get_group(id).rolling(window=60)['total'].sum().values.tolist())
 
 
 # In[210]:
@@ -217,7 +217,7 @@ groups = df.groupby('match_id')
 match_ids = df['match_id'].unique()
 last_ten = []
 for id in match_ids:
-    last_ten.extend(groups.get_group(id).rolling(window=60).sum()['player_dismissed'].values.tolist())
+    last_ten.extend(groups.get_group(id).rolling(window=60)['player_dismissed'].sum().values.tolist())
 
 
 # In[212]:
