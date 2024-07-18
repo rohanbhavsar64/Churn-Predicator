@@ -487,7 +487,7 @@ import streamlit as st
 
 # In[255]:
 batting=df['batting_team'].unique()
-col1, col2, col3 ,col4= st.columns(3)
+col1, col2, col3 ,col4= st.columns(4)
 with col1:
     a1 = st.selectbox('team1', sorted(batting))
 with col2:
