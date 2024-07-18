@@ -484,7 +484,7 @@ df2.to_csv()
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
 import streamlit as st
-
+st.header('ODI CRICKET MATCH ANALYSIS')
 # In[255]:
 batting=df['batting_team'].unique()
 col1, col2, col3 = st.columns(3)
