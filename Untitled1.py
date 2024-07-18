@@ -580,7 +580,7 @@ else:
         r3 = df[df['match_id'] == l]['venue'].unique()
         r4=df[df['match_id'] == l]['batting_team'].unique()
         r5 = df[df['match_id'] == l]['toss_winner'].unique()
-        r6=r4=df[df['match_id'] == l]['bbowling_team'].unique()
+        r6=r4=df[df['match_id'] == l]['bowling_team'].unique()
         data = {'Field': ['Vanue', 'BattingTeam','BowlingTeam', 'Toss Winner', 'POM', 'Winner'], 'Name': [r3[0], r4[0], r6[0], r5[0], r1[0], r2[0]]} 
         fg = pd.DataFrame(data) 
         st.table(fg)
