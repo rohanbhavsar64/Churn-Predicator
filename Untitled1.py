@@ -557,6 +557,7 @@ else:
 import plotly.graph_objects as go
 a2=df['batting_team'].unique()
 b2=df['bowling_team'].unique()
+st.write(a2)
 if a1 == b1:
     st.write('No match Available')
 else:
