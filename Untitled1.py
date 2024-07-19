@@ -503,10 +503,13 @@ g = match['id'].unique()
 p= match['date'].unique()
 f=st.selectbox('Date', p)
 match = match[match['date'] == f]
-if a1==b1:
+if a1 == b1:
     st.write('Select Different Teams')
-else :
-    l = match['id'].unique()[0]
+else:
+    if match.empty:
+        st.write('No match data available')
+    else:
+        l = match['id'].unique()[0]
 
 
 def match_progression(x_df,match_id,pipe):
