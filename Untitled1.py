@@ -5,7 +5,7 @@ import numpy as np
 
 # In[181]:
 #df3=pd.read_csv('delive.csv')
-#df2=pd.read_csv('deliveri.csv')
+df2=pd.read_csv('deliverie.csv')
 df=pd.read_csv('deliver (3).csv')
 df1=df
 
@@ -473,7 +473,7 @@ y=['b1''b2']
 
 # In[253]:
 
-match=match[match['id']>1210]
+match=match[match['id']>=824]
 df2=new_df['venue'].value_counts()
 df2.to_csv()
 
