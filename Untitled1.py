@@ -558,7 +558,7 @@ else:
 import plotly.graph_objects as go
 a2=df[df['match_id']==l]['batting_team'].unique()
 b2=df[df['match_id']==l]['bowling_team'].unique()
-
+st.write(a2)
 if a1 == b1:
     st.write('No match Available')
 else:
@@ -577,9 +577,9 @@ else:
                                             text=wicket_text, textposition='top center'))
 
 # Line plots for batting and bowling teams
-        batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=a2,
+        batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='Batting',
                                             line=dict(color='#00a65a', width=3)))
-        bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=b2,
+        bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name='bowling',
                                             line=dict(color='red', width=4)))
         fig.update_layout(title='Target-' + str(target))
         st.write(fig)
