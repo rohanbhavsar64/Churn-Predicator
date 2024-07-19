@@ -5,8 +5,9 @@ import numpy as np
 
 # In[181]:
 
-
+df2=pd.read_csv('deliveri.csv')
 df=pd.read_csv('deliver (3).csv')
+df=pd.concat([df,df2])
 df1=df
 
 
@@ -572,7 +573,7 @@ else:
                                             text=wicket_text, textposition='top center'))
 
 # Line plots for batting and bowling teams
-        batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='BattingTeam,
+        batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='BattingTeam',
                                             line=dict(color='#00a65a', width=3)))
         bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name='BowlingTeam',
                                             line=dict(color='red', width=4)))
