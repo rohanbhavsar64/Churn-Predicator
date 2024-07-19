@@ -4,7 +4,6 @@ import numpy as np
 
 
 # In[181]:
-
 df2=pd.read_csv('deliveri.csv')
 df=pd.read_csv('deliver (3).csv')
 df=pd.concat([df,df2])
@@ -546,9 +545,11 @@ def match_progression(x_df,match_id,pipe):
 
 # In[270]:
 
-
-temp_df,target = match_progression(df,l,pipe)
-temp_df
+if l is None:
+    st.write('No Match Available')
+else:
+    temp_df,target = match_progression(df,l,pipe)
+    temp_df
 
 
 # In[271]:
