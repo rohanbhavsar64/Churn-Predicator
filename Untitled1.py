@@ -545,19 +545,20 @@ def match_progression(x_df,match_id,pipe):
 
 
 # In[270]:
-
 if l is None:
     st.write('No Match Available')
 else:
-    temp_df,target = match_progression(df,l,pipe)
-    temp_df
-
+    temp_df, target = match_progression(df, l, pipe)
+    if temp_df is None:
+        st.write("Error: Match is not Existed")
+    else:
+        st.write(temp_df)
 
 # In[271]:
 import plotly.graph_objects as go
-a2=df['batting_team'].unique()
-b2=df['bowling_team'].unique()
-st.write(a2)
+a2=df[df['match_id']==l]['batting_team'].unique()
+b2=df[df['match_id']==l]['bowling_team'].unique()
+
 if a1 == b1:
     st.write('No match Available')
 else:
@@ -576,9 +577,9 @@ else:
                                             text=wicket_text, textposition='top center'))
 
 # Line plots for batting and bowling teams
-        batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='BattingTeam',
+        batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=a2,
                                             line=dict(color='#00a65a', width=3)))
-        bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name='BowlingTeam',
+        bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=b2,
                                             line=dict(color='red', width=4)))
         fig.update_layout(title='Target-' + str(target))
         st.write(fig)
