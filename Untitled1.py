@@ -5,9 +5,8 @@ import numpy as np
 
 # In[181]:
 #df3=pd.read_csv('delive.csv')
-df2=pd.read_csv('del.csv')
+#df2=pd.read_csv('del.csv')
 df=pd.read_csv('deliv.csv')
-df=pd.concat([df,df2])
 df1=df
 
 
@@ -582,8 +581,8 @@ else:
                                             line=dict(color='red', width=4)))
         fig.update_layout(
             title='Target-' + str(target),
-            width=1300,  # Set the width of the chart
-            height=1200  # Set the height of the chart
+            width=1000,  # Set the width of the chart
+            height=900  # Set the height of the chart
         )
         fig.update_layout(title='Target-' + str(target))
         st.write(fig)
