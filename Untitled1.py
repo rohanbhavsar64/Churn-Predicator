@@ -474,7 +474,6 @@ y=['b1''b2']
 
 # In[253]:
 
-match=match[match['id']>=824]
 df2=new_df['venue'].value_counts()
 df2.to_csv()
 
