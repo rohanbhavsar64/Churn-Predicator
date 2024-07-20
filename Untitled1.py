@@ -486,7 +486,7 @@ import streamlit as st
 st.header('ODI CRICKET MATCH ANALYSIS')
 # In[255]:
 batting=df['batting_team'].unique()
-col1, col2, col3 = st.columns(2)
+col1, col2 = st.columns(2)
 with col1:
     a1 = st.selectbox('team1', sorted(batting))
 with col2:
