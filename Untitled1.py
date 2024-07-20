@@ -479,7 +479,7 @@ df2.to_csv()
 
 # In[254]:
 
-
+match=match[match['date']>'2015-01-01']
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
 import streamlit as st
@@ -581,8 +581,8 @@ else:
                                             line=dict(color='red', width=4)))
         fig.update_layout(
             title='Target-' + str(target),
-            width=1000,  # Set the width of the chart
-            height=900  # Set the height of the chart
+            width=800,  # Set the width of the chart
+            height=700  # Set the height of the chart
         )
         fig.update_layout(title='Target-' + str(target))
         st.write(fig)
