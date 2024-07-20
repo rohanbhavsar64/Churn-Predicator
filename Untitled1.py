@@ -584,8 +584,8 @@ else:
                                             line=dict(color='red', width=4)))
         fig.update_layout(
             title='Target-' + str(target),
-            width=1000,  # Set the width of the chart
-            height=900  # Set the height of the chart
+            width=1300,  # Set the width of the chart
+            height=1200  # Set the height of the chart
         )
         fig.update_layout(title='Target-' + str(target))
         st.write(fig)
