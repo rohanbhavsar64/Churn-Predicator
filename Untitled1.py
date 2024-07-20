@@ -7,6 +7,7 @@ import numpy as np
 #df3=pd.read_csv('delive.csv')
 #df2=pd.read_csv('del.csv')
 df=pd.read_csv('deliv.csv')
+df=df[df['date']>'2019-05-30']
 df1=df
 
 
@@ -488,9 +489,9 @@ st.header('ODI CRICKET MATCH ANALYSIS')
 batting=df['batting_team'].unique()
 col1, col2 = st.columns(2)
 with col1:
-    a1 = st.selectbox('team1', sorted(batting))
+    a1 = st.selectbox('team1(Away Team)', sorted(batting))
 with col2:
-    b1 = st.selectbox('team2', sorted(batting))
+    b1 = st.selectbox('team2 (Home Team)', sorted(batting))
 
 match = match[match['team2'] == a1]
 match = match[match['team1'] == b1]
