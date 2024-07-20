@@ -5,8 +5,9 @@ import numpy as np
 
 # In[181]:
 #df3=pd.read_csv('delive.csv')
-df2=pd.read_csv('deliverie.csv')
-df=pd.read_csv('deliver (3).csv')
+df2=pd.read_csv('del.csv')
+df=pd.read_csv('deliv.csv')
+df=pd.concat([df,df2])
 df1=df
 
 
