@@ -6,10 +6,8 @@ import numpy as np
 # In[181]:
 #df3=pd.read_csv('delive.csv')
 #df2=pd.read_csv('del.csv')
-df=pd.read_csv('d.csv')
-df2=pd.read_csv('dl.csv')
-df3=pd.read_csv('dlv.csv')
-df=pd.concat([df,df2,df3])
+df=pd.read_csv('deliv.csv')
+
 
 
 
