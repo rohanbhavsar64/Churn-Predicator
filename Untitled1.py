@@ -7,7 +7,6 @@ import numpy as np
 #df3=pd.read_csv('delive.csv')
 #df2=pd.read_csv('del.csv')
 df=pd.read_csv('deliv.csv')
-df=df[df['date']>'2019-05-30']
 df1=df
 
 
