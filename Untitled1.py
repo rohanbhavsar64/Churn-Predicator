@@ -480,7 +480,7 @@ y=['b1''b2']
 
 df2=new_df['venue'].value_counts()
 df2.to_csv()
-
+match=match[match['date']>='2019-01-01']
 
 # In[254]:
 
