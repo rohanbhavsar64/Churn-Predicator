@@ -487,7 +487,7 @@ match=match[match['date']>='2019-01-01']
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
 import streamlit as st
-st.header('ODI CRICKET MATCH ANALYSIS(2019/20)')
+st.header('2019 ODI WORLD CUP ANALYSIS')
 # In[255]:
 batting=df['batting_team'].unique()
 col1, col2 = st.columns(2)
