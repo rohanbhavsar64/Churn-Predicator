@@ -483,7 +483,7 @@ df2.to_csv()
 
 # In[254]:
 
-match=match[match['date']>'2015-01-01']
+match=match[match['date']>'2019-01-01']
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
 import streamlit as st
@@ -510,7 +510,7 @@ else:
         st.write('No match data available')
     else:
         l = match['id'].unique()[0]
-
+df=df[(df2['match_id']>=184) &(df2['match_id']<=400) ]
 
 def match_progression(x_df,match_id,pipe):
     match = x_df[x_df['match_id'] == match_id]
@@ -519,7 +519,6 @@ def match_progression(x_df,match_id,pipe):
     temp_df = temp_df[temp_df['balls_left'] != 0]
     if temp_df.empty:
         print("Error: Match is not Existed")
-        a=1
         return None, None
     result = pipe.predict_proba(temp_df)
     temp_df['lose'] = np.round(result.T[0]*100,1)
