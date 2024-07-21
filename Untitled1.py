@@ -484,7 +484,7 @@ df2.to_csv()
 
 # In[254]:
 
-match=match[match['date']>'2019-05-30']['id'].unique()
+match=match[match['date']>='2019-05-30']['id'].unique()
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
 import streamlit as st
