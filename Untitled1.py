@@ -510,7 +510,7 @@ else:
         st.write('No match data available')
     else:
         l = match['id'].unique()[0]
-df=df[(df2['match_id']>=184) &(df2['match_id']<=400) ]
+df=df[(df['match_id']>=184) &(df['match_id']<=400) ]
 
 def match_progression(x_df,match_id,pipe):
     match = x_df[x_df['match_id'] == match_id]
