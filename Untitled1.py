@@ -554,7 +554,8 @@ else:
     if temp_df is None:
         st.write("Error: Match is not Existed")
     else:
-        st.write(temp_df.iloc[:49][:])
+        st.write(temp_df.iloc[:48][:])
+temp_df=temp_df.iloc[:48][:]
 
 # In[271]:
 import plotly.graph_objects as go
