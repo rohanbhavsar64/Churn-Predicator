@@ -5,10 +5,10 @@ import numpy as np
 
 # In[181]:
 #df3=pd.read_csv('delive.csv')
-df2=pd.read_csv('del.csv')
-df2=df2[(df2['match_id']>=1364) &(df2['match_id']<=1410) ]
+#df2=pd.read_csv('del.csv')
+#df2=df2[(df2['match_id']>=1364) &(df2['match_id']<=1410) ]
 df=pd.read_csv('deliv.csv')
-df=pd.concat([df,df2])
+#df=pd.concat([df,df2])
 
 
 
