@@ -516,7 +516,7 @@ def match_progression(x_df,match_id,pipe):
     match = x_df[x_df['match_id'] == match_id]
     match = match[(match['balls_left']%6 == 0)]
     temp_df = match[['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']].fillna(0)
-    temp_df = temp_df[temp_df['balls_left'] != 6]
+    temp_df = temp_df[temp_df['balls_left'] != 0]
     if temp_df.empty:
         print("Error: Match is not Existed")
         return None, None
