@@ -5,9 +5,10 @@ import numpy as np
 
 # In[181]:
 #df3=pd.read_csv('delive.csv')
-#df2=pd.read_csv('del.csv')
+df2=pd.read_csv('del.csv')
+df2=df2[(df2['match_id']>=1364) &(df2['match_id']<=1410) ]
 df=pd.read_csv('deliv.csv')
-
+df=pd.concat([df,df2])
 
 
 
@@ -483,7 +484,7 @@ df2.to_csv()
 
 # In[254]:
 
-match=match[match['date']>'2019-01-01']
+match[(match['date']>='2015-02-15')&(match['date']<='2015-03-31')&(match['date']>='2019-05-30')&(match['date']<='2019-07-14')]['id'].unique()
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
 import streamlit as st
@@ -510,7 +511,7 @@ else:
         st.write('No match data available')
     else:
         l = match['id'].unique()[0]
-df=df[(df['match_id']>=184) &(df['match_id']<=400) ]
+df=df[(df['match_id']>=194)]
 
 def match_progression(x_df,match_id,pipe):
     match = x_df[x_df['match_id'] == match_id]
