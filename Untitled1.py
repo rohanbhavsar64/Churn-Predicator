@@ -603,12 +603,18 @@ else:
         st.write(fig) 
 
         fig1 = go.Figure()
+        batting_prob = temp_df['win']
+        bowling_prob = temp_df['lose']
 
+# Determine which team has the upper hand
+        upper_hand = np.where(batting_prob > bowling_prob, batting_prob, bowling_prob)
+
+# Line chart for the team with the upper hand
 # Calculate the midpoint of the y-axis
         midpoint = 50
 
 # Line chart for batting and bowling teams
-        fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='Batting Team',
+        fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=upper_hand, mode='lines', name='Batting Team',
                          line=dict(color='green', width=3)))
         fig1.update_yaxes(range=[0, 100], tickvals=[0, midpoint, 100], ticktext=['Bowling Team', 'Midpoint', 'Batting Team'])
 
