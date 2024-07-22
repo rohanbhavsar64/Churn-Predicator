@@ -593,11 +593,12 @@ else:
         st.write(fig) 
         fig1 = go.Figure()
 
-# Line plots for batting and bowling teams
-        batting_team = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='area', name='Batting Team',
-                                            line=dict(color='#00a65a', width=3)))
-        bowling_team = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='area', name='Bowling Team',
-                                            line=dict(color='red', width=4)))
+# Area plots for batting and bowling teams
+        batting_team = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='none', fill='tozeroy', name='Batting Team',
+                                        line=dict(color='#00a65a', width=3)))
+        bowling_team = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='none', fill='tozeroy', name='Bowling Team',
+                                        line=dict(color='red', width=4)))
+
         st.write(fig1)
         
         r1 = match[match['id'] == l]['player_of_match'].unique()
