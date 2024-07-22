@@ -627,7 +627,7 @@ else:
 
         wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
                                             mode='markers', name='Wickets in Over',
-                                            marker=dict(color='orange', size=10),
+                                            marker=dict(color='red', size=10),
                                             text=wicket_text, textposition='top center'))
 
 
