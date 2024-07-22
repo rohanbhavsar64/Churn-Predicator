@@ -532,6 +532,8 @@ def match_progression(x_df,match_id,pipe):
     temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
     temp_df['batsman']=match['batsman']
     temp_df['non_striker']=match['non_striker']
+    temp_df['batting_team']=match['batting_team']
+    temp_df['bowling_team']=match['bowling_team']
     wickets = list(10-temp_df['wickets'].values)
     new_wickets = wickets[:]
     new_wickets.insert(0,10)
@@ -603,19 +605,18 @@ else:
         st.write(fig) 
 
         fig1 = go.Figure()
-        batting_prob = temp_df['win']
-        bowling_prob = temp_df['lose']
+        
 
 # Determine which team has the upper hand
-        upper_hand = np.where(batting_prob > bowling_prob, batting_prob, bowling_prob)
+        
 
 # Line chart for the team with the upper hand
 # Calculate the midpoint of the y-axis
         midpoint = 50
 
 # Line chart for batting and bowling teams
-        fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=upper_hand, mode='lines', name='Batting Team',
-                         line=dict(color='green', width=3)))
+        fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines',
+                         line=dict(color='blue', width=3)))
         fig1.update_yaxes(range=[0, 100], tickvals=[0, midpoint, 100], ticktext=['Bowling Team', 'Midpoint', 'Batting Team'])
 
         fig1.update_layout(title='Batting and Bowling Teams Performance', xaxis_title='End of Over', yaxis_title='Probability')
