@@ -587,15 +587,15 @@ else:
         #wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
 
         #wicket = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
-                                            mode='markers', name='Wickets in Over',
-                                            marker=dict(color='orange', size=10),
-                                            text=wicket_text, textposition='top center'))
+                                          #  mode='markers', name='Wickets in Over',
+                                           # marker=dict(color='orange', size=10),
+                                            #text=wicket_text, textposition='top center'))
 
 # Line plots for batting and bowling teams
         #batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='Batting Team',
-                                            line=dict(color='#00a65a', width=3)))
+                                           # line=dict(color='#00a65a', width=3)))
         #bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name='Bowling Team',
-                                            line=dict(color='red', width=4)))
+                                            #line=dict(color='red', width=4)))
         #fig.update_layout(
           #  title='Target-' + str(target),
          #   width=800,  # Set the width of the chart
