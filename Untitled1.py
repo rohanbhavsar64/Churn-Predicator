@@ -618,6 +618,16 @@ else:
         fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines',
                          line=dict(color='blue', width=3)))
         fig1.update_yaxes(range=[0, 100], tickvals=[0, midpoint, 100], ticktext=['Bowling Team', 'Midpoint', 'Batting Team'])
+        runs = fig1.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
+        wicket_text = temp_df['wickets_in_over'].astype(str)
+        wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
+        wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
+
+        wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
+                                            mode='markers', name='Wickets in Over',
+                                            marker=dict(color='orange', size=10),
+                                            text=wicket_text, textposition='top center'))
+
 
         fig1.update_layout(title='Batting and Bowling Teams Performance', xaxis_title='End of Over', yaxis_title='Probability')
 
