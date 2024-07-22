@@ -619,7 +619,7 @@ else:
 # Line chart for batting and bowling teams
         fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines',
                          line=dict(color='orange', width=3)))
-        fig1.update_yaxes(range=[0, 100], tickvals=[0, midpoint, 100], ticktext=[a2, 'Midpoint',b2])
+        fig1.update_yaxes(range=[0, 100], tickvals=[0, midpoint, 100], ticktext=[a2, '50%',b2])
         runs = fig1.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
         wicket_text = temp_df['wickets_in_over'].astype(str)
         wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
