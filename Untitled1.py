@@ -605,12 +605,12 @@ else:
         fig1 = go.Figure()
 
 # Calculate the midpoint of the y-axis
-        midpoint = 0.5
+        midpoint = 50
 
 # Line chart for batting and bowling teams
         fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='Batting Team',
                          line=dict(color='green', width=3)))
-        fig1.update_yaxes(range=[0, 1], tickvals=[0, midpoint, 1], ticktext=['Bowling Team', 'Midpoint', 'Batting Team'])
+        fig1.update_yaxes(range=[0, 1], tickvals=[0, midpoint, 100], ticktext=['Bowling Team', 'Midpoint', 'Batting Team'])
 
         fig1.update_layout(title='Batting and Bowling Teams Performance', xaxis_title='End of Over', yaxis_title='Probability')
 
