@@ -544,7 +544,7 @@ def match_progression(x_df,match_id,pipe):
     temp_df['wickets']=temp_df['wickets_in_over'].cumsum()
     temp_df['score']=match['score']
     print("Target-",target)
-    temp_df = temp_df[['end_of_over','runs_after_over','wickets_in_over','batsman','non_striker','score','wickets','lose','win']]
+    temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','batsman','non_striker','score','wickets','lose','win']]
     return temp_df,target
 
 
