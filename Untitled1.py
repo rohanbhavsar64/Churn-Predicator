@@ -568,6 +568,16 @@ else:
     if temp_df is None:
         st.write("Error: Match is not Existed")
     else:
+        r1 = match[match['id'] == l]['player_of_match'].unique()
+        r2 = match[match['id'] == l]['winner'].unique()
+        r3 = df[df['match_id'] == l]['venue'].unique()
+        r4=df[df['match_id'] == l]['batting_team'].unique()
+        r5 = df[df['match_id'] == l]['toss_winner'].unique()
+        r6=df[df['match_id'] == l]['bowling_team'].unique()
+        data = {'Field': ['Vanue', 'BattingTeam','BowlingTeam', 'Toss Winner', 'POM', 'Winner'], 'Name': [r3[0], r4[0], r6[0], r5[0], r1[0], r2[0]]} 
+        fg = pd.DataFrame(data) 
+        st.table(fg)
+
         fig = go.Figure()
         runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
         wicket_text = temp_df['wickets_in_over'].astype(str)
@@ -591,25 +601,6 @@ else:
         )
         fig.update_layout(title='Target-' + str(target))
         st.write(fig) 
-        fig1 = go.Figure()
-
-# Area plots for batting and bowling teams
-        batting_team = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='none', fill='tozeroy', name='Batting Team',
-                                        fillcolor='rgba(0, 128, 0, 0.5)',line=dict(color='#00a65a', width=3)))
-        bowling_team = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='none', fill='tonexty', name='Bowling Team',
-                                                 fillcolor='rgba(255, 0, 0, 0.5)',line=dict(color='red', width=4)))
-
-        st.write(fig1)
-        
-        r1 = match[match['id'] == l]['player_of_match'].unique()
-        r2 = match[match['id'] == l]['winner'].unique()
-        r3 = df[df['match_id'] == l]['venue'].unique()
-        r4=df[df['match_id'] == l]['batting_team'].unique()
-        r5 = df[df['match_id'] == l]['toss_winner'].unique()
-        r6=df[df['match_id'] == l]['bowling_team'].unique()
-        data = {'Field': ['Vanue', 'BattingTeam','BowlingTeam', 'Toss Winner', 'POM', 'Winner'], 'Name': [r3[0], r4[0], r6[0], r5[0], r1[0], r2[0]]} 
-        fg = pd.DataFrame(data) 
-        st.table(fg)
 
 
 
