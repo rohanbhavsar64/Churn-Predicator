@@ -554,7 +554,7 @@ else:
     if temp_df is None:
         st.write("Error: Match is not Existed")
     else:
-        st.write(temp_df)
+        print(temp_df)
 
 
 
