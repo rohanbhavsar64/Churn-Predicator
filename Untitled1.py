@@ -520,9 +520,10 @@ def match_progression(x_df,match_id,pipe):
     nw = np.array(new_wickets)
     temp_df['wickets_in_over'] = (nw-w)[0:temp_df.shape[0]]
     temp_df['wickets']=temp_df['wickets_in_over'].cumsum()
+    temp_df['venue']=match['venue']
     temp_df['score']=match['score']
     print("Target-",target)
-    temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','batsman','non_striker','score','wickets','lose','win']]
+    temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','batsman','non_striker','score','wickets','lose','win','venue']]
     return temp_df,target
 
 
@@ -537,6 +538,7 @@ else:
 
 
 # In[271]:
+v=temp_df['venue'].unique()
 import plotly.graph_objects as go
 import plotly.express as px
 a2=df[df['match_id']==l]['batting_team'].unique()
@@ -613,12 +615,13 @@ else:
 
         st.write(fig1)
 # Pie chart for winner distribution
-        winner_counts = match.groupby('team1')['winner'].value_counts().reset_index(name='count')
+        winner_counts = match.groupby('team1')['winner'].value_counts()
         fig2 = px.pie(winner_counts, names='team1', values='count', title='Winner Distribution',hole=0.5)
         st.write(fig2)
 
 # Bar chart for mean total_x by venue
-        mean_total_x = df.groupby('venue')['total_x'].mean().reset_index(name='mean_total_x')
+        
+        mean_total_x = df[df['venue']=v].groupby('venue')['total_x'].mean().reset_index(name='mean_total_x')
         fig3 = px.bar(mean_total_x, x='venue', y='mean_total_x', title='Mean Total X by Venue')
         st.write(fig3)
         
