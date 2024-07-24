@@ -461,20 +461,59 @@ pipe.fit(X_train,y_train)
 
 
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali','Pakistan',185,4,'Rahul','Pandya',93,108,5.6,5.41,42.0,3.0]).reshape(1,14))).astype(float)
+st.title('IPL Match Predication & Analysis')
+# Add a radio button to the sidebar
+part = st.radio(" ", ["Prediction", "Analysis"],horizontal=True)
 
-
-# In[252]:
-
-
-print("Win Chances of Batting team is:", n[0][1]*100,"%")
-print("Win Chances of Bowling team is:", n[0][0]*100,"%")
-if(n[0][0]>0.5):
-    print("Forcast:Bowlingteam")
-else:
-        print("Forecast:Battingteam")
-x=[n[0][0],n[0][1]]
-y=['b1''b2']
-
+if part == "Prediction":
+    # Prediction part
+    st.title('IPL Win Predictor')
+    batting=df['batting_team'].unique()
+    shar=df['venue'].unique()
+    wic2=[1,2,3,4,5,6,7,8,9,10]
+    wic1=[0,1,2,3,4,5,6,7,8,9,10]
+    col1,col2,col3,col4=st.columns(4)
+    with col1:
+        a = st.selectbox('Batting team',sorted(batting))
+    with col2:
+        b = st.selectbox('Bowling team',sorted(batting))
+    with col3:
+        c= st.selectbox('Venue',sorted(shar))
+    with col4:
+        u= st.selectbox('city',sorted(df['batsman'].unique()))
+    col1,col2,col3,col4=st.columns(4)
+    with col1:
+        d= int(st.number_input('runs_left'))
+    with col2:
+        f=st.selectbox('wickets',wic1)
+    with col3:
+        g=st.number_input('crr')
+    with col4:
+        v= st.selectbox('city',sorted(df['non_striker'].unique()))
+    col1,col2,col3=st.columns(3)
+    with col1:
+        h=st.number_input('Runs in last 10 overs')
+    with col2:
+        i=st.selectbox('Wickets in last 10 overs',sorted(wic1))
+    with col3:
+        e= st.number_input('balls left in Inning')
+    col1,col2=st.columns(3)
+    with col1:
+        k=st.number_input('Score')
+    with col2:
+        l=st.number_input('required run rate')
+    with col3:
+        w = st.selectbox('Toss Winner',sorted(batting))
+    n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array([a,b,c,w,k,f,u,v,d,g,l,h,i]).reshape(1,11))).astype(float)
+    probablity1=int(n[0][1]*100)
+    probablity2=int(n[0][0]*100)
+    data=[probablity1,probablity2]
+    data1=[a,b]
+    if a!=b:
+        if st.button('Predict'):
+          import plotly.graph_objects as go
+          fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
+          st.write(fig)
 
 # In[253]:
 
@@ -483,7 +522,6 @@ df2.to_csv()
 match=match[match['date']>='2019-01-01']
 
 # In[254]:
-
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
 import streamlit as st
