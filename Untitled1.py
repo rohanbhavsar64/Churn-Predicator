@@ -461,7 +461,6 @@ pipe.fit(X_train,y_train)
 
 
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali','Pakistan',185,4,'Rahul','Pandya',93,108,5.6,5.41,42.0,3.0]).reshape(1,14))).astype(float)
-part = st.radio(" ", ["Prediction", "Analysis"],horizontal=True)
 
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
