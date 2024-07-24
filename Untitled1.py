@@ -461,7 +461,61 @@ pipe.fit(X_train,y_train)
 
 
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali','Pakistan',185,4,'Rahul','Pandya',93,108,5.6,5.41,42.0,3.0]).reshape(1,14))).astype(float)
+part = st.radio(" ", ["Prediction", "Analysis"],horizontal=True)
 
+if part == "Prediction":
+    # Prediction part
+    st.title('IPL Win Predictor')
+    batting=final_df['batting_team'].unique()
+    batting=final_df['batsman'].unique()
+    non=final_df['non_striker'].unique()
+    shar=final_df['venue'].unique()
+    wic1=[0,1,2,3,4,5,6,7,8,9,10]
+    col1,col2,col3,col4=st.columns(4)
+    with col1:
+        a = st.selectbox('batting_team',sorted(batting))
+    with col2:
+        b = st.selectbox('bowling_team',sorted(batting))
+    with col3:
+        c= st.selectbox('city',sorted(shar))
+    with col4:
+        u = st.selectbox('botsman',sorted(batsman))
+        
+    col1,col2,col3,col4=st.columns(4)
+    with col1:
+        d= int(st.number_input('runs_left'))
+    with col2:
+        f=st.selectbox('wickets',wic1)
+    with col3:
+        g=st.number_input('crr')
+    with col4:
+        v = st.selectbox('Non striker',sorted(non))
+    col1,col2,col3,col4=st.columns(4)
+    with col1:
+        h=st.number_input('Runs in last 10 overs')
+    with col2:
+        i=st.selectbox('Wickets in last 10 overs',sorted(wic1))
+    with col3:
+        e= st.number_input('balls left in Inning')
+    with col4:
+        w= st.selectbox('Toss Winner',sorted(batting_team))
+        
+    col1,col2=st.columns(2)
+    with col1:
+        k=st.number_input('Score')
+    with col2:
+        l=st.number_input('required run rate')
+
+    n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket],data=np.array([a,b,c,w,k,f,u,v,d,e,g,l,h,i]).reshape(1,14))).astype(float)
+    probablity1=int(n[0][1]*100)
+    probablity2=int(n[0][0]*100)
+    data=[probablity1,probablity2]
+    data1=[a,b]
+    if a!=b:
+        if st.button('Predict'):
+          import plotly.graph_objects as go
+          fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
+          st.write(fig)
 match=match[match['date']>='2019-01-01']
 
 # In[254]:
