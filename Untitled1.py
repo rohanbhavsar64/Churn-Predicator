@@ -621,7 +621,7 @@ else:
 
 # Bar chart for mean total_x by venue
         
-        mean_total_x = df[df['venue']=v].groupby('venue')['total_x'].mean().reset_index(name='mean_total_x')
+        mean_total_x = df[df['venue']==v].groupby('venue')['total_x'].mean().reset_index(name='mean_total_x')
         fig3 = px.bar(mean_total_x, x='venue', y='mean_total_x', title='Mean Total X by Venue')
         st.write(fig3)
         
