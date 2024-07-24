@@ -541,6 +541,7 @@ else:
 
 # In[271]:
 import plotly.graph_objects as go
+import plotly.express as px
 a2=df[df['match_id']==l]['batting_team'].unique()
 b2=df[df['match_id']==l]['bowling_team'].unique()
 if a1 == b1:
@@ -597,7 +598,7 @@ else:
 
 # Line chart for batting and bowling teams
         fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines',
-                         line=dict(color='orange', width=2)))
+                         line=dict(color='yellow', width=2)))
         fig1.update_yaxes(range=[0, 100], tickvals=[0, midpoint, 100], ticktext=[a2, '50%',b2])
         runs = fig1.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
         wicket_text = temp_df['wickets_in_over'].astype(str)
