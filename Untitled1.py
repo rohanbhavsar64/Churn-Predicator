@@ -617,13 +617,13 @@ else:
         st.write(fig1)
 # Pie chart for winner distribution
         winner_counts = match.groupby('team1')['winner'].value_counts().reset_index(name='count')
-        fig = px.pie(winner_counts, names='team1', values='count', title='Winner Distribution')
-        fig.show()
+        fig2 = px.pie(winner_counts, names='team1', values='count', title='Winner Distribution',hole=0.5)
+        st.write(fig2)
 
 # Bar chart for mean total_x by venue
         mean_total_x = df.groupby('venue')['total_x'].mean().reset_index(name='mean_total_x')
-        fig = px.bar(mean_total_x, x='venue', y='mean_total_x', title='Mean Total X by Venue')
-        fig.show()
+        fig3 = px.bar(mean_total_x, x='venue', y='mean_total_x', title='Mean Total X by Venue')
+        st.write(fig3)
         
         
 
