@@ -614,9 +614,6 @@ else:
         fig1.update_layout(title='Target-' + str(target))
 
         st.write(fig1)
-        e=match.groupby('team1')['winner'].value_counts()[0]
-        f=match.groupby('team1')['winner'].value_counts()[1]
-        df.groupby('venue')['total_x'].mean().astype(int)
 # Pie chart for winner distribution
         winner_counts = match.groupby('team1')['winner'].value_counts().reset_index(name='count')
         fig = px.pie(winner_counts, names='team1', values='count', title='Winner Distribution')
