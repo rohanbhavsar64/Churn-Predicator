@@ -37,7 +37,7 @@ for i in range(len(list)):
     list5.append(b.find_all(class_='ds-text-tight-l ds-font-bold ds-text-typo hover:ds-text-typo-primary ds-block ds-truncate')[1].text)
     list6.append(b.find(class_='ds-flex ds-items-center').text.split(',')[1])
 
-dict = {'batting_team': list4, 'bowling_team': list5,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3} 
+dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3} 
 df=pd.DataFrame(dict)
 df['score']=df['score'].astype('int')
 df['over']=df['over'].astype('int')
