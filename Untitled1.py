@@ -300,7 +300,7 @@ df=df[df['runs_left']>=0]
 # In[227]:
 
 
-new_df=df[['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']]
+new_df=df[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']]
 
 
 # In[228]:
@@ -325,10 +325,6 @@ new_df['winner']=new_df.apply(result,axis=1)
 # In[231]:
 
 
-new_df['batsman']=new_df['batsman'].str.split(' ').str.get(-1)
-new_df['non_striker']=new_df['non_striker'].str.split(' ').str.get(-1)
-
-
 
 # In[232]:
 
@@ -351,26 +347,8 @@ new_df=new_df.dropna()
 # In[235]:
 
 
-data_to_add={'batting_team':'India','bowling_team':'Australia','venue':'Brisbane Cricket Ground, Woolloongabba','toss_winner':['India','Australia'],'score':[48,98],'wickets':1,'batsman':['Gill','Kohli'],'non_striker':['Kohli','Gill'],'runs_left':[200,150],'balls_left':[240,180],'crr':[4.8,4.9],'rrr':[5.0,5.0],'last_10':[48.0,50.0],'last_10_wicket':[1.0,0],'winner':[0,1]}
-addendom=pd.DataFrame(columns=new_df.columns,data=data_to_add)
-
-
-
-# In[236]:
-
-
-data_to_add={'batting_team':'India','bowling_team':'Australia','venue':'Brisbane Cricket Ground, Woolloongabba','toss_winner':['India','Australia'],'score':[48,98],'wickets':1,'batsman':['Returaj','Kohli'],'non_striker':['Kohli','Returaj'],'runs_left':[200,150],'balls_left':[240,180],'crr':[4.8,4.9],'rrr':[5.0,5.0],'last_10':[48.0,50.0],'last_10_wicket':[1.0,0],'winner':[0,1]}
-addendom1=pd.DataFrame(columns=new_df.columns,data=data_to_add)
-
-
-
 # In[237]:
 
-
-new_df=pd.concat([new_df,addendom])
-new_df=new_df.reset_index(drop=True)
-new_df=pd.concat([new_df,addendom1])
-new_df=new_df.reset_index(drop=True)
 
 
 
@@ -418,9 +396,9 @@ from sklearn.compose import ColumnTransformer
 
 
 ohe=OneHotEncoder()
-ohe.fit([['batting_team','bowling_team','venue','toss_winner','batsman','non_striker']])
+ohe.fit([['batting_team','bowling_team','venue']])
 trf=ColumnTransformer([
-    ('trf',OneHotEncoder(max_categories=6,sparse_output=False,handle_unknown = 'ignore'),['batting_team','bowling_team','venue','toss_winner','batsman','non_striker'])
+    ('trf',OneHotEncoder(max_categories=6,sparse_output=False,handle_unknown = 'ignore'),['batting_team','bowling_team','venue'])
 ]
 ,remainder='passthrough')
 
@@ -460,7 +438,7 @@ pipe.fit(X_train,y_train)
 # In[251]:
 
 
-n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali','Pakistan',185,4,'Rahul','Pandya',93,108,5.6,5.41,42.0,3.0]).reshape(1,14))).astype(float)
+n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali','Pakistan',185,4,'Rahul','Pandya',93,108,5.6,5.41,42.0,3.0]).reshape(1,14))).astype(float)
 match=match[match['date']>'2019-01-01']
 df2=new_df['batsman'].value_counts()
 df2.to_csv()
@@ -493,7 +471,7 @@ df=df[(df['match_id']>=194) & (df['match_id']<=238)]
 def match_progression(x_df,match_id,pipe):
     match = x_df[x_df['match_id'] == match_id]
     match = match[(match['balls_left']%6 == 0)]
-    temp_df = match[['batting_team','bowling_team','venue','toss_winner','score','wickets','batsman','non_striker','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']].fillna(0)
+    temp_df = match[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']].fillna(0)
     temp_df = temp_df[temp_df['balls_left'] != 0]
     if temp_df.empty:
         print("Error: Match is not Existed")
@@ -508,8 +486,6 @@ def match_progression(x_df,match_id,pipe):
     new_runs = runs[:]
     runs.insert(0,target)
     temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
-    temp_df['batsman']=match['batsman']
-    temp_df['non_striker']=match['non_striker']
     temp_df['batting_team']=match['batting_team']
     temp_df['bowling_team']=match['bowling_team']
     wickets = list(10-temp_df['wickets'].values)
@@ -523,7 +499,7 @@ def match_progression(x_df,match_id,pipe):
     temp_df['venue']=match['venue']
     temp_df['score']=match['score']
     print("Target-",target)
-    temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','batsman','non_striker','score','wickets','lose','win','venue']]
+    temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','score','wickets','lose','win','venue']]
     return temp_df,target
 
 
