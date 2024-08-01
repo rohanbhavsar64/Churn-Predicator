@@ -513,7 +513,7 @@ def match_progression(x_df,match_id,pipe):
     temp_df['win'] = np.round(result.T[1]*100,1)
     temp_df['end_of_over'] = (300-temp_df['balls_left'])/6    
     target = (temp_df['score']+temp_df['runs_left']+1).values[0]
-    runs = list(temp_df['runs_left'].values)
+    runs = temp_df['runs_left'].tolist()
     new_runs = runs[:]
     runs.insert(0,target)
     temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
