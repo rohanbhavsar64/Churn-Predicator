@@ -585,7 +585,7 @@ wicket = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use a
                                   text=wicket_text, textposition='top center'))
 # Line plots for batting and bowling teams
 batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
-bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling team'].unique()[0],line_color='red', line_width=4))
+bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
 fig.update_layout(
     title='Target-' + str(target),
     width=800,  # Set the width of the chart
