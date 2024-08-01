@@ -570,8 +570,8 @@ fig1 = go.Figure()
 # Line chart for the team with the upper hand
 # Calculate the midpoint of the y-axis
 midpoint = 50
-a2=temp_df['bowling_team'].unique()
-b2=temp_df['batting_team'].unique()
+a2=gf['bowling_team'].unique()
+b2=gf['batting_team'].unique()
 
 # Line chart for batting and bowling teams
 fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines',
