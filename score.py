@@ -2,6 +2,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests 
 import streamlit as st
+st.header('ODI MATCH ANALYSIS')
 h=st.text_input('URL')
 if h is None:
     r=requests.get('https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison')
@@ -54,7 +55,7 @@ df['wickets_in_over'] = df['wickets'].diff()
 df['last_10_wicket']=df['wickets_in_over'].rolling(window=10).sum()
 
 df=df.dropna()
-st.write(df)
+#st.write(df)
 df['match_id']=100001
 gf=df
 import pandas as pd
@@ -499,7 +500,7 @@ pipe.fit(X_train,y_train)
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali',185,4,93,108,5.6,5.41,42.0,3.0]).reshape(1,11))).astype(float)
 
 import streamlit as st
-st.header('2019 ODI WORLD CUP ANALYSIS')
+
 def match_progression(x_df,match_id,pipe):
     match = x_df[x_df['match_id'] == match_id]
     match = match[(match['balls_left']%6 == 0)]
