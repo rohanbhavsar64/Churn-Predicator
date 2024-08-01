@@ -439,34 +439,9 @@ pipe.fit(X_train,y_train)
 
 
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali',185,4,93,108,5.6,5.41,42.0,3.0]).reshape(1,11))).astype(float)
-match=match[match['date']>'2019-01-01']
 
 import streamlit as st
 st.header('2019 ODI WORLD CUP ANALYSIS')
-# In[255]:
-batting=df['batting_team'].unique()
-col1, col2 = st.columns(2)
-with col1:
-    a1 = st.selectbox('team1', sorted(batting))
-with col2:
-    b1 = st.selectbox('team2', sorted(batting))
-
-match = match[match['team2'] == a1]
-match = match[match['team1'] == b1]
-#match = match[match['date'] == d1]
-g = match['id'].unique()
-p= match['date'].unique()
-f=st.selectbox('Date', p)
-match = match[match['date'] == f]
-if a1 == b1:
-    st.write('Select Different Teams')
-else:
-    if match.empty:
-        st.write('No match data available')
-    else:
-        l = match['id'].unique()[0]
-df=df[(df['match_id']>=194) & (df['match_id']<=238)]
-
 def match_progression(x_df,match_id,pipe):
     match = x_df[x_df['match_id'] == match_id]
     match = match[(match['balls_left']%6 == 0)]
@@ -552,38 +527,14 @@ df['runs'] = df['score'].diff()
 df['last_10']=df['runs'].rolling(window=10).sum()
 df['wickets_in_over'] = df['wickets'].diff()
 df['last_10_wickets']=df['wickets_in_over'].rolling(window=10).sum()
+df['match_id']=100001
 
 df=df.dropna()
 df
-if l is None:
-    st.write('No Match Available')
-else:
-    temp_df, target = match_progression(df, l, pipe)
-    if temp_df is None:
-        st.write("Error: Match is not Existed")
-
-# In[271]:
-v=temp_df['venue'].unique()
+temp_df, target = match_progression(df,df['match_id].unique(), pipe)
+                                    ]
 import plotly.graph_objects as go
 import plotly.express as px
-a2=df[df['match_id']==l]['batting_team'].unique()
-b2=df[df['match_id']==l]['bowling_team'].unique()
-if a1 == b1:
-    st.write('No match Available')
-else:
-    if temp_df is None:
-        st.write("Error: Match is not Existed")
-    else:
-        r1 = match[match['id'] == l]['player_of_match'].unique()
-        r2 = match[match['id'] == l]['winner'].unique()
-        r3 = df[df['match_id'] == l]['venue'].unique()
-        r4=df[df['match_id'] == l]['batting_team'].unique()
-        r5 = df[df['match_id'] == l]['toss_winner'].unique()
-        r6=df[df['match_id'] == l]['bowling_team'].unique()
-        data = {'Field': ['Vanue', 'BattingTeam','BowlingTeam', 'Toss Winner', 'POM', 'Winner'], 'Name': [r3[0], r4[0], r6[0], r5[0], r1[0], r2[0]]} 
-        fg = pd.DataFrame(data) 
-        st.table(fg)
-
         #fig = go.Figure()
         #runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
         #wicket_text = temp_df['wickets_in_over'].astype(str)
