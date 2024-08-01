@@ -216,8 +216,7 @@ df['player_dismissed']=df['player_dismissed'].fillna("0")
 
 # In[203]:
 
-
-df['player_dismissed']=list(map(lambda x:x if x== "0" else "1",df['player_dismissed']))
+df['player_dismissed'] = (df['player_dismissed'] != "0").astype(int)
 
 
 # In[204]:
