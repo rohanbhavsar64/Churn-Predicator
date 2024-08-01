@@ -576,8 +576,7 @@ b2=gf['batting_team'].unique()
 import plotly.graph_objects as go
 
 fig1 = go.Figure()  # Create a figure object
-temp_df['win_numeric'] = temp_df['win'].map({'win': 1, 'loss': 0})
-fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win_numeric'], mode='lines', line=dict(color='yellow', width=3), name='Probability'))
+fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='Probability'))
 
 fig1.update_yaxes(range=[0, 100], tickvals=[0, midpoint, 100], ticktext=[a2, '50%', b2])
 
