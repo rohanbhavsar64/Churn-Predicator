@@ -531,8 +531,7 @@ df['match_id']=100001
 
 df=df.dropna()
 df
-temp_df, target = match_progression(df,df['match_id].unique(), pipe)
-                                    ]
+temp_df, target = match_progression(df,100001, pipe)
 import plotly.graph_objects as go
 import plotly.express as px
         #fig = go.Figure()
