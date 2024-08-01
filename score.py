@@ -49,4 +49,5 @@ df['wickets_in_over'] = df['wickets'].diff()
 df['last_10_wickets']=df['wickets_in_over'].rolling(window=10).sum()
 
 df=df.dropna()
-print(df)
+import streamlit as st
+st.write(df)
