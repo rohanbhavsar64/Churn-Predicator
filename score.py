@@ -511,8 +511,7 @@ def match_progression(x_df,match_id,pipe):
     result = pipe.predict_proba(temp_df)
     temp_df['lose'] = np.round(result.T[0]*100,1)
     temp_df['win'] = np.round(result.T[1]*100,1)
-    temp_df['end_of_over'] = range(1,temp_df.shape[0]+1)
-    
+    temp_df['end_of_over'] = (300-temp_df['balls_left'])/6    
     target = (temp_df['score']+temp_df['runs_left']+1).values[0]
     runs = list(temp_df['runs_left'].values)
     new_runs = runs[:]
