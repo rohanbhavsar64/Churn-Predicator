@@ -586,7 +586,7 @@ wicket_text = temp_df['wickets_in_over'].astype(str)
 wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
 wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
 
-fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
+fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,
                           mode='markers', name='Wickets in Over',
                           marker=dict(color='red', size=10),
                           text=wicket_text, textposition='top center'))
