@@ -519,7 +519,7 @@ def match_progression(x_df,match_id,pipe):
     temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
     temp_df['batting_team']=match['batting_team']
     temp_df['bowling_team']=match['bowling_team']
-    wickets = list(10-temp_df['wickets'].values)
+    wickets = (10 - temp_df['wickets']).tolist()
     new_wickets = wickets[:]
     new_wickets.insert(0,10)
     wickets.append(0)
