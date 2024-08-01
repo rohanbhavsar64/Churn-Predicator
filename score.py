@@ -533,7 +533,7 @@ def match_progression(x_df,match_id,pipe):
     print("Target-",target)
     temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','score','wickets','lose','win','venue']]
     return temp_df,target
-gf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
+gf=gf[['match_id','batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
 temp_df, target = match_progression(gf,100001, pipe)
 import plotly.graph_objects as go
 import plotly.express as px
