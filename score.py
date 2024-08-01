@@ -559,7 +559,7 @@ import plotly.express as px
        # )
         #fig.update_layout(title='Target-' + str(target))
        # st.write(fig) 
-
+st.write(temp_df)
 fig1 = go.Figure()
         
 
