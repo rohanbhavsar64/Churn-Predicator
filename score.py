@@ -6,7 +6,7 @@ h=st.text_input('URL')
 if h is None:
     r=requests.get('https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison')
 else:
-    r=h
+    r=requests.get(h)
 #r1=requests.get('https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/india-vs-new-zealand-1st-semi-final-1384437/full-scorecard')
 b=BeautifulSoup(r.text,'html')
 bowling_team=b.find_all(class_='ds-text-tight-l ds-font-bold ds-text-typo hover:ds-text-typo-primary ds-block ds-truncate')[0].text
