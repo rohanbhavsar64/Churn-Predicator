@@ -609,7 +609,6 @@ else:
                                             marker=dict(color='red', size=10),
                                             text=wicket_text, textposition='top center'))
 
-
         fig1.update_layout(xaxis_title='End of Over', yaxis_title='Probability')
         fig1.update_layout(title='Target-' + str(target))
 
