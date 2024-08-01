@@ -51,7 +51,7 @@ df['balls_left']=300-(df['over']*6)
 df['runs'] = df['score'].diff()
 df['last_10']=df['runs'].rolling(window=10).sum()
 df['wickets_in_over'] = df['wickets'].diff()
-df['last_10_wickets']=df['wickets_in_over'].rolling(window=10).sum()
+df['last_10_wicket']=df['wickets_in_over'].rolling(window=10).sum()
 
 df=df.dropna()
 st.write(df)
