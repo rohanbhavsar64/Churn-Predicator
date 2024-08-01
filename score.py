@@ -575,7 +575,7 @@ fig = go.Figure()
 runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over'))
 
 # Line plots for batting and bowling teams
-batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='Batting team',line=dict(width=4)))
-bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name='Bowling team',line=dict(width=4)))
+batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='Batting team',line_color='blue', line_width=4))
+bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name='Bowling team',line_color='blue', line_width=4))
 fig.update_layout(title='Target-' + str(target))
 st.write(fig)
