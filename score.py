@@ -1,6 +1,7 @@
 import pandas as pd 
 from bs4 import BeautifulSoup
 import requests 
+import streamlit as st
 r=requests.get('https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison')
 #r1=requests.get('https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/india-vs-new-zealand-1st-semi-final-1384437/full-scorecard')
 b=BeautifulSoup(r.text,'html')
@@ -49,5 +50,4 @@ df['wickets_in_over'] = df['wickets'].diff()
 df['last_10_wickets']=df['wickets_in_over'].rolling(window=10).sum()
 
 df=df.dropna()
-import streamlit as st
 st.write(df)
