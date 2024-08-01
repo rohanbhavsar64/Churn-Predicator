@@ -55,6 +55,8 @@ df['last_10_wickets']=df['wickets_in_over'].rolling(window=10).sum()
 
 df=df.dropna()
 st.write(df)
+df['match_id']=1000001
+gf=df
 import pandas as pd
 import numpy as np
 
@@ -531,4 +533,56 @@ def match_progression(x_df,match_id,pipe):
     print("Target-",target)
     temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','score','wickets','lose','win','venue']]
     return temp_df,target
+temp_df, target = match_progression(gf,100001, pipe)
+import plotly.graph_objects as go
+import plotly.express as px
+        #fig = go.Figure()
+        #runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
+        #wicket_text = temp_df['wickets_in_over'].astype(str)
+        #wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
+        #wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
+
+        #wicket = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
+                                          #  mode='markers', name='Wickets in Over',
+                                           # marker=dict(color='orange', size=10),
+                                            #text=wicket_text, textposition='top center'))
+
+# Line plots for batting and bowling teams
+        #batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name='Batting Team',
+                                           # line=dict(color='#00a65a', width=3)))
+        #bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name='Bowling Team',
+                                            #line=dict(color='red', width=4)))
+        #fig.update_layout(
+          #  title='Target-' + str(target),
+         #   width=800,  # Set the width of the chart
+        #    height=700  # Set the height of the chart
+       # )
+        #fig.update_layout(title='Target-' + str(target))
+       # st.write(fig) 
+
+        fig1 = go.Figure()
+        
+
+# Determine which team has the upper hand
+        
+
+# Line chart for the team with the upper hand
+# Calculate the midpoint of the y-axis
+        midpoint = 50
+        a2=temp_df['bowling_team'].unique()
+        b2=temp_df['batting_team'].unique()
+
+# Line chart for batting and bowling teams
+        fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines',
+                         line=dict(color='yellow', width=3),name='Probablity'))
+        fig1.update_yaxes(range=[0, 100], tickvals=[0, midpoint, 100], ticktext=[a2, '50%',b2])
+        runs = fig1.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker=dict(color='purple')))
+        wicket_text = temp_df['wickets_in_over'].astype(str)
+        wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
+        wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
+
+        wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
+                                            mode='markers', name='Wickets in Over',
+                                            marker=dict(color='red', size=10),
+                                            text=wicket_text, textposition='top center'))
 
