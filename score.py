@@ -50,10 +50,10 @@ df['crr']=(df['score']/df['over'])
 df['rrr']=((df['target']-df['score'])/(50-df['over']))
 df['balls_left']=300-(df['over']*6)
 df['runs'] = df['score'].diff()
+df=df[df['runs']>=0]
 df['last_10']=df['runs'].rolling(window=10).sum()
 df['wickets_in_over'] = df['wickets'].diff()
 df['last_10_wicket']=df['wickets_in_over'].rolling(window=10).sum()
-
 df=df.fillna(0)
 #st.write(df)
 df['match_id']=100001
