@@ -54,7 +54,7 @@ df['last_10']=df['runs'].rolling(window=10).sum()
 df['wickets_in_over'] = df['wickets'].diff()
 df['last_10_wicket']=df['wickets_in_over'].rolling(window=10).sum()
 
-df=df.dropna()
+df=df.fillna(0)
 #st.write(df)
 df['match_id']=100001
 gf=df
