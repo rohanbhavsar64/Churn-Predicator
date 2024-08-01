@@ -55,7 +55,7 @@ df['last_10_wicket']=df['wickets_in_over'].rolling(window=10).sum()
 
 df=df.dropna()
 st.write(df)
-df['match_id']=1000001
+df['match_id']=100001
 gf=df
 import pandas as pd
 import numpy as np
