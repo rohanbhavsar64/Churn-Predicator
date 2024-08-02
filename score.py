@@ -75,8 +75,8 @@ lf=df
 lf=lf[:int(o)]
 import plotly.graph_objects as go
 fig = go.Figure(data=[
-    go.Scatter(x=df1['over'], y=df1['inng1'], name=df['bowling_team'].unique()[0], line_color='red'),
-    go.Scatter(x=lf['over'], y=lf['score'], name=df['batting_team'].unique()[0], line_color='green')
+    go.Scatter(x=df1['over'], y=df1['inng1'], name=df['bowling_team'].unique()[0], line_color='red',line_width=4),
+    go.Scatter(x=lf['over'], y=lf['score'], name=df['batting_team'].unique()[0], line_color='green',line_width=4)
 ])
 
 fig.update_layout(title='Score Comperison',
