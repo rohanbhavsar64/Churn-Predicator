@@ -44,8 +44,8 @@ df1=pd.DataFrame(dict1)
 for i in range(len(list)):
     list2.append(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[i].text)
     list3.append(b.find(class_='ds-text-compact-m ds-text-typo ds-text-right ds-whitespace-nowrap').text.split('/')[0])
-    list4.append(b.find_all(class_='ds-text-tight-l ds-font-bold ds-text-typo hover:ds-text-typo-primary ds-block ds-truncate')[0].text)
-    list5.append(b.find_all(class_='ds-text-tight-l ds-font-bold ds-text-typo hover:ds-text-typo-primary ds-block ds-truncate')[1].text)
+    list4.append(b.find_all(class_='ds-text-tight-m ds-font-regular ds-capitalize')[1].text)
+    list5.append(b.find_all(class_='ds-text-tight-m ds-font-regular ds-capitalize')[2].text)
     list6.append(b.find(class_='ds-flex ds-items-center').text.split(',')[1])
     list7.append(b.find(class_='ds-text-tight-s ds-font-medium ds-truncate ds-text-typo').text.split(' ')[0])
 dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3,'winner':list7} 
