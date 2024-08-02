@@ -51,6 +51,8 @@ for i in range(len(list)):
 dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3,'winner':list7} 
 df=pd.DataFrame(dict)
 df['score']=df['score'].astype('int')
+df1['inng1']=df1['inng1'].astype('int')
+df1['over']=df1['over'].astype('int')
 df['over']=df['over'].astype('int')
 df['wickets']=df['wickets'].astype('int')
 df['target']=df['target'].astype('int')
