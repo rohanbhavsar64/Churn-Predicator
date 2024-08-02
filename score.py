@@ -499,6 +499,9 @@ n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue'
 neg_idx = gf[gf['runs'] < 0].index
 if not neg_idx.empty:
     gf = gf[:neg_idx[0]]
+neg_idx = gf[gf['wickets'] ==10].index
+if not neg_idx.empty:
+    gf = gf[:neg_idx[0]]
 import streamlit as st
 
 def match_progression(x_df,match_id,pipe):
