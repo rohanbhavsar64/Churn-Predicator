@@ -362,12 +362,6 @@ new_df=df[['batting_team','bowling_team','venue','score','wickets','runs_left','
 
 
 # In[228]:
-if (h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'):
-    new_df=new_df
-else:
-    new_df=new_df.append(gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']])
-
-
 
 
 # In[229]:
@@ -540,7 +534,7 @@ def match_progression(x_df,match_id,pipe):
     print("Target-",target)
     temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','score','wickets','lose','win','venue']]
     return temp_df,target
-gf=gf[['match_id','batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
+
 temp_df, target = match_progression(gf,100001, pipe)
 temp_df=temp_df[temp_df['runs_after_over']>=0]
 temp_df = temp_df[temp_df['wickets_in_over'] >= 0]
@@ -601,3 +595,18 @@ fig.update_layout(
 )
 fig.update_layout(title='Target-' + str(target))
 st.write(fig)
+def result(raw):
+    return 1 if(raw['batting_team']==raw['winner']) else 0
+
+
+# In[230]:
+
+
+gf['winner']=gf.apply(result,axis=1)
+
+if (h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'):
+    new_df=new_df
+else:
+    new_df = pd.concat([new_df, gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']]])
+
+
