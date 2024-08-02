@@ -74,7 +74,7 @@ fig = go.Figure(data=[
     go.Scatter(x=df['over'], y=df['score'], name=df['batting_team'].unique()[0], line_color='green')
 ])
 
-fig.update_layout(title='Score over Time',
+fig.update_layout(title='Score Comperison',
                   xaxis_title='Over',
                   yaxis_title='Score')
 st.write(fig)
