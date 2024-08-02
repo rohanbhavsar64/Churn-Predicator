@@ -71,7 +71,7 @@ df['match_id']=100001
 import plotly.graph_objects as go
 fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'], name=df['bowling_team'].unique()[0], line_color='red'),
-    go.Scatter(x=df['over'], y=df['score'], name=df['batting_team'].unique()[0], line_color='grren')
+    go.Scatter(x=df['over'], y=df['score'], name=df['batting_team'].unique()[0], line_color='green')
 ])
 
 fig.update_layout(title='Score over Time',
