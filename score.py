@@ -534,9 +534,7 @@ def match_progression(x_df,match_id,pipe):
 gf=gf[['match_id','batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
 temp_df, target = match_progression(gf,100001, pipe)
 temp_df=temp_df[temp_df['runs_after_over']>=0]
-neg_idx = temp_df[temp_df['wickets_in_over'] < 0].index
-if not neg_idx.empty:
-    temp_df = temp_df[:neg_idx[0]]
+temp_df = temp_df[temp_df['wickets_in_over'] >= 0]
 import plotly.graph_objects as go
 import plotly.express as px
         #fig = go.Figure()
