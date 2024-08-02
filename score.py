@@ -4,6 +4,7 @@ import requests
 import streamlit as st
 st.header('ODI MATCH ANALYSIS')
 o=st.number_input('Over No.')
+k=2*o
 h = st.text_input('URL OF match-overs-comparison OF ESPN CRICINFO') or 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'
 if (h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'):
     st.write('Enter Your URL')
@@ -24,7 +25,7 @@ list7=[]
 #print(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[49].text)
 elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
 
-for i in range(2*o):
+for i in range(0,k):
     if element.text.split('/') is None:
         print(' ')
     else:
