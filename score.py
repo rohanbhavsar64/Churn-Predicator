@@ -23,6 +23,8 @@ list6=[]
 list7=[]
 list8=[]
 list9=[]
+#print(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[49].text)
+elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
 for i, element in enumerate(elements):
     if element.text.split('/') is None:
         print(' ')
@@ -30,9 +32,6 @@ for i, element in enumerate(elements):
         if i % 2 == 0:
             list8.append(element.text.split('/')[0])
             list9.append(element.text.split('/')[1].split('(')[0])
-#print(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[49].text)
-elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
-
 for i, element in enumerate(elements):
     if not element.text.split('/'):
         print(' ')
