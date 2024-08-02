@@ -47,8 +47,19 @@ for i in range(len(list)):
     list6.append(b.find(class_='ds-flex ds-items-center').text.split(',')[1])
     if o==50:
         list7.append(b.find(class_='ds-text-tight-s ds-font-medium ds-truncate ds-text-typo').text.split(' ')[0])
+min_length = min(len(list) for list in [list, list1, list2, list3, list4, list5, list6, list7])
+list = list[:min_length]
+list1 = list1[:min_length]
+list2 = list2[:min_length]
+list3 = list3[:min_length]
+list4 = list4[:min_length]
+list5 = list5[:min_length]
+list6 = list6[:min_length]
+list7 = list7[:min_length]
+
 dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3,'winner':list7} 
 df=pd.DataFrame(dict)
+
 df['score']=df['score'].astype('int')
 df1['inng1']=df1['inng1'].astype('int')
 df1['over']=df1['over'].astype('int')
