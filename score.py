@@ -494,8 +494,8 @@ pipe.fit(X_train,y_train)
 
 
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali',185,4,93,108,5.6,5.41,42.0,3.0]).reshape(1,11))).astype(float)
-if o!=50:
-    gf = gf[:o]
+if int(o)!=50:
+    gf = gf[:int(o)]
 neg_idx = gf[gf['runs'] < 0].index
 if not neg_idx.empty:
     gf = gf[:neg_idx[0]]
