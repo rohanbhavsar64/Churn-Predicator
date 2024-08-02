@@ -25,14 +25,13 @@ list7=[]
 #print(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[49].text)
 elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
 
-for i in range(0,k):
-    if element.text.split('/') is None:
+for i, element in enumerate(elements):
+    if not element.text.split('/'):
         print(' ')
     else:
         if i % 2 != 0:
             list.append(element.text.split('/')[0])
             list1.append(element.text.split('/')[1].split('(')[0])
-
 for i in range(len(list)):
     list2.append(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[i].text)
     list3.append(b.find(class_='ds-text-compact-m ds-text-typo ds-text-right ds-whitespace-nowrap').text.split('/')[0])
