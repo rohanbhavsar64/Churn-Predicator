@@ -47,8 +47,14 @@ for i in range(len(list)):
     list5.append(b.find_all(class_='ds-text-tight-l ds-font-bold ds-text-typo hover:ds-text-typo-primary ds-block ds-truncate')[1].text)
     list6.append(b.find(class_='ds-flex ds-items-center').text.split(',')[1])
     list7.append(b.find(class_='ds-text-tight-s ds-font-medium ds-truncate ds-text-typo').text.split(' ')[0])
-max_len=len(list)
-list8 += [''] * (len(list8)-max_len)
+max_len = max(len(list), len(list1), len(list2), len(list8), len(list9))
+
+# Pad the shorter lists with empty strings
+list += [''] * (max_len - len(list))
+list1 += [''] * (max_len - len(list1))
+list2 += [''] * (max_len - len(list2))
+list8 += [''] * (max_len - len(list8))
+list9 += [''] * (max_len - len(list9))
 dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3,'winner':list7,'inng1':list8} 
 df=pd.DataFrame(dict)
 df['score']=df['score'].astype('int')
