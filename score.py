@@ -72,7 +72,7 @@ neg_idx = df1[df1['inng1']<0].diff().index
 if not neg_idx.empty:
     df1 = df1[:neg_idx[0]]
 lf=df
-lf=lf[:o]
+lf=lf[:int(o)]
 import plotly.graph_objects as go
 fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'], name=df['bowling_team'].unique()[0], line_color='red'),
