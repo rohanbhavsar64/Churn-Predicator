@@ -39,14 +39,8 @@ for i, element in enumerate(elements):
         if i % 2 == 0:
             list8.append(element.text.split('/')[0])
             list9.append(element.text.split('/')[1].split('(')[0])
-max_len = max(len(list), len(list1), len(list2), len(list8), len(list9))
-
-# Pad the shorter lists with empty strings
-list += [''] * (max_len - len(list))
-list1 += [''] * (max_len - len(list1))
-list2 += [''] * (max_len - len(list2))
-list8 += [''] * (max_len - len(list8))
-list9 += [''] * (max_len - len(list9))
+dict1={'inng1':list8,'over':list9}
+df1=pd.DataFrame(dict1)
 for i in range(len(list)):
     list2.append(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[i].text)
     list3.append(b.find(class_='ds-text-compact-m ds-text-typo ds-text-right ds-whitespace-nowrap').text.split('/')[0])
@@ -54,7 +48,7 @@ for i in range(len(list)):
     list5.append(b.find_all(class_='ds-text-tight-l ds-font-bold ds-text-typo hover:ds-text-typo-primary ds-block ds-truncate')[1].text)
     list6.append(b.find(class_='ds-flex ds-items-center').text.split(',')[1])
     list7.append(b.find(class_='ds-text-tight-s ds-font-medium ds-truncate ds-text-typo').text.split(' ')[0])
-dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3,'winner':list7,'inng1':list8} 
+dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3,'winner':list7} 
 df=pd.DataFrame(dict)
 df['score']=df['score'].astype('int')
 df['over']=df['over'].astype('int')
@@ -74,7 +68,7 @@ df=df.fillna(0)
 df['match_id']=100001
 import plotly.graph_objects as go
 fig = go.Figure(data=[
-    go.Scatter(x=df['over'], y=df['inng1'], name=df['batting_team'].unique()[0]),
+    go.Scatter(x=df1['over'], y=df1['inng1'], name=df['batting_team'].unique()[0]),
     go.Scatter(x=df['over'], y=df['score'], name=df['bowling_team'].unique()[0])
 ])
 
