@@ -68,7 +68,7 @@ df['last_10_wicket']=df['wickets_in_over'].rolling(window=10).sum()
 df=df.fillna(0)
 #st.write(df)
 df['match_id']=100001
-neg_idx = df1[df1['inng1']].diff().index
+neg_idx = df1[df1['inng1']<0].diff().index
 if not neg_idx.empty:
     df1 = df1[:neg_idx[0]]
 import plotly.graph_objects as go
