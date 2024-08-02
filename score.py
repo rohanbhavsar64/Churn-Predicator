@@ -67,7 +67,6 @@ df=df.fillna(0)
 #st.write(df)
 df['match_id']=100001
 import plotly.graph_objects as go
-
 fig = go.Figure(data=[
     go.Scatter(x=df['over'], y=df['inng1'], name=df['batting_team'].unique()[0]),
     go.Scatter(x=df['over'], y=df['score'], name=df['bowling_team'].unique()[0])
