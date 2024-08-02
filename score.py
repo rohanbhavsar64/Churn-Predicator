@@ -19,6 +19,7 @@ list3=[]
 list4=[]
 list5=[]
 list6=[]
+list7=[]
 #print(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[49].text)
 elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
 
@@ -36,8 +37,9 @@ for i in range(len(list)):
     list4.append(b.find_all(class_='ds-text-tight-l ds-font-bold ds-text-typo hover:ds-text-typo-primary ds-block ds-truncate')[0].text)
     list5.append(b.find_all(class_='ds-text-tight-l ds-font-bold ds-text-typo hover:ds-text-typo-primary ds-block ds-truncate')[1].text)
     list6.append(b.find(class_='ds-flex ds-items-center').text.split(',')[1])
+    list7.append(b.find(class_='ds-text-tight-s ds-font-medium ds-truncate ds-text-typo').text.split(' ')[0])
 
-dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3} 
+dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3,'winner':list7} 
 df=pd.DataFrame(dict)
 df['score']=df['score'].astype('int')
 df['over']=df['over'].astype('int')
@@ -355,7 +357,10 @@ df=df[df['runs_left']>=0]
 
 
 # In[227]:
-
+if (h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'):
+    new_df=new_df
+else:
+    new_df=new_df.append(gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']])
 
 new_df=df[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']]
 
@@ -562,6 +567,7 @@ import plotly.express as px
        # )
         #fig.update_layout(title='Target-' + str(target))
        # st.write(fig) 
+
 st.write(temp_df)
 fig1 = go.Figure()
         
