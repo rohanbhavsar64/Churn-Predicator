@@ -48,7 +48,7 @@ for i in range(len(list)):
     list6.append(b.find(class_='ds-flex ds-items-center').text.split(',')[1])
     list7.append(b.find(class_='ds-text-tight-s ds-font-medium ds-truncate ds-text-typo').text.split(' ')[0])
 max_len=len(list)
-list8 += [''] * (max_len - len(list8))
+list8 += [''] * (len(list8)-max_len)
 dict = {'batting_team': list5, 'bowling_team': list4,'venue':list6,'score':list,'wickets':list1,'over':list2,'target':list3,'winner':list7,'inng1':list8} 
 df=pd.DataFrame(dict)
 df['score']=df['score'].astype('int')
