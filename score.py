@@ -622,7 +622,7 @@ fig.update_layout(
     width=800,  # Set the width of the chart
     height=700  # Set the height of the chart
 )
-fig.update_layout(title='Target-' + str(target))
+fig.update_layout(title='Probablity Of Teams :Target-' + str(target))
 st.write(fig)
 def result(raw):
     return 1 if(raw['batting_team']==raw['winner']) else 0
