@@ -75,11 +75,14 @@ lf=df
 lf=lf[:int(o)]
 st.subheader('Scorecard')
 o=int(o)
-st.write(f"**{df['batting_team'].unique()[0]}**: {df['target'].unique()[0]}")
-st.write(f"**{df['bowling_team'].unique()[0]}**: {df.iloc[o, 3]}")
-st.text('rrr : '+str(df.iloc[o,10].round(2)))
-st.text('rrr : '+str(df.iloc[o,9].round(2)))
-
+col1,col2=st.columns(2)
+with col1:
+    st.write(f"**{df['batting_team'].unique()[0]}**: {df['target'].unique()[0]}")
+    st.text('rrr : '+str(df.iloc[o,10].round(2)))
+with col2:
+    st.write(f"**{df['bowling_team'].unique()[0]}**: {str(df.iloc[o, 3])+'/'+str(df.iloc[o, 4])}")
+    st.text('crr : '+str(df.iloc[o,9].round(2)))
+st.write(df['batting_team'].unique()[0]+'Required'+str(df.iloc[o,8])+'in'+str(df.iloc[o,11])+'balls')
 
 import plotly.graph_objects as go
 fig = go.Figure(data=[
