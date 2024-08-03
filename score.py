@@ -637,5 +637,5 @@ if ((h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-13678
     new_df=new_df
 else:
     new_df = pd.concat([new_df, gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']]])
-
+new_df.drop_duplicates(inplace=True)
 
