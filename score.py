@@ -74,7 +74,7 @@ if not neg_idx.empty:
 lf=df
 lf=lf[:int(o)]
 st.subheader('Scorecard')
-
+o=int(o)
 st.write(f"**{df['batting_team'].unique()[0]}**: {df['target'].unique()[0]}")
 st.write(f"**{df['bowling_team'].unique()[0]}**: {df.iloc[o, 3]}")
 st.text('rrr : '+str(df.iloc[o,10]))
