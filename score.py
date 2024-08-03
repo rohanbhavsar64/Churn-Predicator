@@ -77,8 +77,8 @@ st.subheader('Scorecard')
 o=int(o)
 st.write(f"**{df['batting_team'].unique()[0]}**: {df['target'].unique()[0]}")
 st.write(f"**{df['bowling_team'].unique()[0]}**: {df.iloc[o, 3]}")
-st.text('rrr : '+str(df.iloc[o,10]))
-st.text('rrr : '+str(df.iloc[o,9]))
+st.text('rrr : '+str(df.iloc[o,10].round(2)))
+st.text('rrr : '+str(df.iloc[o,9].round(2)))
 
 
 import plotly.graph_objects as go
