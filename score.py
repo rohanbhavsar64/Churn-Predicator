@@ -600,15 +600,22 @@ fig1 = go.Figure()
 # Line chart for the team with the upper hand
 # Calculate the midpoint of the y-axis
 midpoint = 50
-a2=gf['bowling_team'].unique()
-b2=gf['batting_team'].unique()
+a2=gf['bowling_team'].unique()[0]
+b2=gf['batting_team'].unique()[0]
 
 # Line chart for batting and bowling teams
 import plotly.graph_objects as go
 import plotly.express as px
 tf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(tf.iloc[-1,:]).reshape(1,11))).astype(float)
-fig1=px.pie(x=n[0][0],y=n[0][1])
+probablity1=int(n[0][1]*100)
+probablity2=int(n[0][0]*100)
+data=[probablity1,probablity2]
+data1=[a2,b2]
+import plotly.graph_objects as go
+fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
+st.write(fig)
+
 fig = go.Figure()
 runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
 wicket_text = temp_df['wickets_in_over'].astype(str)
