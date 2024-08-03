@@ -73,6 +73,11 @@ if not neg_idx.empty:
     df1 = df1[:neg_idx[0]]
 lf=df
 lf=lf[:int(o)]
+st.subheader('Scorecard')
+st.write(df['batting_team']+' '+str(df['target']))
+st.write(df['bowling_team']+' '+str(df.iloc[-1,3]))
+
+
 import plotly.graph_objects as go
 fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'], line_color='red',line_width=3,name=df['bowling_team'].unique()[0]),
