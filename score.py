@@ -608,7 +608,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 tf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(tf.iloc[-1,:]).reshape(1,11))).astype(float)
-fig1=px.pie(x=n[0],y=n[1])
+fig1=px.pie(x=n[0][0],y=n[0][1])
 fig = go.Figure()
 runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
 wicket_text = temp_df['wickets_in_over'].astype(str)
