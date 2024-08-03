@@ -66,7 +66,7 @@ df['last_10']=df['runs'].rolling(window=10).sum()
 df['wickets_in_over'] = df['wickets'].diff()
 df['last_10_wicket']=df['wickets_in_over'].rolling(window=10).sum()
 df=df.fillna(0)
-st.write(df)
+#st.write(df)
 df['match_id']=100001
 neg_idx = df1[df1['inng1']<0].diff().index
 if not neg_idx.empty:
@@ -603,7 +603,7 @@ import plotly.express as px
         #fig.update_layout(title='Target-' + str(target))
        # st.write(fig) 
 
-st.write(temp_df)
+#st.write(temp_df)
 fig1 = go.Figure()
         
 
