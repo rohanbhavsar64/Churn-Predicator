@@ -611,7 +611,7 @@ n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue'
 probablity1=int(n[0][1]*100)
 probablity2=int(n[0][0]*100)
 data=[probablity1,probablity2]
-data1=[a2,b2]
+data1=[b2,a2]
 import plotly.graph_objects as go
 fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
 fig.update_layout(title='Current Predicator')
