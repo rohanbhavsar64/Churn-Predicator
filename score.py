@@ -614,7 +614,8 @@ data=[probablity1,probablity2]
 data1=[a2,b2]
 import plotly.graph_objects as go
 fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
-st.write(fig)
+if o!=50:
+    st.write(fig)
 
 fig = go.Figure()
 runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
