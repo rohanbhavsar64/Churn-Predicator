@@ -614,6 +614,8 @@ data=[probablity1,probablity2]
 data1=[a2,b2]
 import plotly.graph_objects as go
 fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
+fig.update_layout(title='Current Predicator')
+
 if o!=50:
     st.write(fig)
 
