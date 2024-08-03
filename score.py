@@ -74,8 +74,8 @@ if not neg_idx.empty:
 lf=df
 lf=lf[:int(o)]
 st.subheader('Scorecard')
-st.write(df['batting_team']+' '+str(df['target'].unique()[0]))
-st.write(df['bowling_team']+' '+str(df.iloc[-1,3].unique()[0]))
+st.write(df['batting_team'].unique()[0]+' '+str(df['target'].unique()[0]))
+st.write(df['bowling_team'].unique()[0]+' '+str(df.iloc[-1,3].unique()[0]))
 
 
 import plotly.graph_objects as go
