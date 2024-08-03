@@ -83,7 +83,7 @@ if o!=50:
     with col2:
         st.write(str(df['target'].unique()[0]))
         st.write(str(df.iloc[o, 3])+'/'+str(df.iloc[o, 4]))
-    st.text('crr : '+str(df.iloc[o,9].round(2))+'rrr : '+str(df.iloc[o,10].round(2)))
+    st.text('crr : '+str(df.iloc[o,9].round(2))+'  rrr : '+str(df.iloc[o,10].round(2)))
     st.write(df['batting_team'].unique()[0]+' Required '+str(df.iloc[o,8])+' runs in '+str(df.iloc[o,11])+' balls')
 
 import plotly.graph_objects as go
