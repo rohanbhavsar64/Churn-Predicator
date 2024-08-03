@@ -74,7 +74,7 @@ if not neg_idx.empty:
 lf=df
 lf=lf[:int(o)]
 st.subheader('Scorecard')
-o=int(o)
+o=int(o)-1
 if o!=50:
     col1,col2=st.columns(2)
     with col1:
