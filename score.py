@@ -75,6 +75,11 @@ neg_idx = df1[df1['inng1']<0].diff().index
 if not neg_idx.empty:
     df1 = df1[:neg_idx[0]]
 lf=df
+neg_idx = lf[lf['rrr']<1.00].index
+if not neg_idx.empty:
+    lf = lf[:neg_idx[0]]
+if int(o)==50:
+    o=neg_idx[0]
 lf=lf[:int(o)]
 st.subheader('Scorecard')
 o=int(o)
