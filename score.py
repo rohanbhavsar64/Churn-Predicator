@@ -637,7 +637,7 @@ wicket_y = temp_df['runs_after_over']+temp_df['wickets_in_over']*0.5  # adjust y
 wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
 wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
                                   mode='markers', name='Wickets in Over',
-                                  marker_color='orange',marker_size=15,
+                                  marker_color='orange',marker_size=11,
                                   text=wicket_text, textposition='top center'))
 fig.update_layout(title='Innings Progression')
 st.write(fig1)
