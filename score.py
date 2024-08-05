@@ -629,11 +629,6 @@ probablity2=int(n[0][0]*100)
 data=[probablity1,probablity2]
 data1=[b2,a2]
 import plotly.graph_objects as go
-fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
-fig.update_layout(title='Current Predicator')
-
-if o!=50:
-    st.write(fig)
 fig1=go.Figure()
 runs = fig1.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
 wicket_text = temp_df['wickets_in_over'].astype(str)
@@ -643,7 +638,14 @@ wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use 
                                   mode='markers', name='Wickets in Over',
                                   marker_color='orange',marker_size=10,
                                   text=wicket_text, textposition='top center'))
+fig.update_layout(title='Innings Progression')
 st.write(fig1)
+fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
+fig.update_layout(title='Current Predicator')
+
+if o!=50:
+    st.write(fig)
+
 fig = go.Figure()
 batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
 bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
