@@ -637,7 +637,7 @@ if o!=50:
 fig1=go.Figure()
 runs = fig1.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
 wicket_text = temp_df['wickets_in_over'].astype(str)
-wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
+wicket_y = temp_df['runs_after_over']  # adjust y-position based on wickets
 wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
 wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
                                   mode='markers', name='Wickets in Over',
@@ -645,15 +645,6 @@ wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use 
                                   text=wicket_text, textposition='top center'))
 st.write(fig1)
 fig = go.Figure()
-runs = fig.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
-wicket_text = temp_df['wickets_in_over'].astype(str)
-wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over'] * 1  # adjust y-position based on wickets
-wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
-wicket = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
-                                  mode='markers', name='Wickets in Over',
-                                  marker_color='orange',marker_size=10,
-                                  text=wicket_text, textposition='top center'))
-# Line plots for batting and bowling teams
 batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
 bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
 fig.update_layout(
