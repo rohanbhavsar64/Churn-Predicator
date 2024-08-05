@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests 
 import streamlit as st
 st.header('ODI MATCH ANALYSIS')
-o=st.number_input('Over No.') or 40
+o=st.number_input('Over No.') or 50
 h = st.text_input('URL OF match-overs-comparison OF ESPN CRICINFO') or 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'
 if (h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'):
     st.write('Enter Your URL')
@@ -77,7 +77,7 @@ if not neg_idx.empty:
 lf=df
 lf=lf[:int(o)]
 st.subheader('Scorecard')
-o=int(o)-1
+o=int(o)
 if o!=50:
     col1,col2=st.columns(2)
     with col1:
@@ -85,9 +85,9 @@ if o!=50:
         st.write(f"**{df['batting_team'].unique()[0]}**")
     with col2:
         st.write(str(df['target'].unique()[0]))
-        st.write(str(df.iloc[o, 3])+'/'+str(df.iloc[o, 4]))
-    st.text('crr : '+str(df.iloc[o,9].round(2))+'  rrr : '+str(df.iloc[o,10].round(2)))
-    st.write(df['batting_team'].unique()[0]+' Required '+str(df.iloc[o,8])+' runs in '+str(df.iloc[o,11])+' balls')
+        st.write(str(df.iloc[o-1, 3])+'/'+str(df.iloc[o-1, 4]))
+    st.text('crr : '+str(df.iloc[o,9].round(2))+'  rrr : '+str(df.iloc[o-1,10].round(2)))
+    st.write(df['batting_team'].unique()[0]+' Required '+str(df.iloc[o-1,8])+' runs in '+str(df.iloc[o-1,11])+' balls')
 
 import plotly.graph_objects as go
 fig = go.Figure(data=[
@@ -622,17 +622,10 @@ b2=gf['batting_team'].unique()[0]
 # Line chart for batting and bowling teams
 import plotly.graph_objects as go
 import plotly.express as px
-tf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
-n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(tf.iloc[-1,:]).reshape(1,11))).astype(float)
-probablity1=int(n[0][1]*100)
-probablity2=int(n[0][0]*100)
-data=[probablity1,probablity2]
-data1=[b2,a2]
-import plotly.graph_objects as go
 fig1=go.Figure()
 runs = fig1.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
 wicket_text = temp_df['wickets_in_over'].astype(str)
-wicket_y = temp_df['runs_after_over']+temp_df['wickets_in_over']*0.6  # adjust y-position based on wickets
+wicket_y = temp_df['runs_after_over']+temp_df['wickets_in_over']*0.4  # adjust y-position based on wickets
 wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
 wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
                                   mode='markers', name='Wickets in Over',
@@ -640,6 +633,13 @@ wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use 
                                   text=wicket_text, textposition='top center'))
 fig.update_layout(title='Innings Progression')
 st.write(fig1)
+tf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
+n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(tf.iloc[-1,:]).reshape(1,11))).astype(float)
+probablity1=int(n[0][1]*100)
+probablity2=int(n[0][0]*100)
+data=[probablity1,probablity2]
+data1=[b2,a2]
+import plotly.graph_objects as go
 fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
 fig.update_layout(title='Current Predicator')
 
