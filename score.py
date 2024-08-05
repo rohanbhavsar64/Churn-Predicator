@@ -95,7 +95,7 @@ else:
         st.write(f"**{df['batting_team'].unique()[0]}**")
     with col2:
         st.write(str(df['target'].unique()[0]))
-        st.write('('+str(df[o-1,6])+'/'+'50)   '+str(df.iloc[-1, 3])+'/'+str(df.iloc[-1, 4]))
+        st.write('('+str(df[-1,6])+'/'+'50)   '+str(df.iloc[-1, 3])+'/'+str(df.iloc[-1, 4]))
     st.write(df['winner'].unique()[0]+' Won by '+str(10-df.iloc[-1, 4]))
 import plotly.graph_objects as go
 fig = go.Figure(data=[
