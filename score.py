@@ -83,7 +83,7 @@ if int(o)==50:
 lf=lf[:int(o)]
 st.subheader('Scorecard')
 o=int(o)
-if o!=50:
+if o!=50 or o!=neg_idx[0]:
     col1,col2=st.columns(2)
     with col1:
         st.write(f"**{df['bowling_team'].unique()[0]}**")
