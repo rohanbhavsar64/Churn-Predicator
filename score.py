@@ -638,6 +638,18 @@ wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use 
                                   text=wicket_text, textposition='top center'))
 fig.update_layout(title='Innings Progression')
 st.write(fig1)
+fig = go.Figure()
+batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
+bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
+fig.update_layout(
+    title='Target-' + str(target),
+    width=800,  # Set the width of the chart
+    height=700  # Set the height of the chart
+)
+fig.update_layout(title='Probablity Of Teams :Target-' + str(target))
+
+st.write(fig)
+
 tf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(tf.iloc[-1,:]).reshape(1,11))).astype(float)
 probablity1=int(n[0][1]*100)
@@ -651,17 +663,6 @@ fig.update_layout(title='Current Predicator')
 if o!=50:
     st.write(fig)
 
-fig = go.Figure()
-batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
-bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
-fig.update_layout(
-    title='Target-' + str(target),
-    width=800,  # Set the width of the chart
-    height=700  # Set the height of the chart
-)
-fig.update_layout(title='Probablity Of Teams :Target-' + str(target))
-
-st.write(fig)
 if o==50:
     def result(raw):
         return 1 if(raw['batting_team']==raw['winner']) else 0
@@ -671,4 +672,3 @@ if o==50:
         else:
             new_df = pd.concat([new_df, gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']]])
 new_df.drop_duplicates(inplace=True)
-
