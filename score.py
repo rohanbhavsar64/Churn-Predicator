@@ -1,7 +1,7 @@
 import pandas as pd 
 from bs4 import BeautifulSoup
 import requests 
-import streamlit as st
+import streamlit as st 
 st.header('ODI MATCH ANALYSIS')
 o=st.number_input('Over No.') or 50
 h = st.text_input('URL OF match-overs-comparison OF ESPN CRICINFO') or 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'
