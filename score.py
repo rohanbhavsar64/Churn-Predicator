@@ -101,7 +101,7 @@ else:
     with col2:
         st.write(str(df['target'].unique()[0]))
         st.write('('+str(df.iloc[-1,5])+'/'+'50)   '+str(df.iloc[-1, 3])+'/'+str(df.iloc[-1, 4]))
-    st.write(df['winner'].unique()[0]+' Won by '+str(10-df.iloc[-1, 4]))
+    st.write(df['winner'].unique()[0]+'Won')
 import plotly.graph_objects as go
 fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'], line_color='red',line_width=3,name=df['bowling_team'].unique()[0]),
