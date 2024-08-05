@@ -651,16 +651,15 @@ fig.update_layout(title='Probablity Of Teams :Target-' + str(target))
 st.write(fig)
 
 tf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
-n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(tf.iloc[-1,:]).reshape(1,11))).astype(float)
-probablity1=int(n[0][1]*100)
-probablity2=int(n[0][0]*100)
-data=[probablity1,probablity2]
-data1=[b2,a2]
-import plotly.graph_objects as go
-fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
-fig.update_layout(title='Current Predicator')
-
 if o!=50:
+    n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(tf.iloc[-1,:]).reshape(1,11))).astype(float)
+    probablity1=int(n[0][1]*100)
+    probablity2=int(n[0][0]*100)
+    data=[probablity1,probablity2]
+    data1=[b2,a2]
+    import plotly.graph_objects as go
+    fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
+    fig.update_layout(title='Current Predicator')
     st.write(fig)
 
 if o==50:
