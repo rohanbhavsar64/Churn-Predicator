@@ -642,10 +642,7 @@ tf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','ball
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(tf.iloc[-1,:]).reshape(1,11))).astype(float)
 probablity1=int(n[0][1]*100)
 probablity2=int(n[0][0]*100)
-if(tf.iloc[o-1,4].unique()[0]==10):
-    data=[0,1] 
-else:
-    data=[probablity1,probablity2]
+data=[probablity1,probablity2]
 data1=[b2,a2]
 import plotly.graph_objects as go
 fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
