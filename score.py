@@ -117,7 +117,7 @@ if o==50:
         name = "over_group",
         values = lf_grouped['runs'],
         pull=[0.1,0.1,0.1,0.1,0.1],
-        hole=0.2
+        hole=0.001
     ))
     fig.update_traces(textinfo='value')
     fig.update_layout(title="Runs in Each 10 overs Interval")
