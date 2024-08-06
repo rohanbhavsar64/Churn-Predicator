@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests 
 import streamlit as st 
 st.header('ODI MATCH ANALYSIS')
-o=st.number_input('Over No.') or 50
+o=st.number_input('Over No.(Not Greater Than Overs Played in 2nd Innings)') or 50
 h = st.text_input('URL( ESPN CRICINFO >Select Match > Click On Overs )') or 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'
 if (h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'):
     st.write('Enter Your URL')
