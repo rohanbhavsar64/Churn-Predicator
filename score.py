@@ -117,7 +117,7 @@ if o==50:
             l2.append(i/10)
 dict2={'Runs':l1,'Pie no.':l2}
 kf=pd.DataFrame(dict2)
-fig2=px.pie(data_frame=kf, names=None, values='Runs', color='Pie no.',hole=None)
+fig2=px.pie(data_frame=kf, names='Pie no.', values='Runs')
 st.write(fig2)
 gf=df
 import pandas as pd
