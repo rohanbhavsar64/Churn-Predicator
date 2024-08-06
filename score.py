@@ -122,7 +122,9 @@ if o==50:
     c1=lf[lf['over']==30]['wickets']-b1
     d1=lf[lf['over']==40]['wickets']-c1
     e1=lf[5,-1]['wickets']-d1
-    pd.DataFrame()
+    data1=[a1,b1,c1,d1,e1]
+    fig = go.Figure(data=[go.Pie(labels=data1, values=data)])
+    st.write(fig)
     
     
 gf=df
