@@ -118,7 +118,7 @@ if o==50:
         values = lf_grouped['runs'],
         labels = lf_grouped['wickets'],
         customdata=lf_grouped['over_group'],
-        hovertemplate = f"Country:%{label}: <br>Population: %{value} </br> iso num:%{customdata}"
+        hovertemplate = f"Country:%{labels}: <br>Population: %{values} </br> iso num:%{customdata}"
     ))
     st.write(fig)
 gf=df
