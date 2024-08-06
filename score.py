@@ -110,8 +110,7 @@ st.write(fig)
 import plotly.express as px
 if o==50:
     for i in range(5):
-        if df['over']%10==0:
-            l1.append(df['runs'].rolling(window=10).sum())
+            l1.append(df[df['over']%10==0]['runs'].rolling(window=10).sum())
             l2.append(i)
 fig2=px.pie(l1)
 st.write(fig2)
