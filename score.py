@@ -111,21 +111,22 @@ import plotly.express as px
 l1=[]
 l2=[]
 if o==50:
-    a=lf[lf['over']==10]['score']
-    b=lf[lf['over']==20]['score']-a
-    c=lf[lf['over']==30]['score']-b
-    d=lf[lf['over']==40]['score']-c
-    e=lf.iloc[-1,3]-d
-    data=[a,b,c,d,e]
-    a1=lf[lf['over']==10]['wickets']
-    b1=lf[lf['over']==20]['wickets']-a1
-    c1=lf[lf['over']==30]['wickets']-b1
-    d1=lf[lf['over']==40]['wickets']-c1
-    e1=lf.iloc[-1,4]-d1
-    data1=[a1,b1,c1,d1,e1]
-    fig = go.Figure(data=[go.Pie(labels=data1, values=data)])
-    st.write(fig)
-    
+    overs = [10, 20, 30, 40]
+    scores = []
+    wickets = []
+    for i, over in enumerate(overs):
+        if i == 0:
+            scores.append(lf[lf['over'] == over]['score'].iloc[0])
+            wickets.append(lf[lf['over'] == over]['wickets'].iloc[0])
+        else:
+            prev_over = overs[i - 1]
+            scores.append(lf[lf['over'] == over]['score'].iloc[0] - lf[lf['over'] == prev_over]['score'].iloc[0])
+            wickets.append(lf[lf['over'] == over]['wickets'].iloc[0] - lf[lf['over'] == prev_over]['wickets'].iloc[0])
+    scores.append(lf.iloc[-1, 3] - scores[-1])
+    wickets.append(lf.iloc[-1, 4] - wickets[-1])
+
+fig = go.Figure(data=[go.Pie(labels=wickets, values=scores)])
+st.write(fig)
     
 gf=df
 import pandas as pd
