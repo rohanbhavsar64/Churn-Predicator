@@ -111,22 +111,11 @@ import plotly.express as px
 l1=[]
 l2=[]
 if o==50:
-    overs = [10, 20, 30, 40]
-    scores = []
-    wickets = []
-    for i, over in enumerate(overs):
-        if i == 0:
-            scores.append(lf[lf['over'] == over]['score'].iloc[0])
-            wickets.append(lf[lf['over'] == over]['wickets'].iloc[0])
-        else:
-            prev_over = overs[i - 1]
-            scores.append(lf[lf['over'] == over]['score'].iloc[0] - lf[lf['over'] == prev_over]['score'].iloc[0])
-            wickets.append(lf[lf['over'] == over]['wickets'].iloc[0] - lf[lf['over'] == prev_over]['wickets'].iloc[0])
-    scores.append(lf.iloc[-1, 3] - scores[-1])
-    wickets.append(lf.iloc[-1, 4] - wickets[-1])
-
-fig = go.Figure(data=[go.Pie(labels=wickets, values=scores)])
-st.write(fig)
+    lf['over_group'] = lf['over'] // 10
+    lf_grouped = lf.groupby('over_group')['runs'].sum().reset_index()
+    fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs',text='runs', hover_name='over_group', hover_data=['runs'])
+    fig2.update_layout(title_text="Runs per 10 Overs")
+    st.write(fig2)
     
 gf=df
 import pandas as pd
