@@ -113,12 +113,14 @@ l2=[]
 if o==50:
     lf['over_group'] = lf['over'] // 10
     lf_grouped = lf.groupby('over_group').agg({'runs': 'sum', 'wickets': 'sum'}).reset_index()
-    fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs',textinfo=f'R: %{value}<br>W: %{customdata[0]}',custom_data=[lf_grouped['wickets']],hover_name='over_group', hover_data=['runs'])
-    fig2.update_traces(showlegend=False)
-    fig2.update(layout_showlegend=False)
-    fig2.update_layout(title_text="Runs per 10 Overs")
-    st.write(fig2)
-    
+    fig = go.Figure(go.Pie(
+        name = "",
+        values = lf_grouped['Runs'],
+        labels = lf_grouped['wickets'],
+        customdata=lf_grouped['over_group'],
+        hovertemplate = f"Country:%{label}: <br>Population: %{value} </br> iso num:%{customdata}"
+    ))
+    st.write(fig)
 gf=df
 import pandas as pd
 import numpy as np
