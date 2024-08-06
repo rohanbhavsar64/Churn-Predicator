@@ -113,7 +113,7 @@ l2=[]
 if o==50:
     for i in range(50):
         if i%10==0:
-            l1.append(df[df['over']==i]['runs'].rolling(window=10).sum())
+            l1.append(lf[lf['over']==i]['runs'].rolling(window=10).sum())
             l2.append(i/10)
 dict2={'Runs':l1,'Pie no.':l2}
 kf=pd.DataFrame(dict2)
