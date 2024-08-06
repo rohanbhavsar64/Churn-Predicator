@@ -114,7 +114,9 @@ if o==50:
     for i in range(5):
             l1.append(df[df['over']%10==0]['runs'].rolling(window=10).sum())
             l2.append(i)
-fig2=px.pie(l1)
+dict2={'Runs':l1,'Pie no.':l2}
+kf=pd.DataFrame(dict2)
+fig2=px.pie(kf['Runs'])
 st.write(fig2)
 gf=df
 import pandas as pd
