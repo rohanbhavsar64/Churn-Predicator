@@ -115,7 +115,7 @@ if o==50:
     b=lf[lf['over']==20]['score']-a
     c=lf[lf['over']==30]['score']-b
     d=lf[lf['over']==40]['score']-c
-    e=lf[5,-1]['score']-d
+    e=lf.iloc[5,-1]['score']-d
     data=[a,b,c,d,e]
     a1=lf[lf['over']==10]['wickets']
     b1=lf[lf['over']==20]['wickets']-a1
