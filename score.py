@@ -113,8 +113,8 @@ l2=[]
 if o==50:
     lf['over_group'] = lf['over'] // 10
     lf_grouped = lf.groupby('over_group').agg({'runs': 'sum', 'wickets': 'sum'}).reset_index()
-    fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs',custom_data=[lf_grouped['wickets']],hover_name='over_group', hover_data=['runs'],labels={'overs':'over_group'})
-    fig2.update_traces(textinfo=f'%{labels}<br>R: %{value}<br>W: %{customdata[0]}')
+    fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs',custom_data=[lf_grouped['wickets']],hover_name='over_group', hover_data=['runs'])
+    fig2.update_traces(textinfo=f'%{value}<br>W: %{customdata[0]}')
     fig2.update_traces(showlegend=False)
     fig2.update(layout_showlegend=False)
     fig2.update_layout(title_text="Runs per 10 Overs")
