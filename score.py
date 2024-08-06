@@ -111,14 +111,11 @@ import plotly.express as px
 l1=[]
 l2=[]
 if o==50:
-    for i in range(50):
-        if i%10==0:
-            l1.append(lf[lf['over']==i]['runs'].rolling(window=10).sum())
-            l2.append(i/10)
-dict2={'Runs':l1,'Pie no.':l2}
-kf=pd.DataFrame(dict2)
-fig2=px.pie(data_frame=kf, names='Pie no.', values='Runs')
-st.write(fig2)
+    lf['over_group'] = lf['over'] // 10
+    lf_grouped = lf.groupby('over_group')['runs'].sum().reset_index()
+    # create a pie chart
+    fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs')
+    st.write(fig2)
 gf=df
 import pandas as pd
 import numpy as np
