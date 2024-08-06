@@ -114,9 +114,8 @@ if o==50:
     lf['over_group'] = lf['over'] // 10
     lf_grouped = lf.groupby('over_group').agg({'runs': 'sum', 'wickets': 'sum'}).reset_index()
     fig = go.Figure(go.Pie(
-        name = "",
+        name = "over_group",
         values = lf_grouped['runs'],
-        labels = lf_grouped['wickets'],
     ))
     st.write(fig)
 gf=df
