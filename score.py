@@ -111,10 +111,20 @@ import plotly.express as px
 l1=[]
 l2=[]
 if o==50:
-    lf['over_group'] = lf['over'] // 10
-    lf_grouped = lf.groupby('over_group').agg({'runs': 'sum', 'wickets': 'sum'}).reset_index()
-    fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs')
-    st.write(fig2)
+    a=lf[lf['over']==10]['score']
+    b=lf[lf['over']==20]['score']-a
+    c=lf[lf['over']==30]['score']-b
+    d=lf[lf['over']==40]['score']-c
+    e=lf[5,-1]['score']-d
+    data=[a,b,c,d,e]
+    a1=lf[lf['over']==10]['wickets']
+    b1=lf[lf['over']==20]['wickets']-a1
+    c1=lf[lf['over']==30]['wickets']-b1
+    d1=lf[lf['over']==40]['wickets']-c1
+    e1=lf[5,-1]['wickets']-d1
+    pd.DataFrame()
+    
+    
 gf=df
 import pandas as pd
 import numpy as np
