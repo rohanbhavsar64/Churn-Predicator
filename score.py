@@ -115,7 +115,7 @@ if o==50:
     lf_grouped = lf.groupby('over_group').agg({'runs': 'sum', 'wickets': 'sum'}).reset_index()
     fig = go.Figure(go.Pie(
         name = "",
-        values = lf_grouped['Runs'],
+        values = lf_grouped['runs'],
         labels = lf_grouped['wickets'],
         customdata=lf_grouped['over_group'],
         hovertemplate = f"Country:%{label}: <br>Population: %{value} </br> iso num:%{customdata}"
