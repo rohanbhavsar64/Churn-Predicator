@@ -116,7 +116,8 @@ if o==50:
     fig = go.Figure(go.Pie(
         name = "over_group",
         values = lf_grouped['runs'],
-        pull=[0.1,0.1,0.1,0.1]
+        pull=[0.1,0.1,0.1,0.1,0.1]
+        hole=0.2
     ))
     fig.update_traces(textinfo='value')
     fig.update_layout(title="Runs in Each 10 overs Interval")
