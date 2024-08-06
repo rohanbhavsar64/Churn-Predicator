@@ -119,7 +119,7 @@ if o==50:
         pull=[0.1,0.1,0.1,0.1]
     ))
     fig.update_traces(textinfo='value')
-    ig.update_layout(title="Runs in Each 10 overs Interval")
+    fig.update_layout(title="Runs in Each 10 overs Interval")
     st.write(fig)
 gf=df
 import pandas as pd
