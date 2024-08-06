@@ -116,7 +116,10 @@ if o==50:
     fig = go.Figure(go.Pie(
         name = "over_group",
         values = lf_grouped['runs'],
+        textinfo='values',
+        title='Runs in each 10 overs'
     ))
+    
     st.write(fig)
 gf=df
 import pandas as pd
