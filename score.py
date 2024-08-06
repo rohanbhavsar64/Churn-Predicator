@@ -114,7 +114,7 @@ if o==50:
     lf['over_group'] = lf['over'] // 10
     lf_grouped = lf.groupby('over_group')['runs'].sum().reset_index()
     fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs', hover_name='over_group', hover_data=['runs'])
-    fig2.update_traces(textinfo='Runs')
+    fig2.update_traces(textinfo=lf['Runs'])
     fig2.update_layout(title_text="Runs per 10 Overs")
     st.write(fig2)
     
