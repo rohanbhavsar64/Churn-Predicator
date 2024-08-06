@@ -115,13 +115,13 @@ if o==50:
     b=lf[lf['over']==20]['score']-a
     c=lf[lf['over']==30]['score']-b
     d=lf[lf['over']==40]['score']-c
-    e=lf.iloc[5,-1]['score']-d
+    e=lf.iloc[-1,3]-d
     data=[a,b,c,d,e]
     a1=lf[lf['over']==10]['wickets']
     b1=lf[lf['over']==20]['wickets']-a1
     c1=lf[lf['over']==30]['wickets']-b1
     d1=lf[lf['over']==40]['wickets']-c1
-    e1=lf.iloc[5,-1]['wickets']-d1
+    e1=lf.iloc[-1,4]-d1
     data1=[a1,b1,c1,d1,e1]
     fig = go.Figure(data=[go.Pie(labels=data1, values=data)])
     st.write(fig)
