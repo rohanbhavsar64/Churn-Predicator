@@ -111,9 +111,10 @@ import plotly.express as px
 l1=[]
 l2=[]
 if o==50:
-    for i in range(5):
-            l1.append(df[df['over']%10==0]['runs'].rolling(window=10).sum())
-            l2.append(i)
+    for i in range(50):
+        if i%10==0:
+            l1.append(df[df['over']==i]['runs'].rolling(window=10).sum())
+            l2.append(i/10)
 dict2={'Runs':l1,'Pie no.':l2}
 kf=pd.DataFrame(dict2)
 fig2=px.pie(data_frame=kf, names=None, values='Runs', color='Pie no.',hole=None)
