@@ -108,6 +108,8 @@ fig.update_layout(title='Score Comperison',
                   yaxis_title='Score')
 st.write(fig)
 import plotly.express as px
+l1=[]
+l2=[]
 if o==50:
     for i in range(5):
             l1.append(df[df['over']%10==0]['runs'].rolling(window=10).sum())
