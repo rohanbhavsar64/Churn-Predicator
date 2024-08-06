@@ -114,7 +114,7 @@ if o==50:
     lf['over_group'] = lf['over'] // 10
     lf_grouped = lf.groupby('over_group').agg({'runs': 'sum', 'wickets': 'sum'}).reset_index()
     hover_text = [f"Runs: {r}<br>Wickets: {w}" for r, w in zip(lf_grouped['runs'], lf_grouped['wickets'])]
-    fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs', text=lf_grouped['runs'],hover_name='over_group')
+    fig2 = px.pie(data_frame=lf_grouped, names='over_group', values='runs', hover_data=lf_grouped['runs'],hover_name='over_group')
     st.write(fig2)
 gf=df
 import pandas as pd
