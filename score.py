@@ -107,20 +107,6 @@ fig.update_layout(title='Score Comperison',
                   xaxis_title='Over',
                   yaxis_title='Score')
 st.write(fig)
-import plotly.express as px
-l1=[]
-l2=[]
-if o==50:
-    lf['over_group'] = lf['over'] // 10
-    lf_grouped = lf.groupby('over_group').agg({'runs': 'sum', 'wickets': 'sum'}).reset_index()
-    fig = go.Figure(go.Pie(
-        name = "over_group",
-        values = lf_grouped['runs'],
-        pull=[0.1,0.1,0.1,0.1,0.1],
-    ))
-    fig.update_traces(textinfo='value')
-    fig.update_layout(title="Runs in Each 10 overs Interval")
-    st.write(fig)
 gf=df
 import pandas as pd
 import numpy as np
