@@ -87,8 +87,8 @@ if o!=50:
         st.write(f"**{df['bowling_team'].unique()[0]}**")
         st.write(f"**{df['batting_team'].unique()[0]}**")
     with col2:
-        st.write('('+str(df1.iloc[-1,1])+'/'+'50)   '+str(df['target'].unique()[0])+'/'+str(df1.iloc[-1,2]))
-        st.write('('+str(df.iloc[o-1,5])+'/'+'50)   '+str(df.iloc[o-1, 3])+'/'+str(df.iloc[o-1, 4]))
+        st.write('('+str(df1.iloc[-1,1])+'/'+'50)'+'    '+str(df['target'].unique()[0])+'/'+str(df1.iloc[-1,2]))
+        st.write('('+str(df.iloc[o-1,5])+'/'+'50)'+'    '+str(df.iloc[o-1, 3])+'/'+str(df.iloc[o-1, 4]))
     st.text('crr : '+str(df.iloc[o-1,8].round(2))+'  rrr : '+str(df.iloc[o-1,9].round(2)))
     st.write(df['batting_team'].unique()[0]+' Required '+str(df.iloc[o-1,7])+' runs in '+str(df.iloc[o-1,10])+' balls')
 else:
