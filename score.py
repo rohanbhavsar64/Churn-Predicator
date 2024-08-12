@@ -36,7 +36,7 @@ for i, element in enumerate(elements):
     else:
         if i % 2 == 0:
             list8.append(element.text.split('/')[0])
-            list9.append(i/2)
+            list9.append(i/2+1)
 dict1={'inng1':list8,'over':list9}
 df1=pd.DataFrame(dict1)
 for i in range(len(list)):
