@@ -21,6 +21,7 @@ list6=[]
 list7=[]
 list8=[]
 list9=[]
+list10=[]
 #print(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[49].text)
 elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
 for i, element in enumerate(elements):
@@ -37,7 +38,9 @@ for i, element in enumerate(elements):
         if i % 2 == 0:
             list8.append(element.text.split('/')[0])
             list9.append(i/2+1)
-dict1={'inng1':list8,'over':list9}
+            list10.append(element.text.split('/')[1].split('(')[0])
+            
+dict1={'inng1':list8,'over':list9,'wickets':list10}
 df1=pd.DataFrame(dict1)
 for i in range(len(list)):
     list2.append(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[i].text)
