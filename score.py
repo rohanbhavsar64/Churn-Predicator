@@ -100,7 +100,7 @@ else:
 import plotly.graph_objects as go
 fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'],line_width=4,name=df['bowling_team'].unique()[0]),
-    go.Scatter(x=lf['over'], y=lf['score'],line_width=4,name=df['batting_team'].unique()[0])
+    go.Scatter(x=lf['over'], y=lf['score'],line_width=4,line_color='#7F00FF',name=df['batting_team'].unique()[0])
 ])
 
 fig.update_layout(title='Score Comperison',
