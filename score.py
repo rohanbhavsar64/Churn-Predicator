@@ -99,7 +99,7 @@ else:
     st.write(df['winner'].unique()[0]+' Won')
 import plotly.graph_objects as go
 fig = go.Figure(data=[
-    go.Scatter(x=df1['over'], y=df1['inng1'],line_width=3,name=df['bowling_team'].unique()[0]),
+    go.Scatter(x=df1['over'], y=df1['inng1'],line_width=3,line_color='#0a0ae3',name=df['bowling_team'].unique()[0]),
     go.Scatter(x=lf['over'], y=lf['score'],line_width=3,line_color='#990066',name=df['batting_team'].unique()[0])
 ])
 
