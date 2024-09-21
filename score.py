@@ -648,7 +648,7 @@ fig.update_layout(
     title='Target-' + str(target),
     height=700  # Set the height of the chart
 )
-fig.update_layout(title='Probablity Of Teams :Target-' + str(target))
+fig.update_layout(title='Win Probablity Of Teams :Target-' + str(target))
 
 st.write(fig)
 
