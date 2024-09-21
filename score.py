@@ -591,7 +591,7 @@ def match_progression(x_df,match_id,pipe):
 temp_df, target = match_progression(gf,100001, pipe)
 temp_df=temp_df[temp_df['runs_after_over']>=0]
 temp_df = temp_df[temp_df['wickets_in_over'] >= 0]
-temp_df= temp_df.iloc[:10,:]
+temp_df= temp_df.iloc[10:,:]
 import plotly.graph_objects as go
 import plotly.express as px
         #fig = go.Figure()
