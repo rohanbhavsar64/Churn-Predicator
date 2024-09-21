@@ -71,7 +71,7 @@ df['runs'] = df['score'].diff()
 df['last_10']=df['runs'].rolling(window=10).sum()
 df['wickets_in_over'] = df['wickets'].diff()
 df['last_10_wicket']=df['wickets_in_over'].rolling(window=10).sum()
-df=df.fillna(0)
+df=df.fillna(50)
 #st.write(df)
 df['match_id']=100001
 neg_idx = df1[df1['inng1']<0].diff().index
@@ -642,8 +642,8 @@ wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use 
 fig.update_layout(title='Innings Progression')
 st.write(fig1)
 fig = go.Figure()
-batting_team = fig.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
-bowling_team = fig.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
+batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
+bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
 fig.update_layout(
     title='Target-' + str(target),
     height=700  # Set the height of the chart
