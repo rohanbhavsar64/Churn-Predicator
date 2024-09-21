@@ -642,8 +642,8 @@ wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use 
 fig.update_layout(title='Innings Progression')
 st.write(fig1)
 fig = go.Figure()
-batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
-bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
+batting_team = fig.add_trace(go.Scatter(x=temp_df.iloc[9:,:]['end_of_over'], y=temp_df['win'].iloc[9:,:], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
+bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'].iloc[9:,:], y=temp_df['lose'].iloc[9:,:], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
 fig.update_layout(
     title='Target-' + str(target),
     height=700  # Set the height of the chart
