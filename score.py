@@ -591,7 +591,6 @@ def match_progression(x_df,match_id,pipe):
 temp_df, target = match_progression(gf,100001, pipe)
 temp_df=temp_df[temp_df['runs_after_over']>=0]
 temp_df = temp_df[temp_df['wickets_in_over'] >= 0]
-temp_df= temp_df.iloc[10:,:]
 import plotly.graph_objects as go
 import plotly.express as px
         #fig = go.Figure()
@@ -643,8 +642,8 @@ wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use 
 fig.update_layout(title='Innings Progression')
 st.write(fig1)
 fig = go.Figure()
-batting_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
-bowling_team = fig.add_trace(go.Scatter(x=temp_df['end_of_over'], y=temp_df['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
+batting_team = fig.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
+bowling_team = fig.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
 fig.update_layout(
     title='Target-' + str(target),
     height=700  # Set the height of the chart
