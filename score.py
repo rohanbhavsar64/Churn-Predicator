@@ -402,7 +402,6 @@ df=df[df['runs_left']>=0]
 
 
 # In[226]:
-df=df[(df['match_id']<=100) or (df['match_id']>=185)]
 
 
 
