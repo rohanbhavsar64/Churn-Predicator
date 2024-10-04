@@ -45,8 +45,8 @@ df1=pd.DataFrame(dict1)
 for i in range(len(list)):
     list2.append(b.find_all(class_='ds-text-tight-s ds-font-regular ds-flex ds-justify-center ds-items-center ds-w-7 ds-h-7 ds-rounded-full ds-border ds-border-ui-stroke ds-bg-fill-content-prime')[i].text)
     list3.append(b.find(class_='ds-text-compact-m ds-text-typo ds-text-right ds-whitespace-nowrap').text.split('/')[0])
-    list4.append(b.find_all(class_='ds-bg-fill-content-alternate ds-text-left')[1].text)
-    list5.append(b.find_all(class_='ds-bg-fill-content-alternate ds-text-left')[2].text)
+    list4.append(b.find_all(class_='ds-bg-fill-content-prime ds-overflow-hidden ds-mb-4 ds-rounded-lg')[4].text)
+    list5.append(b.find_all(class_='ds-bg-fill-content-prime ds-overflow-hidden ds-mb-4 ds-rounded-lg')[5].text)
     list6.append(b.find(class_='ds-flex ds-items-center').text.split(',')[1])
     if o==50:
         list7.append(b.find(class_='ds-text-tight-s ds-font-medium ds-truncate ds-text-typo').text.split(' ')[0])
