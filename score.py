@@ -118,8 +118,8 @@ if o>40:
     b2=df.iloc[19,:]['wickets']
     b3=df.iloc[29,:]['wickets']
     b4=df.iloc[39,:]['wickets']
-    data=[[a1,b1],[a2-a1,b2-b1],[a3-a2,b3-b2],[a4-a3,b4,b3]]
-    hj=pd.DataFrame(data,columns=['Runs','Wickets'])
+data=[[a1,b1],[a2-a1,b2-b1],[a3-a2,b3-b2],[a4-a3,b4-b3]]
+hj=pd.DataFrame(data,columns=['Runs','Wickets'])
     
 
 gf=df
