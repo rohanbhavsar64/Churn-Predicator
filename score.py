@@ -121,7 +121,7 @@ if o>40:
     data=[[a1,b1,1],[a2-a1,b2-b1,2],[a3-a2,b3-b2,3],[a4-a3,b4-b3,4]]
     hj=pd.DataFrame(data,columns=['Runs','Wickets','part'])
   # assuming hj is a dictionary with 'Runs' key
-    fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['part'], hoverinfo='label+value')])
+    fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['part'],texttemplate='%{value}', hoverinfo='label+value')])
     fig.update_layout(title_text='Runs Distribution')
     st.write(fig)
     
