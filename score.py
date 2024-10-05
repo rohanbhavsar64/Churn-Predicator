@@ -120,8 +120,9 @@ if o>40:
     b4=df.iloc[39,:]['wickets']
     data=[[a1,b1],[a2-a1,b2-b1],[a3-a2,b3-b2],[a4-a3,b4-b3]]
     hj=pd.DataFrame(data,columns=['Runs','Wickets'])
-    fig=go.pie(hj['Runs'])
-    fig=go.title('Runs Distribution')
+  # assuming hj is a dictionary with 'Runs' key
+    fig = go.Figure(data=[go.Pie(labels=hj['Runs'])])
+    fig.update_layout(title_text='Runs Distribution')
     st.write(fig)
     
 
