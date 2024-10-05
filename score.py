@@ -110,16 +110,17 @@ fig.update_layout(title='Score Comperison',
                   yaxis_title='Score')
 st.write(fig)
 if o>40:
-    a1=df.iloc[9,:]['score'][0]
-    a2=df.iloc[19,:]['score'][0]
-    a3=df.iloc[29,:]['score'][0]
-    a4=df.iloc[39,:]['score'][0]
-    b1=df.iloc[9,:]['wickets'][0]
-    b2=df.iloc[19,:]['wickets'][0]
-    b3=df.iloc[29,:]['wickets'][0]
-    b4=df.iloc[39,:]['wickets'][0]
+    a1=df.iloc[9,:]['score']
+    a2=df.iloc[19,:]['score']
+    a3=df.iloc[29,:]['score']
+    a4=df.iloc[39,:]['score']
+    b1=df.iloc[9,:]['wickets']
+    b2=df.iloc[19,:]['wickets']
+    b3=df.iloc[29,:]['wickets']
+    b4=df.iloc[39,:]['wickets']
     data=[[a1,b1],[a2-a1,b2-b1],[a3-a2,b3-b2],[a4-a3,b4,b3]]
     hj=pd.DataFrame(data,columns=['Runs','Wickets'])
+    
 
 gf=df
 import pandas as pd
