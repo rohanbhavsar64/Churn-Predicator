@@ -109,6 +109,10 @@ fig.update_layout(title='Score Comperison',
                   xaxis_title='Over',
                   yaxis_title='Score')
 st.write(fig)
+a1=df.iloc[:,9]['score'][0]
+a2=df.iloc[:,19]['score'][0]
+a3=df.iloc[:,29]['score'][0]
+a4=df.iloc[:,39]['score'][0]
 gf=df
 import pandas as pd
 import numpy as np
