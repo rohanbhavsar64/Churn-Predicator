@@ -131,11 +131,12 @@ if o>40:
     hj['high']=(hj['RRR']*10/2) + 5
     hj.loc[hj['ratio'] >= hj['high'], 'session'] = 'Win'
     hj.loc[hj['ratio'] <= hj['low'], 'session'] = 'Lost'
+    hj['slice']=1
     st.write(hj)
     session_colors = {'Draw': 'gray', 'Win': 'green','Lost':'red'}
     colors = [session_colors[session] for session in hj['session']]
     
-    fig = go.Figure(data=[go.Pie(values=hj['part'], labels=hj['Runs'],texttemplate='%{value}', hoverinfo='label+value', marker_colors=colors)])
+    fig = go.Figure(data=[go.Pie(values=hj['slice'], labels=hj['Runs'],texttemplate='%{value}', hoverinfo='label+value', marker_colors=colors)])
     fig.update_layout(title_text='Runs Distribution After Every Ten Overs')
     st.write(fig)
     
