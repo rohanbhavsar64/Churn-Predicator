@@ -118,9 +118,14 @@ if o>40:
     b2=df.iloc[19,:]['wickets']
     b3=df.iloc[29,:]['wickets']
     b4=df.iloc[39,:]['wickets']
-    data=[[a1,b1,1],[a2-a1,b2-b1,2],[a3-a2,b3-b2,3],[a4-a3,b4-b3,4]]
-    hj=pd.DataFrame(data,columns=['Runs','Wickets','part'])
+    c1=df.iloc[0,:]['rrr']
+    c2=df.iloc[9,:]['rrr']
+    c3=df.iloc[19,:]['rrr']
+    c4=df.iloc[29,:]['rrr']
+    data=[[a1,b1,c1,1],[a2-a1,b2-b1,c2,2],[a3-a2,b3-b2,c3,3],[a4-a3,b4-b3,c4,4]]
+    hj=pd.DataFrame(data,columns=['Runs','Wickets','RRR','part'])
   # assuming hj is a dictionary with 'Runs' key
+    hj['session']='draw'
     fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['part'],texttemplate='%{value}', hoverinfo='label+value')])
     fig.update_layout(title_text='Runs Distribution After Every Ten Overs')
     st.write(fig)
