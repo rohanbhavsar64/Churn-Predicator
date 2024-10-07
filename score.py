@@ -127,10 +127,11 @@ if o>40:
   # assuming hj is a dictionary with 'Runs' key
     hj['session']='Draw'
     hj['ratio']=hj['Runs']/hj['Wickets']
-    hj['low']=hj['RRR']/2 -5
-    hj['high']=hj['RRR']/2 + 5
-    hj.loc[hj['ratio'] > hj['high'], 'session'] = 'Win'
-    hj.loc[hj['ratio'] < hj['low'], 'session'] = 'Lost'
+    hj['low']=(hj['RRR']/2) - 5
+    hj['high']=(hj['RRR']/2) + 5
+    hj.loc[hj['ratio'] >= hj['high'], 'session'] = 'Win'
+    hj.loc[hj['ratio'] <= hj['low'], 'session'] = 'Lost'
+    st.write(hj)
     session_colors = {'Draw': 'gray', 'Win': 'green','Lost':'red'}
     colors = [session_colors[session] for session in hj['session']]
     
