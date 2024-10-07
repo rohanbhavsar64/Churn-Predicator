@@ -135,7 +135,7 @@ if o>40:
     session_colors = {'Draw': 'gray', 'Win': 'green','Lost':'red'}
     colors = [session_colors[session] for session in hj['session']]
     
-    fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['part'],texttemplate='%{value}', hoverinfo='label+value', marker_colors=colors)])
+    fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['session'],texttemplate='%{value}', hoverinfo='label+value', marker_colors=colors)])
     fig.update_layout(title_text='Runs Distribution After Every Ten Overs')
     st.write(fig)
     
