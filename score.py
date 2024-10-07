@@ -136,8 +136,8 @@ if o>40:
     session_colors = {'Draw': 'gray', 'Win': 'green','Lost':'red'}
     colors = [session_colors[session] for session in hj['session']]
     
-    fig = go.Figure(data=[go.Pie(values=hj['slice'], labels=hj['Runs'], texttemplate='%{label}/%{customdata[0]}', 
-                             customdata=hj['Wickets'], textinfo='text', hoverinfo='label+value', 
+    fig = go.Figure(data=[go.Pie(values=hj['slice'], labels=hj['Runs'].astype(str) + '/' + hj['Wickets'].astype(str), 
+                             texttemplate='%{label}', textinfo='label', hoverinfo='label+value', 
                              marker_colors=colors)])
     fig.update_layout(title_text='Runs Distribution After Every Ten Overs')
     st.write(fig)
