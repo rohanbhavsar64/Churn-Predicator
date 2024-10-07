@@ -125,12 +125,13 @@ if o>40:
     data=[[a1,b1,c1,1],[a2-a1,b2-b1,c2,2],[a3-a2,b3-b2,c3,3],[a4-a3,b4-b3,c4,4]]
     hj=pd.DataFrame(data,columns=['Runs','Wickets','RRR','part'])
   # assuming hj is a dictionary with 'Runs' key
-    hj['session']='draw'
+    hj['session']='Draw'
     hj['ratio']=hj['Runs']/hj['Wickets']
-    hj['low']=hj['RRR']/2 -10
-    hj['high']=hj['RRR']/2 + 10
+    hj['low']=hj['RRR']/2 -5
+    hj['high']=hj['RRR']/2 + 5
     hj.loc[hj['ratio'] > hj['high'], 'session'] = 'Win'
-    hj.loc[hj['ratio'] > hj['high'], 'session'] = 'Lost'
+    hj.loc[hj['ratio'] < hj['low'], 'session'] = 'Lost'
+    session_colors = {'Draw': 'gray', 'Win': 'green','Lost':'red'}
     colors = [session_colors[session] for session in hj['session']]
     
     fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['part'],texttemplate='%{value}', hoverinfo='label+value', marker_colors=colors)])
