@@ -129,9 +129,11 @@ if o>40:
     hj['ratio']=hj['Runs']/hj['Wickets']
     hj['low']=hj['RRR']/2 -10
     hj['high']=hj['RRR']/2 + 10
-    hj.loc[hj['ratio'] > hj['high'], 'session'] = 'Bat'
+    hj.loc[hj['ratio'] > hj['high'], 'session'] = 'Win'
+    hj.loc[hj['ratio'] > hj['high'], 'session'] = 'Lost'
     
-    fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['part'],texttemplate='%{value}', hoverinfo='label+value')])
+    
+    fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['part'],texttemplate='%{value}', hoverinfo='label+value',colors=hj['session'])])
     fig.update_layout(title_text='Runs Distribution After Every Ten Overs')
     st.write(fig)
     
