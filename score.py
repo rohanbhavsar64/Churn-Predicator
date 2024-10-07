@@ -126,6 +126,11 @@ if o>40:
     hj=pd.DataFrame(data,columns=['Runs','Wickets','RRR','part'])
   # assuming hj is a dictionary with 'Runs' key
     hj['session']='draw'
+    hj['ratio']=hj['Runs']/hj['Wickets']
+    hj['low']=hj['RRR']/2 -10
+    hj['high']=hj['RRR']/2 + 10
+    hj.loc[hj['ratio'] > hj['high'], 'session'] = 'Bat'
+    
     fig = go.Figure(data=[go.Pie(values=hj['Runs'], labels=hj['part'],texttemplate='%{value}', hoverinfo='label+value')])
     fig.update_layout(title_text='Runs Distribution After Every Ten Overs')
     st.write(fig)
