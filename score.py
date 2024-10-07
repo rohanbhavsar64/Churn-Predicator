@@ -127,8 +127,8 @@ if o>40:
   # assuming hj is a dictionary with 'Runs' key
     hj['session']='Draw'
     hj['ratio']=hj['Runs']/hj['Wickets']
-    hj['low']=(hj['RRR']/2) - 5
-    hj['high']=(hj['RRR']/2) + 5
+    hj['low']=(hj['RRR']*10/2) - 5
+    hj['high']=(hj['RRR']*10/2) + 5
     hj.loc[hj['ratio'] >= hj['high'], 'session'] = 'Win'
     hj.loc[hj['ratio'] <= hj['low'], 'session'] = 'Lost'
     st.write(hj)
