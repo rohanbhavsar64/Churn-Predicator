@@ -151,7 +151,7 @@ if o>40:
                                marker_colors=colors,
                                pull=[0.05] * len(hj['slice'])  # Dynamically set pull based on the number of slices
                               )])
-    fig1.update_layout(title_text='Session Distribution', showlegend=False)  # Hide the legend
+    fig1.update_layout(title_text='Session Distribution')  # Hide the legend
     
 fig1=fig1
 gf=df
