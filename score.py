@@ -703,7 +703,6 @@ if o!=50:
     import plotly.graph_objects as go
     fig4 = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
     fig4.update_layout(title='Current Predicator')
-    st.write(fig4)
 if selected_section == 'Score Comparison':
     st.write(fig)
 elif selected_section == 'Session Distribution':
