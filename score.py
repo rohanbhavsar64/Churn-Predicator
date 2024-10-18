@@ -139,7 +139,7 @@ if o>40:
     colors = [session_colors[session] for session in hj['session']]
     
     fig = go.Figure(data=[go.Pie(values=hj['slice'], labels=hj['Runs'].astype(str) + '/' + hj['Wickets'].astype(str), 
-                             texttemplate='%{label}', textinfo='label',hoverinfo='none', 
+                             texttemplate='%{label}', textinfo='label',hoverinfo='none',legend=hj['session'],
                              marker_colors=colors,pull=[0.05, 0.05, 0.05, 0.05])])
     fig.update_layout(title_text='Session Distribution')
     st.write(fig)
