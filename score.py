@@ -96,13 +96,13 @@ if o != 50:
         # Get the URL for the bowling team
         bowling_team_url = sf[sf['Country'] == bowling_team]['URL']
         if not bowling_team_url.empty:
-            st.image(bowling_team_url.values[0], width=100)  # Access the first element
+            st.image(bowling_team_url.values[0], width=10)  # Access the first element
         st.write(f"**{bowling_team}**")
         
         # Get the URL for the batting team
         batting_team_url = sf[sf['Country'] == batting_team]['URL']
         if not batting_team_url.empty:
-            st.image(batting_team_url.values[0], width=100)  # Access the first element
+            st.image(batting_team_url.values[0], width=10)  # Access the first element
         st.write(f"**{batting_team}**")
         
     with col2:
