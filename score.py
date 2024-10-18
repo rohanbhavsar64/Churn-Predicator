@@ -138,11 +138,15 @@ if o>40:
     session_colors = {'Draw': 'gray', 'Win': '#3F51B5','Lost':'#89CFF0'}
     colors = [session_colors[session] for session in hj['session']]
     
-    fig = go.Figure(data=[go.Pie(values=hj['slice'], labels=hj['Runs'].astype(str) + '/' + hj['Wickets'].astype(str), 
-                             texttemplate='%{label}', textinfo='label',hoverinfo='none',legend=hj['session'],
-                             marker_colors=colors,pull=[0.05, 0.05, 0.05, 0.05])])
-    fig.update_layout(title_text='Session Distribution')
-    st.write(fig)
+    fig = go.Figure(data=[go.Pie(values=hj['slice'],
+                               labels=hj['Runs'].astype(str) + '/' + hj['Wickets'].astype(str),
+                               texttemplate='%{label}',
+                               textinfo='label',
+                               hoverinfo='none',
+                               showlegend=True,  # Corrected from 'legend'
+                               marker_colors=colors,
+                               pull=[0.05] * len(hj['slice'])  # Dynamically set pull based on the number of slices
+                              )])
     
 
 gf=df
