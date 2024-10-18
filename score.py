@@ -98,14 +98,14 @@ if o != 50:
         bowling_team_url = sf[sf['Country'] == bowling_team]['URL']
         if not bowling_team_url.empty:
             # Display the bowling team flag and name in the same line
-            st.image(bowling_team_url.values[0], width=50)  # Adjust width as needed
+            st.image(bowling_team_url.values[0], width=20)  # Adjust width as needed
             st.write(f" **{bowling_team}**", unsafe_allow_html=True)
         
         # Get the URL for the batting team
         batting_team_url = sf[sf['Country'] == batting_team]['URL']
         if not batting_team_url.empty:
             # Display the batting team flag and name in the same line
-            st.image(batting_team_url.values[0], width=50)  # Adjust width as needed
+            st.image(batting_team_url.values[0], width=20)  # Adjust width as needed
             st.write(f" **{batting_team}**", unsafe_allow_html=True)
 
     with col2:
