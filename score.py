@@ -135,7 +135,7 @@ if o>40:
     hj.loc[hj['ratio'] >= hj['high'], 'session'] = 'Win'
     hj.loc[hj['ratio'] <= hj['low'], 'session'] = 'Lost'
     hj['slice']=1
-    session_colors = {'Draw': 'gray', 'Win': 'blue','Lost':'purple'}
+    session_colors = {'Draw': 'gray', 'Win': '#3F51B5','Lost':'#89CFF0'}
     colors = [session_colors[session] for session in hj['session']]
     
     fig = go.Figure(data=[go.Pie(values=hj['slice'], labels=hj['Runs'].astype(str) + '/' + hj['Wickets'].astype(str), 
