@@ -141,7 +141,7 @@ if o>40:
     fig = go.Figure(data=[go.Pie(values=hj['slice'], labels=hj['Runs'].astype(str) + '/' + hj['Wickets'].astype(str), 
                              texttemplate='%{label}', textinfo='label',hoverinfo='none', 
                              marker_colors=colors,pull=[0.05, 0.05, 0.05, 0.05])])
-    fig.update_layout(title_text='Session Distribution',showlegend=False)
+    fig.update_layout(title_text='Session Distribution')
     st.write(fig)
     
 
