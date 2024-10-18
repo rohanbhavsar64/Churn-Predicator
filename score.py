@@ -2,6 +2,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests 
 import streamlit as st 
+sf=pd.read_csv('flags_iso.csv')
 st.header('ODI MATCH ANALYSIS')
 st.sidebar.header('Analysis')
 selected_section = st.sidebar.radio('Select a Section:', 
@@ -89,7 +90,9 @@ o=int(o)
 if o!=50:
     col1,col2=st.columns(2)
     with col1:
+        st.image(sf[sf['Country']==df['bowling_team'].unique()[0]]['URL'], width=100)
         st.write(f"**{df['bowling_team'].unique()[0]}**")
+        st.image(sf[sf['Country']==df['batting_team'].unique()[0]]['URL'], width=100)
         st.write(f"**{df['batting_team'].unique()[0]}**")
     with col2:
         st.write(str(df['target'].unique()[0])+'/'+str(df1.iloc[-1,2]))
