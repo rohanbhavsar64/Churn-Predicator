@@ -117,7 +117,7 @@ if o != 50:
 
     with col2:
         # Adjust the layout of col2 to be left-aligned
-        st.markdown("<div style='text-align: left;'>", unsafe_allow_html=True)  # Ensure left alignment
+        st.markdown("<div style='text-align: right;'>", unsafe_allow_html=True)  # Ensure left alignment
         st.write(str(df['target'].unique()[0]) + '/' + str(df1.iloc[-1, 2]))
         st.write('(' + str(df.iloc[o - 1, 5]) + '/' + '50)' + '    ' + str(df.iloc[o - 1, 3]) + '/' + str(df.iloc[o - 1, 4]))
         st.text('crr : ' + str(df.iloc[o - 1, 8].round(2)) + '  rrr : ' + str(df.iloc[o - 1, 9].round(2)))
