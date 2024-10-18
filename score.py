@@ -88,7 +88,8 @@ lf=lf[:int(o)]
 st.subheader('Scorecard')
 o=int(o)
 if o != 50:
-    col1, col2 = st.columns(2)
+    # Create a single row with two columns
+    col1, col2 = st.columns([1, 1])  # Equal width columns
 
     with col1:
         bowling_team = df['bowling_team'].unique()[0]
@@ -100,7 +101,7 @@ if o != 50:
             # Display the bowling team flag and name in the same line
             col_bowling, col_bowling_name = st.columns([1, 3])  # Adjust proportions as needed
             with col_bowling:
-                st.image(bowling_team_url.values[0], width=20)  # Adjust width as needed
+                st.image(bowling_team_url.values[0], width=40)  # Adjust width as needed
             with col_bowling_name:
                 st.write(f"**{bowling_team}**")
 
@@ -110,15 +111,18 @@ if o != 50:
             # Display the batting team flag and name in the same line
             col_batting, col_batting_name = st.columns([1, 3])  # Adjust proportions as needed
             with col_batting:
-                st.image(batting_team_url.values[0], width=20)  # Adjust width as needed
+                st.image(batting_team_url.values[0], width=40)  # Adjust width as needed
             with col_batting_name:
                 st.write(f"**{batting_team}**")
 
     with col2:
+        # Adjust the layout of col2 to be left-aligned
+        st.markdown("<div style='text-align: left;'>", unsafe_allow_html=True)  # Ensure left alignment
         st.write(str(df['target'].unique()[0]) + '/' + str(df1.iloc[-1, 2]))
         st.write('(' + str(df.iloc[o - 1, 5]) + '/' + '50)' + '    ' + str(df.iloc[o - 1, 3]) + '/' + str(df.iloc[o - 1, 4]))
         st.text('crr : ' + str(df.iloc[o - 1, 8].round(2)) + '  rrr : ' + str(df.iloc[o - 1, 9].round(2)))
         st.write(batting_team + ' Required ' + str(df.iloc[o - 1, 7]) + ' runs in ' + str(df.iloc[o - 1, 10]) + ' balls')
+        st.markdown("</div>", unsafe_allow_html=True)  # Close the div for left alignment
 else:
     col1,col2=st.columns(2)
     with col1:
