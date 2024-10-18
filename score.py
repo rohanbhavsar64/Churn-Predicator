@@ -679,7 +679,7 @@ wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use 
                                   mode='markers', name='Wickets in Over',
                                   marker_color='orange',marker_size=11,
                                   text=wicket_text, textposition='top center'))
-fig.update_layout(title='Innings Progression')
+fig1.update_layout(title='Innings Progression')
 st.write(fig1)
 fig = go.Figure()
 batting_team = fig.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
