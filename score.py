@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests 
 import streamlit as st 
 st.header('ODI MATCH ANALYSIS')
-st.sidebar.header('Navigation')
+st.sidebar.header('Analysis')
 selected_section = st.sidebar.radio('Select a Section:', 
                                      ('Score Comparison', 'Session Distribution', 'Innings Progression', 'Win Probability', 'Current Predictor'))
 
@@ -153,7 +153,7 @@ if o>40:
                               )])
     fig1.update_layout(title_text='Session Distribution', showlegend=False)  # Hide the legend
     
-
+fig1=fig1
 gf=df
 import pandas as pd
 import numpy as np
