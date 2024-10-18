@@ -100,7 +100,7 @@ if o != 50:
             # Display the bowling team flag and name in the same line
             col_bowling, col_bowling_name = st.columns([1, 3])  # Adjust proportions as needed
             with col_bowling:
-                st.image(bowling_team_url.values[0], width=50)  # Adjust width as needed
+                st.image(bowling_team_url.values[0], width=20)  # Adjust width as needed
             with col_bowling_name:
                 st.write(f"**{bowling_team}**")
 
@@ -110,7 +110,7 @@ if o != 50:
             # Display the batting team flag and name in the same line
             col_batting, col_batting_name = st.columns([1, 3])  # Adjust proportions as needed
             with col_batting:
-                st.image(batting_team_url.values[0], width=50)  # Adjust width as needed
+                st.image(batting_team_url.values[0], width=20)  # Adjust width as needed
             with col_batting_name:
                 st.write(f"**{batting_team}**")
 
