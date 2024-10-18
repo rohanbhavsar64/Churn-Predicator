@@ -125,21 +125,21 @@ if o != 50:
         st.markdown("</div>", unsafe_allow_html=True)  # Close the div for left alignment
 
     # Display teams and results
-    col1, col2 = st.columns(2)
-    with col1:
-        st.write(f"**{df['bowling_team'].unique()[0]}**")
-        st.write(f"**{df['batting_team'].unique()[0]}**")
-    with col2:
-        st.write(str(df['target'].unique()[0]))
-        st.write('(' + str(df.iloc[-1, 5]) + '/' + '50)   ' + str(df.iloc[-1, 3]) + '/' + str(df.iloc[-1, 4]))
+else:
+  col1, col2 = st.columns(2)
+  with col1:
+    st.write(f"**{df['bowling_team'].unique()[0]}**")
+    st.write(f"**{df['batting_team'].unique()[0]}**")
+  with col2:
+    st.write(str(df['target'].unique()[0]))
+    st.write('(' + str(df.iloc[-1, 5]) + '/' + '50)   ' + str(df.iloc[-1, 3]) + '/' + str(df.iloc[-1, 4]))
 
-        # Check if 'winner' column has unique values before accessing
-        if 'winner' in df.columns and not df['winner'].empty:
-            winner = df['winner'].unique()
-            if len(winner) > 0:
-                st.write(winner[0] + ' Won')
-        else:
-            st.write("Winner information not available.")
+  if 'winner' in df.columns and not df['winner'].empty:
+    winner = df['winner'].unique()
+    if len(winner) > 0:
+      st.write(winner[0] + ' Won')
+    else:
+      st.write("Winner information not available.")
 import plotly.graph_objects as go
 fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'],line_width=3,line_color='red',name=df['bowling_team'].unique()[0]),
