@@ -3,6 +3,11 @@ from bs4 import BeautifulSoup
 import requests 
 import streamlit as st 
 st.header('ODI MATCH ANALYSIS')
+st.sidebar.header('Navigation')
+selected_section = st.sidebar.radio('Select a Section:', 
+                                     ('Score Comparison', 'Session Distribution', 'Innings Progression', 'Win Probability', 'Current Predictor'))
+
+# Define the function for Score Comparison
 o=st.number_input('Over No.(Not Greater Than Overs Played in 2nd Innings)') or 50
 h = st.text_input('URL( ESPN CRICINFO >Select Match > Click On Overs )') or 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'
 if (h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'):
@@ -108,7 +113,6 @@ fig = go.Figure(data=[
 fig.update_layout(title='Score Comperison',
                   xaxis_title='Over',
                   yaxis_title='Score')
-st.write(fig)
 if o>40:
     a1=df.iloc[9,:]['score']
     a2=df.iloc[19,:]['score']
@@ -138,7 +142,7 @@ if o>40:
     session_colors = {'Draw': 'gray', 'Win': '#3F51B5','Lost':'#89CFF0'}
     colors = [session_colors[session] for session in hj['session']]
     
-    fig = go.Figure(data=[go.Pie(values=hj['slice'],
+    fig1 = go.Figure(data=[go.Pie(values=hj['slice'],
                                labels=hj['Runs'].astype(str) + '/' + hj['Wickets'].astype(str),
                                texttemplate='%{label}',
                                textinfo='label',
@@ -147,8 +151,7 @@ if o>40:
                                marker_colors=colors,
                                pull=[0.05] * len(hj['slice'])  # Dynamically set pull based on the number of slices
                               )])
-    fig.update_layout(title_text='Session Distribution', showlegend=False)  # Hide the legend
-    st.write(fig)
+    fig1.update_layout(title_text='Session Distribution', showlegend=False)  # Hide the legend
     
 
 gf=df
@@ -670,27 +673,25 @@ b2=gf['batting_team'].unique()[0]
 # Line chart for batting and bowling teams
 import plotly.graph_objects as go
 import plotly.express as px
-fig1=go.Figure()
-runs = fig1.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
+fig2=go.Figure()
+runs = fig2.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
 wicket_text = temp_df['wickets_in_over'].astype(str)
 wicket_y = temp_df['runs_after_over']+temp_df['wickets_in_over']*0.4  # adjust y-position based on wickets
 wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
-wicket = fig1.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
+wicket = fig2.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
                                   mode='markers', name='Wickets in Over',
                                   marker_color='orange',marker_size=11,
                                   text=wicket_text, textposition='top center'))
-fig1.update_layout(title='Innings Progression')
-st.write(fig1)
-fig = go.Figure()
-batting_team = fig.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
-bowling_team = fig.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
-fig.update_layout(
+fig2.update_layout(title='Innings Progression')
+fig3 = go.Figure()
+batting_team = fig3.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['win'], mode='lines', name=temp_df['batting_team'].unique()[0],line_color='green', line_width=4))
+bowling_team = fig3.add_trace(go.Scatter(x=temp_df.iloc[10:,:]['end_of_over'], y=temp_df.iloc[10:,:]['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0],line_color='red', line_width=4))
+fig3.update_layout(
     title='Target-' + str(target),
     height=700  # Set the height of the chart
 )
-fig.update_layout(title='Win Probablity Of Teams :Target-' + str(target))
+fig3.update_layout(title='Win Probablity Of Teams :Target-' + str(target))
 
-st.write(fig)
 
 tf=gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']]
 if o!=50:
@@ -700,10 +701,19 @@ if o!=50:
     data=[probablity1,probablity2]
     data1=[b2,a2]
     import plotly.graph_objects as go
-    fig = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
-    fig.update_layout(title='Current Predicator')
+    fig4 = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
+    fig4.update_layout(title='Current Predicator')
+    st.write(fig4)
+if selected_section == 'Score Comparison':
     st.write(fig)
-
+elif selected_section == 'Session Distribution':
+    st.write(fig1)
+elif selected_section == 'Innings Progression':
+    st.write(fig2)
+elif selected_section == 'Win Probability':
+    st.write(fig3)
+elif selected_section == 'Current Predictor':
+    st.write(fig4)
 if o==50:
     def result(raw):
         return 1 if(raw['batting_team']==raw['winner']) else 0
