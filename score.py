@@ -147,6 +147,8 @@ if o>40:
                                marker_colors=colors,
                                pull=[0.05] * len(hj['slice'])  # Dynamically set pull based on the number of slices
                               )])
+    fig.update_layout(title_text='Session Distribution')
+    st.write(fig)
     
 
 gf=df
