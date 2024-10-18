@@ -89,24 +89,30 @@ st.subheader('Scorecard')
 o=int(o)
 if o != 50:
     col1, col2 = st.columns(2)
-    
+
     with col1:
         bowling_team = df['bowling_team'].unique()[0]
         batting_team = df['batting_team'].unique()[0]
-        
+
         # Get the URL for the bowling team
         bowling_team_url = sf[sf['Country'] == bowling_team]['URL']
         if not bowling_team_url.empty:
             # Display the bowling team flag and name in the same line
-            st.image(bowling_team_url.values[0], width=20)  # Adjust width as needed
-            st.write(f" **{bowling_team}**", unsafe_allow_html=True)
-        
+            col_bowling, col_bowling_name = st.columns([1, 3])  # Adjust proportions as needed
+            with col_bowling:
+                st.image(bowling_team_url.values[0], width=50)  # Adjust width as needed
+            with col_bowling_name:
+                st.write(f"**{bowling_team}**")
+
         # Get the URL for the batting team
         batting_team_url = sf[sf['Country'] == batting_team]['URL']
         if not batting_team_url.empty:
             # Display the batting team flag and name in the same line
-            st.image(batting_team_url.values[0], width=20)  # Adjust width as needed
-            st.write(f" **{batting_team}**", unsafe_allow_html=True)
+            col_batting, col_batting_name = st.columns([1, 3])  # Adjust proportions as needed
+            with col_batting:
+                st.image(batting_team_url.values[0], width=50)  # Adjust width as needed
+            with col_batting_name:
+                st.write(f"**{batting_team}**")
 
     with col2:
         st.write(str(df['target'].unique()[0]) + '/' + str(df1.iloc[-1, 2]))
