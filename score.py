@@ -142,8 +142,8 @@ if o>40:
                                labels=hj['Runs'].astype(str) + '/' + hj['Wickets'].astype(str),
                                texttemplate='%{label}',
                                textinfo='label',
-                               hoverinfo='none',
-                               showlegend=True,  # Corrected from 'legend'
+                               hoverinfo='text',  # Changed to 'text'
+                               hovertext=hj['session'],  # Added hovertext
                                marker_colors=colors,
                                pull=[0.05] * len(hj['slice'])  # Dynamically set pull based on the number of slices
                               )])
