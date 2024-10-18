@@ -87,18 +87,29 @@ lf=df
 lf=lf[:int(o)]
 st.subheader('Scorecard')
 o=int(o)
-if o!=50:
-    col1,col2=st.columns(2)
+if o != 50:
+    col1, col2 = st.columns(2)
     with col1:
-        st.image(sf[sf['Country']==df['bowling_team'].unique()[0]]['URL'], width=100)
-        st.write(f"**{df['bowling_team'].unique()[0]}**")
-        st.image(sf[sf['Country']==df['batting_team'].unique()[0]]['URL'], width=100)
-        st.write(f"**{df['batting_team'].unique()[0]}**")
+        bowling_team = df['bowling_team'].unique()[0]
+        batting_team = df['batting_team'].unique()[0]
+        
+        # Get the URL for the bowling team
+        bowling_team_url = sf[sf['Country'] == bowling_team]['URL']
+        if not bowling_team_url.empty:
+            st.image(bowling_team_url.values[0], width=100)  # Access the first element
+        st.write(f"**{bowling_team}**")
+        
+        # Get the URL for the batting team
+        batting_team_url = sf[sf['Country'] == batting_team]['URL']
+        if not batting_team_url.empty:
+            st.image(batting_team_url.values[0], width=100)  # Access the first element
+        st.write(f"**{batting_team}**")
+        
     with col2:
-        st.write(str(df['target'].unique()[0])+'/'+str(df1.iloc[-1,2]))
-        st.write('('+str(df.iloc[o-1,5])+'/'+'50)'+'    '+str(df.iloc[o-1, 3])+'/'+str(df.iloc[o-1, 4]))
-    st.text('crr : '+str(df.iloc[o-1,8].round(2))+'  rrr : '+str(df.iloc[o-1,9].round(2)))
-    st.write(df['batting_team'].unique()[0]+' Required '+str(df.iloc[o-1,7])+' runs in '+str(df.iloc[o-1,10])+' balls')
+        st.write(str(df['target'].unique()[0]) + '/' + str(df1.iloc[-1, 2]))
+        st.write('(' + str(df.iloc[o - 1, 5]) + '/' + '50)' + '    ' + str(df.iloc[o - 1, 3]) + '/' + str(df.iloc[o - 1, 4]))
+        st.text('crr : ' + str(df.iloc[o - 1, 8].round(2)) + '  rrr : ' + str(df.iloc[o - 1, 9].round(2)))
+        st.write(batting_team + ' Required ' + str(df.iloc[o - 1, 7]) + ' runs in ' + str(df.iloc[o - 1, 10]) + ' balls')
 else:
     col1,col2=st.columns(2)
     with col1:
