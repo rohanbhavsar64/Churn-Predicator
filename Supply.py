@@ -38,7 +38,6 @@ y_pred_test = model.predict(X_test)
 # Calculate evaluation metrics
 mse = mean_squared_error(y_test, y_pred_test)
 mae = mean_absolute_error(y_test, y_pred_test)
-r2 = r2_score(y_test, y_pred_test)
 
 # Display evaluation metrics
 print("Model Evaluation:")
