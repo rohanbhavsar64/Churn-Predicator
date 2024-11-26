@@ -10,11 +10,7 @@ import streamlit as st
 df=pd.read_csv('orde.csv')
 df.columns = df.columns.str.strip()
 
-# Check if 'Order Date' is in the DataFrame
-if 'Order Date' not in df.columns:
-    raise KeyError("The 'Order Date' column is not present in the DataFrame.")
-
-print(df)
+st.write(df)
 data = df
 # Extract year and demand
 data['Year'] = data['Order Date'].dt.year
