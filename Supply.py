@@ -51,7 +51,7 @@ y_actual_2015_2017 = data[data['Year'] < 2018]['Order Quantity']
 y_pred_2015_2017 = model.predict(X_2015_2017)
 
 # Plot actual vs predicted for 2015–2017
-plt.figure(figsize=(12, 6))
+b=plt.figure(figsize=(12, 6))
 plt.plot(data[data['Year'] < 2018]['Day of Year'], y_actual_2015_2017, label='Actual Demand (2015–2017)', color='green', alpha=0.6)
 plt.plot(data[data['Year'] < 2018]['Day of Year'], y_pred_2015_2017, label='Predicted Demand (2015–2017)', color='red', linestyle='--')
 plt.xlabel('Day of Year')
@@ -60,7 +60,7 @@ plt.title('Actual vs Predicted Demand (2015–2017)')
 plt.legend()
 plt.grid()
 plt.show()
-
+st.write(b)
 # Predict for 2018
 X_2018 = data[data['Year'] == 2018][['Year', 'Day of Year']]
 if X_2018.empty:  # Generate dates if 2018 data is absent
@@ -69,11 +69,11 @@ if X_2018.empty:  # Generate dates if 2018 data is absent
 
 y_pred_2018 = model.predict(X_2018)
 # Plot predicted demand for 2018
-a=plt.figure(figsize=(12, 6))
+c=plt.figure(figsize=(12, 6))
 plt.plot(X_2018['Day of Year'], y_pred_2018, label='Predicted Demand for 2018', color='blue')
 plt.xlabel('Day of Year')
 plt.ylabel('Demand')
 plt.title('Demand Forecasting for 2018 (Gradient Boosting Regeressor)')
 plt.legend()
 plt.grid()
-st.write(a)                        
+st.write(c)                        
