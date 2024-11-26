@@ -7,10 +7,14 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import streamlit as st
-df=pd.read_csv('orde.csv')
+order=pd.read_csv('order (1).csv')
 
-st.write(df)
-data = df
+st.write(order)
+order['Order Date'] = order['Order Year'].astype(str) + '/' + order['Order Month'].astype(str) + '/' + order['Order Day'].astype(str)
+order['Order Date'] = pd.to_datetime(order['Order Date'])
+order['Order Date'] = order['Order Date'].dt.strftime('%Y/%m/%d')
+order['Order YearMonth'] = order['Order YearMonth'].astype(str)
+data = order
 # Extract year and demand
 data['Order Date']=pd.to_datetime(data['Order Date'])
 data['Year'] = data['Order Date'].dt.year
