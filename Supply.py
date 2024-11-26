@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import streamlit as st
 df=pd.read_csv('orde.csv')
+df.columns = df.columns.str.strip()
 print(df)
 data = df
 # Extract year and demand
