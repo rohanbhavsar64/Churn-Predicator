@@ -60,7 +60,7 @@ if X_2018.empty:  # Generate dates if 2018 data is absent
     days_2018 = pd.date_range('2018-01-01', '2018-12-31', freq='D').dayofyear
     X_2018 = pd.DataFrame({'Year': 2018, 'Day of Year': days_2018})
 
-y_pred_2018 = model.predict(X_201
+y_pred_2018 = model.predict(X_2018)
 # Plot predicted demand for 2018
 plt.figure(figsize=(12, 6))
 plt.plot(X_2018['Day of Year'], y_pred_2018, label='Predicted Demand for 2018', color='blue')
