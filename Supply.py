@@ -5,6 +5,7 @@ import datetime
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
+import streamlit as st
 df=pd.read_csv('orde.csv')
 print(df)
 data = df
@@ -68,4 +69,4 @@ plt.ylabel('Demand')
 plt.title('Demand Forecasting for 2018 (Gradient Boosting Regeressor)')
 plt.legend()
 plt.grid()
-plt.show()
+plt.show()                            
