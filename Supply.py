@@ -8,11 +8,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import streamlit as st
 df=pd.read_csv('orde.csv')
-df.columns = df.columns.str.strip()
 
 st.write(df)
 data = df
 # Extract year and demand
+data['Order Date']=pd.to_datetime(data['Order Date'])
 data['Year'] = data['Order Date'].dt.year
 data['Day of Year'] = data['Order Date'].dt.dayofyear
 data = data.groupby(['Year', 'Day of Year'])['Order Quantity'].sum().reset_index()
