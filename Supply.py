@@ -56,7 +56,7 @@ plt.plot(data[data['Year'] < 2018]['Day of Year'], y_actual_2015_2017, label='Ac
 plt.plot(data[data['Year'] < 2018]['Day of Year'], y_pred_2015_2017, label='Predicted Demand (2015–2017)', color='red', linestyle='--')
 plt.xlabel('Day of Year')
 plt.ylabel('Demand')
-plt.title('Actual vs Predicted Demand (2015–2017)')
+plt.title('Actual vs Predicted Demand (2017)')
 plt.legend()
 plt.grid()
 plt.show()
