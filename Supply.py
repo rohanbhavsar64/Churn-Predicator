@@ -7,6 +7,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import streamlit as st
+st.title('Demand Forecasting of Big Mart Sale')
 order=pd.read_csv('order (1).csv')
 a=st.selectbox('Select Category',order['Product Category'].unique())
 order=order[order['Product Category']==a]
