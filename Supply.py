@@ -9,7 +9,6 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 import streamlit as st
 df=pd.read_csv('orde.csv')
 df.columns = df.columns.str.strip()
-f.columns = df.columns.str.strip()
 
 # Check if 'Order Date' is in the DataFrame
 if 'Order Date' not in df.columns:
