@@ -68,11 +68,11 @@ if X_2018.empty:  # Generate dates if 2018 data is absent
 
 y_pred_2018 = model.predict(X_2018)
 # Plot predicted demand for 2018
-plt.figure(figsize=(12, 6))
+a=plt.figure(figsize=(12, 6))
 plt.plot(X_2018['Day of Year'], y_pred_2018, label='Predicted Demand for 2018', color='blue')
 plt.xlabel('Day of Year')
 plt.ylabel('Demand')
 plt.title('Demand Forecasting for 2018 (Gradient Boosting Regeressor)')
 plt.legend()
 plt.grid()
-st.write(plt.show())                        
+st.write(a)                        
