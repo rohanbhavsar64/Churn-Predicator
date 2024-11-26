@@ -8,7 +8,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import streamlit as st
 order=pd.read_csv('order (1).csv')
-st.selectbox('Select Category',order['Product Category'].unique())
+a=st.selectbox('Select Category',order['Product Category'].unique())
+order=order[order['Product Category']==a]
 st.write(order)
 order['Order Date'] = order['Order Year'].astype(str) + '/' + order['Order Month'].astype(str) + '/' + order['Order Day'].astype(str)
 order['Order Date'] = pd.to_datetime(order['Order Date'])
