@@ -9,10 +9,13 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 import streamlit as st
 st.title('Demand Forecasting of Big Mart Sale')
 order=pd.read_csv('order (1).csv')
-a=st.selectbox('Select Category',order['Product Category'].unique())
-order=order[order['Product Category']==a]
-count=st.selectbox('Select Customer Country',order['Customer Country'].unique())
-order=order[order['Customer Country']==count]
+col1,col2=st.columns(2)
+with col1:
+    a=st.selectbox('Select Category',order['Product Category'].unique())
+    order=order[order['Product Category']==a]
+with col2:
+    count=st.selectbox('Select Customer Country',order['Customer Country'].unique())
+    order=order[order['Customer Country']==count]
 st.write(order)
 order['Order Date'] = order['Order Year'].astype(str) + '/' + order['Order Month'].astype(str) + '/' + order['Order Day'].astype(str)
 order['Order Date'] = pd.to_datetime(order['Order Date'])
