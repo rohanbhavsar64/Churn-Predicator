@@ -17,7 +17,7 @@ with col1:
 with col2:
     count=st.selectbox('Select Customer Country',order['Customer Country'].unique())
     order=order[order['Customer Country']==count]
-st.write(order)
+st.write(order.head())
 order['Order Date'] = order['Order Year'].astype(str) + '/' + order['Order Month'].astype(str) + '/' + order['Order Day'].astype(str)
 order['Order Date'] = pd.to_datetime(order['Order Date'])
 order['Order Date'] = order['Order Date'].dt.strftime('%Y/%m/%d')
@@ -49,8 +49,8 @@ mae = mean_absolute_error(y_test, y_pred_test)
 r2=r2_score(y_test, y_pred_test)
 # Display evaluation metrics
 print("Model Evaluation:")
-st.write(f"Mean Squared Error (MSE): {mse:.2f}")
-st.write(f"Mean Absolute Error (MAE): {mae:.2f}")
+print(f"Mean Squared Error (MSE): {mse:.2f}")
+print(f"Mean Absolute Error (MAE): {mae:.2f}")
 
 # Predict for 2015–2017
 X_2015_2017 = data[data['Year'] < 2018][['Year', 'Day of Year']]
