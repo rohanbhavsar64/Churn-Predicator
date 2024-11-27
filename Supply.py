@@ -51,7 +51,6 @@ r2=r2_score(y_test, y_pred_test)
 print("Model Evaluation:")
 st.write(f"Mean Squared Error (MSE): {mse:.2f}")
 st.write(f"Mean Absolute Error (MAE): {mae:.2f}")
-st.write(f"R2 Score: {r2:.2f}")
 
 # Predict for 2015–2017
 X_2015_2017 = data[data['Year'] < 2018][['Year', 'Day of Year']]
@@ -60,8 +59,8 @@ y_pred_2015_2017 = model.predict(X_2015_2017)
 
 # Plot actual vs predicted for 2015–2017
 b=plt.figure(figsize=(12, 6))
-plt.plot(data[data['Year'] < 2018]['Day of Year'], y_actual_2015_2017, label='Actual Demand (2015–2017)', color='green', alpha=0.6)
-plt.plot(data[data['Year'] < 2018]['Day of Year'], y_pred_2015_2017, label='Predicted Demand (2015–2017)', color='red', linestyle='--')
+plt.plot(data[data['Year'] < 2018]['Day of Year'], y_actual_2015_2017, label='Actual Demand (2017)', color='green', alpha=0.6)
+plt.plot(data[data['Year'] < 2018]['Day of Year'], y_pred_2015_2017, label='Predicted Demand (2017)', color='red', linestyle='--')
 plt.xlabel('Day of Year')
 plt.ylabel('Demand')
 plt.title('Actual vs Predicted Demand (2017)')
