@@ -11,8 +11,8 @@ st.title('Demand Forecasting of Big Mart Sale')
 order=pd.read_csv('order (1).csv')
 a=st.selectbox('Select Category',order['Product Category'].unique())
 order=order[order['Product Category']==a]
-count=st.selectbox('Select Category',order['Customer Country'].unique())
-order=order[order['Product Category']==count]
+count=st.selectbox('Select Customer Country',order['Customer Country'].unique())
+order=order[order['Customer Country']==count]
 st.write(order)
 order['Order Date'] = order['Order Year'].astype(str) + '/' + order['Order Month'].astype(str) + '/' + order['Order Day'].astype(str)
 order['Order Date'] = pd.to_datetime(order['Order Date'])
