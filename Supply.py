@@ -5,7 +5,8 @@ import datetime
 import time
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error,r2_score
+
 import streamlit as st
 st.title('Demand Forecasting of Big Mart Sale')
 order=pd.read_csv('order (1).csv')
@@ -45,11 +46,12 @@ y_pred_test = model.predict(X_test)
 # Calculate evaluation metrics
 mse = mean_squared_error(y_test, y_pred_test)
 mae = mean_absolute_error(y_test, y_pred_test)
-
+r2=r2_score(y_test, y_pred_test)
 # Display evaluation metrics
 print("Model Evaluation:")
-print(f"Mean Squared Error (MSE): {mse:.2f}")
-print(f"Mean Absolute Error (MAE): {mae:.2f}")
+st.write(f"Mean Squared Error (MSE): {mse:.2f}")
+st.write(f"Mean Absolute Error (MAE): {mae:.2f}")
+st.write(f"R2 Score: {r2:.2f}")
 
 # Predict for 2015–2017
 X_2015_2017 = data[data['Year'] < 2018][['Year', 'Day of Year']]
