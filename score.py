@@ -718,7 +718,7 @@ elif selected_section == 'Win Probability':
 elif selected_section == 'Summary':
   r = requests.get(url2)
   b=BeautifulSoup(r.text,'html')
-  st.write(b.find(class_='ds-text-compact-s').text)
+  st.write(b.find(class_='ds-hover-parent lg:hover:ds-bg-ui-fill-translucent ds-select-none lg:ds-select-auto ds-flex ds-items-start ds-relative').text)
     
 elif selected_section == 'Current Predictor':
     st.write(fig4)
