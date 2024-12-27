@@ -699,20 +699,7 @@ if o!=50:
     import plotly.graph_objects as go
     fig4 = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
     fig4.update_layout(title='Current Predicator')
-import streamlit as st
-import requests
-from bs4 import BeautifulSoup
 
-# Function to get video URL
-def get_video_url(page_url, class_name):
-    response = requests.get(page_url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    
-    # Find the video tag with the specific class
-    video_tag = soup.find('video', class_=class_name)
-    if video_tag and 'src' in video_tag.attrs:
-        return video_tag['src']
-    return None
 
 # Streamlit app
 st.title("Cricket Match Highlights")
@@ -729,13 +716,10 @@ elif selected_section == 'Innings Progression':
 elif selected_section == 'Win Probability':
     st.write(fig3)
 elif selected_section == 'Summary':
-    # Get the video URL
-    video_url = get_video_url(url2, class_name)
-    st.write(video_url)
-    if video_url:
-        st.video(video_url, format="mp4")  # Display the video if the URL is found
-    else:
-        st.error("Video not found.")  # Display an error message
+  r = requests.get(url2)
+  b=BeautifulSoup(r.text,'html')
+  st.write(b.find(class_='ds-text-compact-s').text)
+    
 elif selected_section == 'Current Predictor':
     st.write(fig4)
 if o==50:
