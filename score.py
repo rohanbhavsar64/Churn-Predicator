@@ -13,6 +13,8 @@ o=st.number_input('Over No.(Not Greater Than Overs Played in 2nd Innings)') or 5
 h = st.text_input('URL( ESPN CRICINFO >Select Match > Click On Overs )') or 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'
 if (h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'):
     st.write('Enter Your URL')
+
+url2 = h.replace('match-overs-comparison', 'live-cricket-score')
 r = requests.get(h)
 #r1=requests.get('https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/india-vs-new-zealand-1st-semi-final-1384437/full-scorecard')
 b=BeautifulSoup(r.text,'html')
@@ -697,6 +699,35 @@ if o!=50:
     import plotly.graph_objects as go
     fig4 = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
     fig4.update_layout(title='Current Predicator')
+import streamlit as st
+import requests
+from bs4 import BeautifulSoup
+
+def get_video_url(page_url):
+    response = requests.get(page_url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Find the video tag and extract the src attribute
+    video_tag = soup.find('video')
+    if video_tag and 'src' in video_tag.attrs:
+        return video_tag['src']
+    return None
+
+# Streamlit app
+st.title("Video Player")
+
+# URL of the page containing the video
+page_url = url2
+
+# Get the video URL
+video_url = get_video_url(page_url)
+
+# Check the video URL and display accordingly
+if video_url:
+    st.video(video_url)  # Display the video if the URL is found
+else:
+    # Handle the case where the video URL is not found
+    st.error("Video not found.")  # Display an error message
 if selected_section == 'Score Comparison':
     st.write(fig)
 elif selected_section == 'Session Distribution':
