@@ -6,7 +6,7 @@ sf=pd.read_csv('flags_iso.csv')
 st.header('ODI MATCH ANALYSIS')
 st.sidebar.header('Analysis')
 selected_section = st.sidebar.radio('Select a Section:', 
-                                     ('Score Comparison', 'Session Distribution', 'Innings Progression', 'Win Probability', 'Current Predictor'))
+                                     ('Score Comparison', 'Session Distribution', 'Innings Progression', 'Win Probability','Summary', 'Current Predictor'))
 
 # Define the function for Score Comparison
 o=st.number_input('Over No.(Not Greater Than Overs Played in 2nd Innings)') or 50
@@ -705,6 +705,8 @@ elif selected_section == 'Innings Progression':
     st.write(fig2)
 elif selected_section == 'Win Probability':
     st.write(fig3)
+elif selected_section == 'Summary':
+  st.write('Hello')
 elif selected_section == 'Current Predictor':
     st.write(fig4)
 if o==50:
