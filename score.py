@@ -724,9 +724,6 @@ if video_url:
     st.video(video_url)  # Display the video if the URL is found
 else:
     st.error("Video not found.")  # Display an error message
-else:
-    # Handle the case where the video URL is not found
-    st.error("Video not found.")  # Display an error message
 if selected_section == 'Score Comparison':
     st.write(fig)
 elif selected_section == 'Session Distribution':
