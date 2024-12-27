@@ -733,7 +733,7 @@ elif selected_section == 'Summary':
     video_url = get_video_url(url2, class_name)
     
     if video_url:
-        st.video(video_url)  # Display the video if the URL is found
+        st.video(video_url, format="mp4"))  # Display the video if the URL is found
     else:
         st.error("Video not found.")  # Display an error message
 elif selected_section == 'Current Predictor':
