@@ -709,8 +709,12 @@ elif selected_section == 'Innings Progression':
     st.write(fig2)
 elif selected_section == 'Win Probability':
     st.write(fig3)
-elif selected_section == 'Summary':
-  def get_video_url(page_url, class_name):
+import streamlit as st
+import requests
+from bs4 import BeautifulSoup
+
+# Function to get video URL
+def get_video_url(page_url, class_name):
     response = requests.get(page_url)
     soup = BeautifulSoup(response.content, 'html.parser')
     
@@ -719,12 +723,25 @@ elif selected_section == 'Summary':
     if video_tag and 'src' in video_tag.attrs:
         return video_tag['src']
     return None
-    st.title("Video Player")
-    page_url = url2 # Replace with the actual URL
-    class_name = "vjs-tech"  # Replace with the actual class name of the video tag
-    video_url = get_video_url(page_url, class_name)
+
+# Streamlit app
+st.title("Cricket Match Highlights")
+
+# Example URL and class name
+#url2 = "https://www.espncricinfo.com/your_video_page"  # Replace with the actual URL
+class_name = "vjs-tech"  # Replace with the actual class name of the video tag
+
+# Section selection
+selected_section = st.selectbox("Select Section", ["Summary", "Other Sections"])
+
+elif selected_section == 'Summary':
+    # Get the video URL
+    video_url = get_video_url(url2, class_name)
+    
     if video_url:
-      st.video(video_url)  # Display the video if the URL is found
+        st.video(video_url)  # Display the video if the URL is found
+    else:
+        st.error("Video not found.")  # Display an error message
 elif selected_section == 'Current Predictor':
     st.write(fig4)
 if o==50:
