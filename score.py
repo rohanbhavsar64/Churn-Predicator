@@ -731,7 +731,7 @@ elif selected_section == 'Win Probability':
 elif selected_section == 'Summary':
     # Get the video URL
     video_url = get_video_url(url2, class_name)
-    
+    st.write(video_url)
     if video_url:
         st.video(video_url, format="mp4")  # Display the video if the URL is found
     else:
