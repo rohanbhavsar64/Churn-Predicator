@@ -699,29 +699,6 @@ if o!=50:
     import plotly.graph_objects as go
     fig4 = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
     fig4.update_layout(title='Current Predicator')
-def get_video_url(page_url, class_name):
-    response = requests.get(page_url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    
-    # Find the video tag with the specific class
-    video_tag = soup.find('video', class_=class_name)
-    if video_tag and 'src' in video_tag.attrs:
-        return video_tag['src']
-    return None
-
-# Streamlit app
-st.title("Video Player")
-
-# URL of the page containing the video
-page_url = url2 # Replace with the actual URL
-class_name = "vjs-tech"  # Replace with the actual class name of the video tag
-
-# Get the video URL
-video_url = get_video_url(page_url, class_name)
-
-# Check the video URL and display accordingly
-if video_url:
-    st.video(video_url)  # Display the video if the URL is found
 else:
     st.error("Video not found.")  # Display an error message
 if selected_section == 'Score Comparison':
@@ -733,7 +710,21 @@ elif selected_section == 'Innings Progression':
 elif selected_section == 'Win Probability':
     st.write(fig3)
 elif selected_section == 'Summary':
-  st.write(url2)
+  def get_video_url(page_url, class_name):
+    response = requests.get(page_url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Find the video tag with the specific class
+    video_tag = soup.find('video', class_=class_name)
+    if video_tag and 'src' in video_tag.attrs:
+        return video_tag['src']
+    return None
+    st.title("Video Player")
+    page_url = url2 # Replace with the actual URL
+    class_name = "vjs-tech"  # Replace with the actual class name of the video tag
+    video_url = get_video_url(page_url, class_name)
+    if video_url:
+      st.video(video_url)  # Display the video if the URL is found
 elif selected_section == 'Current Predictor':
     st.write(fig4)
 if o==50:
