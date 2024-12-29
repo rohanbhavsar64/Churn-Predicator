@@ -208,49 +208,8 @@ if o != 50:
     # Execute the logic only if o != 50
 
     # match_progression function
-    def match_progression(x_df, match_id, pipe):
-        match = x_df[x_df['match_id'] == match_id]
-        match = match[(match['balls_left'] % 6 == 0)]
-        temp_df = match[['batting_team', 'bowling_team', 'venue', 'score', 'wickets', 'runs_left', 'balls_left', 'crr', 'rrr', 'last_10', 'last_10_wicket']].fillna(0)
-        temp_df = temp_df[temp_df['balls_left'] != 0]
-        
-        if temp_df.empty:
-            print("Error: Match is not Existed")
-            return None, None
-        
-        result = pipe.predict_proba(temp_df)
-        temp_df['lose'] = np.round(result.T[0] * 100, 1)
-        temp_df['win'] = np.round(result.T[1] * 100, 1)
-        temp_df['end_of_over'] = (300 - temp_df['balls_left']) / 6
-        target = (temp_df['score'] + temp_df['runs_left'] + 1).values[0]
-        
-        # Handle runs
-        runs = temp_df['runs_left'].tolist()
-        new_runs = runs[:]
-        new_runs.insert(0, target)
-        temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
-        
-        # Handle wickets
-        wickets = (10 - temp_df['wickets']).tolist()
-        new_wickets = wickets[:]
-        new_wickets.insert(0, 10)
-        wickets.append(0)
-        w = np.array(wickets)
-        nw = np.array(new_wickets)
-        temp_df['wickets_in_over'] = (nw - w)[0:temp_df.shape[0]]
-        temp_df['wickets'] = temp_df['wickets_in_over'].cumsum()
-
-        # Add remaining columns
-        temp_df['batting_team'] = match['batting_team']
-        temp_df['bowling_team'] = match['bowling_team']
-        temp_df['venue'] = match['venue']
-        temp_df['score'] = match['score']
-        
-        print("Target-", target)
-        
-        # Return the processed dataframe and target score
-        temp_df = temp_df[['batting_team', 'bowling_team', 'end_of_over', 'runs_after_over', 'wickets_in_over', 'score', 'wickets', 'lose', 'win', 'venue']]
-        return temp_df, target
+   def match_progression(x_df,match_id,pipe): match = x_df[x_df['match_id'] == match_id] match = match[(match['balls_left']%6 == 0)] temp_df = match[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']].fillna(0) temp_df = temp_df[temp_df['balls_left'] != 0] if temp_df.empty: print("Error: Match is not Existed") return None, None result = pipe.predict_proba(temp_df) temp_df['lose'] = np.round(result.T[0]*100,1) temp_df['win'] = np.round(result.T[1]*100,1) temp_df['end_of_over'] = (300-temp_df['balls_left'])/6
+target = (temp_df['score']+temp_df['runs_left']+1).values[0] runs = temp_df['runs_left'].tolist() new_runs = runs[:] runs.insert(0,target) temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs) temp_df['batting_team']=match['batting_team'] temp_df['bowling_team']=match['bowling_team'] wickets = (10 - temp_df['wickets']).tolist() new_wickets = wickets[:] new_wickets.insert(0,10) wickets.append(0) w = np.array(wickets) nw = np.array(new_wickets) temp_df['wickets_in_over'] = (nw-w)[0:temp_df.shape[0]] temp_df['wickets']=temp_df['wickets_in_over'].cumsum() temp_df['venue']=match['venue'] temp_df['score']=match['score'] print("Target-",target) temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','score','wickets','lose','win','venue']] return temp_df,target
 
     # Call match_progression with parameters
     temp_df, target = match_progression(gf, 100001, pipe)
