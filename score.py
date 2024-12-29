@@ -583,6 +583,14 @@ pipe.fit(X_train,y_train)
 
 
 n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali',185,4,93,108,5.6,5.41,42.0,3.0]).reshape(1,11))).astype(float)
+# Load the pipeline from the file
+import pickle
+with open('pipeline.pkl', 'rb') as file:
+    loaded_pipeline = pickle.load(file)
+
+# Now you can use the loaded pipeline to make predictions
+predictions = loaded_pipeline.predict(X_test)
+print(predictions)
 if int(o)!=50:
     gf = gf[:int(o)]
 neg_idx = gf[gf['runs'] < 0].index
