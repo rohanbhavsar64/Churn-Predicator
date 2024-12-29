@@ -41,13 +41,13 @@ else:
                 list_wickets.append(int(element.text.split('/')[1].split('(')[0]))
             else:  # Even indices
                 list_over.append(i // 2 + 1)  # Convert to over number
-  for i, element in enumerate(elements):
-        if element.text.split('/'):
-            if i % 2 == 0:  # Odd indices
-                list_score1.append(int(element.text.split('/')[0]))
-                list_wickets1.append(int(element.text.split('/')[1].split('(')[0]))
-            else:  # Even indices
-                list_over1.append(i // 2 + 1)  # Convert to over number
+    for i, element in enumerate(elements):
+      if element.text.split('/'):
+        if i % 2 == 0:
+          list_score1.append(int(element.text.split('/')[0]))
+          list_wickets1.append(int(element.text.split('/')[1].split('(')[0]))
+        else:
+          list_over1.append(i // 2 + 1)  # Convert to over number
        
     # Create DataFrame
     df = pd.DataFrame({
