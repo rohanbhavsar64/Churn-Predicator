@@ -4,7 +4,6 @@ import numpy as np
 import plotly.graph_objects as go
 import requests
 from bs4 import BeautifulSoup
-import pickle
 
 # Load country flags data
 sf = pd.read_csv('flags_iso.csv')
@@ -16,8 +15,9 @@ selected_section = st.sidebar.radio('Select a Section:',
                                      ('Score Comparison', 'Innings Progression', 'Win Probability', 'Current Predictor'))
 
 # Define the function for Score Comparison
-o = st.number_input('Over No.(Not Greater Than Overs Played in 2nd Innings)') or 50
-h = st.text_input('URL(ESPN CRICINFO >Select Match > Click On Overs)') or 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison'
+o = st.number_input('Over No.(Not Greater Than Overs Played in 2nd Innings)', min_value=1, max_value=50, value=50)
+h = st.text_input('URL(ESPN CRICINFO >Select Match > Click On Overs)',
+                  'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison')
 
 if h == 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison':
     st.write('Enter Your URL')
@@ -27,46 +27,29 @@ else:
     venue = b.find(class_='ds-flex ds-items-center').text.split(',')[1]
     
     # Initialize lists for data extraction
-    list = []
-    list1 = []
-    list8 = []
-    list9 = []
-    list10 = []
-
+    list_score = []
+    list_wickets = []
+    list_over = []
     elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
     for i, element in enumerate(elements):
         if element.text.split('/'):
-            if i % 2 != 0:
-                list.append(element.text.split('/')[0])
-                list1.append(element.text.split('/')[1].split('(')[0])
-            else:
-                list8.append(element.text.split('/')[0])
-                list9.append(i / 2 + 1)
-                list10.append(element.text.split('/')[1].split('(')[0])
-                
-    dict1 = {'inng1': list8, 'over': list9, 'wickets': list10}
-    df1 = pd.DataFrame(dict1)
+            if i % 2 != 0:  # Odd indices
+                list_score.append(int(element.text.split('/')[0]))
+                list_wickets.append(int(element.text.split('/')[1].split('(')[0]))
+            else:  # Even indices
+                list_over.append(i // 2 + 1)  # Convert to over number
+    
+    # Create DataFrame
+    df = pd.DataFrame({
+        'score': list_score,
+        'wickets': list_wickets,
+        'over': list_over[:len(list_score)]  # Ensure matching lengths
+    })
 
-    dict = {'score': list, 'wickets': list1}
-    df = pd.DataFrame(dict)
-
-    # Convert and clean data
-    df['score'] = pd.to_numeric(df['score'], errors='coerce').fillna(0)
-    df['wickets'] = pd.to_numeric(df['wickets'], errors='coerce').fillna(0)
-    df1['inng1'] = pd.to_numeric(df1['inng1'], errors='coerce').fillna(0)
-    df1['wickets'] = pd.to_numeric(df1['wickets'], errors='coerce').fillna(0)
-
-    # Initialize previous wickets column
-    df1['previous_wickets'] = df1['wickets'].shift(1).fillna(0)
-
-    # Perform subtraction safely
-    df1['wic'] = df1['wickets'] - df1['previous_wickets']
-
-    # Additional calculations
+    # Add computed columns
     df['target'] = df['score'].max() + 1  # Example target
-    df['runs_left'] = df['target'] - df['score']
     df['crr'] = df['score'] / df['over']
-    df['rrr'] = df['runs_left'] / (50 - df['over'])
+    df['rrr'] = (df['target'] - df['score']) / (50 - df['over'])
     df['balls_left'] = 300 - (df['over'] * 6)
     df['runs'] = df['score'].diff().fillna(0)
     df['last_10'] = df['runs'].rolling(window=10).sum().fillna(0)
@@ -74,22 +57,41 @@ else:
     df['last_10_wicket'] = df['wickets_in_over'].rolling(window=10).sum().fillna(0)
 
     # Display the scorecard
-    o = int(o)
-    if o != 50:
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            bowling_team = "Bowling Team"  # Replace with dynamic value
-            batting_team = "Batting Team"  # Replace with dynamic value
-            st.write(f"**{bowling_team}** vs **{batting_team}**")
-        with col2:
-            st.write(f"Target: {df['target'].max()}")
-            st.write(f"Runs Left: {df['runs_left'].iloc[o]}")
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        st.write(f"**Bowling Team**: Example Team")
+        st.write(f"**Batting Team**: Example Team")
+    with col2:
+        st.write(f"Target: {df['target'].max()}")
+        st.write(f"CRR: {df.iloc[-1]['crr']:.2f}, RRR: {df.iloc[-1]['rrr']:.2f}")
+        st.write(f"Runs Left: {df.iloc[-1]['target'] - df.iloc[-1]['score']} in {df.iloc[-1]['balls_left']} balls")
     
     # Display plots
     fig = go.Figure(data=[
-        go.Scatter(x=df1['over'], y=df1['inng1'], line_width=3, line_color='red', name="Innings 1"),
-        go.Scatter(x=df['over'], y=df['score'], line_width=3, line_color='green', name="Innings 2")
+        go.Scatter(x=df['over'], y=df['score'], mode='lines+markers', name="Score Progression", line_color='green')
     ])
     fig.update_layout(title='Score Comparison', xaxis_title='Over', yaxis_title='Score')
     st.plotly_chart(fig)
 
+# Handling negative indices in df1 (Ensure clean data)
+if 'inng1' in df1.columns:
+    neg_idx = df1[df1['inng1'] < 0].index
+    if not neg_idx.empty:
+        df1 = df1[:neg_idx[0]]
+
+# Truncate dataframe if `o` is less than 50
+lf = df
+lf = lf[:int(o)]
+
+# Display sections
+selected_section = st.radio("Select Section", ['Score Comparison', 'Win Probability'])
+if selected_section == 'Score Comparison':
+    st.write(fig)
+elif selected_section == 'Win Probability':
+    fig3 = go.Figure()
+    fig3.add_trace(go.Scatter(x=temp_df.iloc[10:, :]['end_of_over'], y=temp_df.iloc[10:, :]['win'], mode='lines',
+                              name=temp_df['batting_team'].unique()[0], line_color='green', line_width=4))
+    fig3.add_trace(go.Scatter(x=temp_df.iloc[10:, :]['end_of_over'], y=temp_df.iloc[10:, :]['lose'], mode='lines',
+                              name=temp_df['bowling_team'].unique()[0], line_color='red', line_width=4))
+    fig3.update_layout(title=f"Win Probability of Teams (Target: {target})", height=700)
+    st.write(fig3)
