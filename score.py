@@ -187,4 +187,4 @@ wicket_text1 = df1['wic'].astype(str)
 wicket_y1 = df1['inng1'] + df1['wic']  # Adjust y-position based on wickets
 wicket_y1[wicket_y1 == df1['inng1']] = None  # Hide scatter points for 0 wickets
 
-fig.add_trace(go.Scatter(x=lf['over'], y=wicket_y, mode='markers', name='Wickets', marker_color='
+fig.add_trace(go.Scatter(x=lf['over'], y=wicket_y, mode='markers', name='Wickets', marker_color='green'))
