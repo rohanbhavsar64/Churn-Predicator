@@ -73,6 +73,18 @@ if o == 50:
     dict = {'batting_team': list5, 'bowling_team': list4, 'venue': list6, 'score': list, 'wickets': list1, 'over': list2, 'target': list3, 'winner': list7}
 else:
     dict = {'batting_team': list5, 'bowling_team': list4, 'venue': list6, 'score': list, 'wickets': list1, 'over': list2, 'target': list3}
+max_len = max(len(list5), len(list4), len(list6), len(list), len(list1), len(list2), len(list3))
+
+list5.extend([None] * (max_len - len(list5)))
+list4.extend([None] * (max_len - len(list4)))
+list6.extend([None] * (max_len - len(list6)))
+list.extend([None] * (max_len - len(list)))
+list1.extend([None] * (max_len - len(list1)))
+list2.extend([None] * (max_len - len(list2)))
+list3.extend([None] * (max_len - len(list3)))
+
+dict = {'batting_team': list5, 'bowling_team': list4, 'venue': list6, 'score': list, 'wickets': list1, 'over': list2, 'target': list3}
+df = pd.DataFrame(dict)
 
 df = pd.DataFrame(dict)
 
