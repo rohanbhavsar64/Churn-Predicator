@@ -86,8 +86,6 @@ list3.extend([None] * (max_len - len(list3)))
 dict = {'batting_team': list5, 'bowling_team': list4, 'venue': list6, 'score': list, 'wickets': list1, 'over': list2, 'target': list3}
 df = pd.DataFrame(dict)
 
-df = pd.DataFrame(dict)
-
 df['score'] = df['score'].astype('int')
 df1['inng1'] = df1['inng1'].astype('int')
 df1['wickets'] = df1['wickets'].astype('int')
@@ -173,7 +171,8 @@ if 'winner' in df.columns and not df['winner'].empty:
         st.write(winner[0] + ' Won')
     else:
         st.write("Winner information not available.")
-gf=df
+gf = df
+
 # Plotting Score Comparison
 fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'], line_width=3, line_color='red', name=df['bowling_team'].unique()[0]),
@@ -188,93 +187,4 @@ wicket_text1 = df1['wic'].astype(str)
 wicket_y1 = df1['inng1'] + df1['wic']  # Adjust y-position based on wickets
 wicket_y1[wicket_y1 == df1['inng1']] = None  # Hide scatter points for 0 wickets
 
-fig.add_trace(go.Scatter(x=lf['over'], y=wicket_y, mode='markers', name='Wickets', marker_color='green', marker_size=8, text=wicket_text, textposition='top center'))
-fig.add_trace(go.Scatter(x=df1['over'], y=wicket_y1, mode='markers', name='Wickets', marker_color='red', marker_size=8, text=wicket_text1, textposition='top center'))
-
-fig.update_layout(title='Score Comparison', xaxis_title='Over', yaxis_title='Score')
-import streamlit as st
-import plotly.graph_objects as go
-import numpy as np
-
-# Assuming these are defined or passed in elsewhere
-o = 50  # Example value for o (change this as per your requirement)
-  # Replace with actual prediction pipeline
-gf = df  # Replace with actual data
-with open('pipeline.pkl', 'rb') as file:
-    pipe = pickle.load(file)
-# Check if 'o' is not equal to 50
-n=pipe.predict_proba(pd.DataFrame(columns=['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket'],data=np.array(['India','Australia','Punjab Cricket Association Stadium, Mohali',185,4,93,108,5.6,5.41,42.0,3.0]).reshape(1,11)))
-st.write(n)
-import numpy as np
-gf['match_id']=100001
-def match_progression(x_df, match_id, pipe):
-    # Filter for the match by match_id
-    match = x_df[x_df['match_id'] == match_id]
-    
-    # Only consider rows where balls_left is a multiple of 6 (end of over)
-    match = match[match['balls_left'] % 6 == 0]
-    
-    # Create a temporary DataFrame with relevant columns and fill NaN values
-    temp_df = match[['batting_team', 'bowling_team', 'venue', 'score', 
-                     'wickets', 'runs_left', 'balls_left', 'crr', 
-                     'rrr', 'last_10', 'last_10_wicket']].fillna(0)
-    
-    # Remove rows where balls_left is 0
-    temp_df = temp_df[temp_df['balls_left'] != 0]
-    
-    if temp_df.empty:
-        print("Error: Match is not Existed")
-        return None, None
-    
-    # Predict probabilities using the model pipe
-    result = pipe.predict_proba(temp_df)
-    
-    # Calculate win/lose probabilities
-    temp_df['lose'] = np.round(result.T[0] * 100, 1)
-    temp_df['win'] = np.round(result.T[1] * 100, 1)
-    
-    # Calculate the end of over (overs completed)
-    temp_df['end_of_over'] = (300 - temp_df['balls_left']) / 6
-    
-    # Calculate the target score
-    target = (temp_df['score'] + temp_df['runs_left'] + 1).values[0]
-    
-    # Create runs after over list for over-wise runs calculation
-    runs = temp_df['runs_left'].tolist()
-    new_runs = runs[:]
-    new_runs.insert(0, target)
-    
-    # Calculate runs scored in each over
-    temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
-    
-    # Set the batting and bowling teams
-    temp_df['batting_team'] = match['batting_team']
-    temp_df['bowling_team'] = match['bowling_team']
-    
-    # Calculate wickets in each over and cumulative wickets
-    wickets = (10 - temp_df['wickets']).tolist()
-    new_wickets = wickets[:]
-    new_wickets.insert(0, 10)
-    wickets.append(0)
-    
-    w = np.array(wickets)
-    nw = np.array(new_wickets)
-    temp_df['wickets_in_over'] = (nw - w)[0:temp_df.shape[0]]
-    
-    # Calculate cumulative wickets
-    temp_df['wickets'] = temp_df['wickets_in_over'].cumsum()
-    
-    # Set other match details
-    temp_df['venue'] = match['venue']
-    temp_df['score'] = match['score']
-    
-    print(f"Target: {target}")
-    
-    # Return final DataFrame with required columns and the target
-    temp_df = temp_df[['batting_team', 'bowling_team', 'end_of_over', 
-                       'runs_after_over', 'wickets_in_over', 'score', 
-                       'wickets', 'lose', 'win', 'venue']]
-    
-    return temp_df, target
-temp_df, target = match_progression(gf,100001, pipe)
-st.write(temp_df)
+fig.add_trace(go.Scatter(x=lf['over'], y=wicket_y, mode='markers', name='Wickets', marker_color='
