@@ -67,6 +67,10 @@ df=pd.DataFrame(dict)
 
 df['score']=df['score'].astype('int')
 df1['inng1']=df1['inng1'].astype('int')
+df1['wickets']=df1['wickets'].astype('int')
+df1['previous_wickets'] = df1['wickets'].shift(1)
+df1['previous_wickets'].loc[0]=0
+df1['wic']=df1['wickets']-df1['previous_wickets']
 df1['over']=df1['over'].astype('int')
 df['over']=df['over'].astype('int')
 df['wickets']=df['wickets'].astype('int')
@@ -154,10 +158,17 @@ fig = go.Figure(data=[
 wicket_text = lf['wic'].astype(str)
 wicket_y =lf['score']+lf['wic'] # adjust y-position based on wickets
 wicket_y[wicket_y == lf['score']] = None  # hide scatter points for 0 wickets
+wicket_text1 = df1['wic'].astype(str)
+wicket_y1 =df1['inng1']+df1['wic'] # adjust y-position based on wickets
+wicket_y1[wicket_y1 == df1['inng1']] = None  # hide scatter points for 0 wickets
 wicket = fig.add_trace(go.Scatter(x=lf['over'], y=wicket_y,  # use adjusted y-position
                                   mode='markers', name='Wickets in Over',
-                                  marker_color='green',marker_size=11,
+                                  marker_color='green',marker_size=8,
                                   text=wicket_text, textposition='top center'))
+wicket = fig.add_trace(go.Scatter(x=df1['over'], y=wicket_y1,  # use adjusted y-position
+                                  mode='markers', name='Wickets in Over',
+                                  marker_color='red',marker_size=8,
+                                  text=wicket_text1, textposition='top center'))
 fig.update_layout(title='Score Comperison',
                   xaxis_title='Over',
                   yaxis_title='Score')
