@@ -30,6 +30,9 @@ else:
     list_score = []
     list_wickets = []
     list_over = []
+    list_score1 = []
+    list_wickets1 = []
+    list_over1 = []
     elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
     for i, element in enumerate(elements):
         if element.text.split('/'):
@@ -38,12 +41,24 @@ else:
                 list_wickets.append(int(element.text.split('/')[1].split('(')[0]))
             else:  # Even indices
                 list_over.append(i // 2 + 1)  # Convert to over number
-    
+  for i, element in enumerate(elements):
+        if element.text.split('/'):
+            if i % 2 == 0:  # Odd indices
+                list_score1.append(int(element.text.split('/')[0]))
+                list_wickets1.append(int(element.text.split('/')[1].split('(')[0]))
+            else:  # Even indices
+                list_over1.append(i // 2 + 1)  # Convert to over number
+       
     # Create DataFrame
     df = pd.DataFrame({
         'score': list_score,
         'wickets': list_wickets,
         'over': list_over[:len(list_score)]  # Ensure matching lengths
+    })
+ df1= pd.DataFrame({
+        'score1': list_score1,
+        'wickets1': list_wickets1,
+        'over1': list_over[:len(list_score1)]  # Ensure matching lengths
     })
 
     # Add computed columns
@@ -74,8 +89,8 @@ else:
     st.plotly_chart(fig)
 
 # Handling negative indices in df (This was the source of your error)
-if 'inng1' in df.columns:  # Ensure df1 exists before proceeding
-    neg_idx = df[df['inng1'] < 0].index
+if 'score1' in df1.columns:  # Ensure df1 exists before proceeding
+    neg_idx = df[df['score1'] < 0].index
     if not neg_idx.empty:
         df = df[:neg_idx[0]]
 
