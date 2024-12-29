@@ -253,7 +253,7 @@ if o != 50:
 
     # Call match_progression with parameters
     temp_df, target = match_progression(gf, 100001, pipe)
-    
+    st.write(gf)
     # Filter and clean data
     temp_df = temp_df[temp_df['runs_after_over'] >= 0]
     temp_df = temp_df[temp_df['wickets_in_over'] >= 0]
