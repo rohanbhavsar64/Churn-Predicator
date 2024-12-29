@@ -71,6 +71,7 @@ df1['over']=df1['over'].astype('int')
 df['over']=df['over'].astype('int')
 df['wickets']=df['wickets'].astype('int')
 df['previous_wickets'] = df['wickets'].shift(1)
+df['previous_wickets'].loc[0]=0
 df['wic']=df['wickets']-df['previous_wickets']
 df['target']=df['target'].astype('int')
 df['runs_left']=df['target']-df['score']
