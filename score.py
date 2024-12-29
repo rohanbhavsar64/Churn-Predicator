@@ -208,8 +208,78 @@ if o != 50:
     # Execute the logic only if o != 50
 
     # match_progression function
-   def match_progression(x_df,match_id,pipe): match = x_df[x_df['match_id'] == match_id] match = match[(match['balls_left']%6 == 0)] temp_df = match[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket']].fillna(0) temp_df = temp_df[temp_df['balls_left'] != 0] if temp_df.empty: print("Error: Match is not Existed") return None, None result = pipe.predict_proba(temp_df) temp_df['lose'] = np.round(result.T[0]*100,1) temp_df['win'] = np.round(result.T[1]*100,1) temp_df['end_of_over'] = (300-temp_df['balls_left'])/6
-target = (temp_df['score']+temp_df['runs_left']+1).values[0] runs = temp_df['runs_left'].tolist() new_runs = runs[:] runs.insert(0,target) temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs) temp_df['batting_team']=match['batting_team'] temp_df['bowling_team']=match['bowling_team'] wickets = (10 - temp_df['wickets']).tolist() new_wickets = wickets[:] new_wickets.insert(0,10) wickets.append(0) w = np.array(wickets) nw = np.array(new_wickets) temp_df['wickets_in_over'] = (nw-w)[0:temp_df.shape[0]] temp_df['wickets']=temp_df['wickets_in_over'].cumsum() temp_df['venue']=match['venue'] temp_df['score']=match['score'] print("Target-",target) temp_df = temp_df[['batting_team','bowling_team','end_of_over','runs_after_over','wickets_in_over','score','wickets','lose','win','venue']] return temp_df,target
+  import numpy as np
+
+def match_progression(x_df, match_id, pipe):
+    # Filter for the match by match_id
+    match = x_df[x_df['match_id'] == match_id]
+    
+    # Only consider rows where balls_left is a multiple of 6 (end of over)
+    match = match[match['balls_left'] % 6 == 0]
+    
+    # Create a temporary DataFrame with relevant columns and fill NaN values
+    temp_df = match[['batting_team', 'bowling_team', 'venue', 'score', 
+                     'wickets', 'runs_left', 'balls_left', 'crr', 
+                     'rrr', 'last_10', 'last_10_wicket']].fillna(0)
+    
+    # Remove rows where balls_left is 0
+    temp_df = temp_df[temp_df['balls_left'] != 0]
+    
+    if temp_df.empty:
+        print("Error: Match is not Existed")
+        return None, None
+    
+    # Predict probabilities using the model pipe
+    result = pipe.predict_proba(temp_df)
+    
+    # Calculate win/lose probabilities
+    temp_df['lose'] = np.round(result.T[0] * 100, 1)
+    temp_df['win'] = np.round(result.T[1] * 100, 1)
+    
+    # Calculate the end of over (overs completed)
+    temp_df['end_of_over'] = (300 - temp_df['balls_left']) / 6
+    
+    # Calculate the target score
+    target = (temp_df['score'] + temp_df['runs_left'] + 1).values[0]
+    
+    # Create runs after over list for over-wise runs calculation
+    runs = temp_df['runs_left'].tolist()
+    new_runs = runs[:]
+    new_runs.insert(0, target)
+    
+    # Calculate runs scored in each over
+    temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
+    
+    # Set the batting and bowling teams
+    temp_df['batting_team'] = match['batting_team']
+    temp_df['bowling_team'] = match['bowling_team']
+    
+    # Calculate wickets in each over and cumulative wickets
+    wickets = (10 - temp_df['wickets']).tolist()
+    new_wickets = wickets[:]
+    new_wickets.insert(0, 10)
+    wickets.append(0)
+    
+    w = np.array(wickets)
+    nw = np.array(new_wickets)
+    temp_df['wickets_in_over'] = (nw - w)[0:temp_df.shape[0]]
+    
+    # Calculate cumulative wickets
+    temp_df['wickets'] = temp_df['wickets_in_over'].cumsum()
+    
+    # Set other match details
+    temp_df['venue'] = match['venue']
+    temp_df['score'] = match['score']
+    
+    print(f"Target: {target}")
+    
+    # Return final DataFrame with required columns and the target
+    temp_df = temp_df[['batting_team', 'bowling_team', 'end_of_over', 
+                       'runs_after_over', 'wickets_in_over', 'score', 
+                       'wickets', 'lose', 'win', 'venue']]
+    
+    return temp_df, target
+
 
     # Call match_progression with parameters
     temp_df, target = match_progression(gf, 100001, pipe)
