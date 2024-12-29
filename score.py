@@ -286,4 +286,8 @@ elif selected_section == 'Innings Progression':
 elif selected_section == 'Win Probability':
     st.write(fig3)
 elif selected_section == 'Current Predictor':
+  if o!=50:  
     st.write(fig4)
+  else:
+    st.write(Match Over)
+    
