@@ -70,6 +70,8 @@ df1['inng1']=df1['inng1'].astype('int')
 df1['over']=df1['over'].astype('int')
 df['over']=df['over'].astype('int')
 df['wickets']=df['wickets'].astype('int')
+df['previous_wickets'] = df['wickets'].shift(1)
+df['wic']=df['wickets']-df['previous_wickets']
 df['target']=df['target'].astype('int')
 df['runs_left']=df['target']-df['score']
 df=df[df['score']<df['target']]
@@ -148,6 +150,13 @@ fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'],line_width=3,line_color='red',name=df['bowling_team'].unique()[0]),
     go.Scatter(x=lf['over'], y=lf['score'],line_width=3,line_color='green',name=df['batting_team'].unique()[0])
 ])
+wicket_text = lf['wic'].astype(str)
+wicket_y =lf['score']+lf['wic'] # adjust y-position based on wickets
+wicket_y[wicket_y == lf['score']] = None  # hide scatter points for 0 wickets
+wicket = fig2.add_trace(go.Scatter(x=lf['over'], y=wicket_y,  # use adjusted y-position
+                                  mode='markers', name='Wickets in Over',
+                                  marker_color='orange',marker_size=11,
+                                  text=wicket_text, textposition='top center'))
 fig.update_layout(title='Score Comperison',
                   xaxis_title='Over',
                   yaxis_title='Score')
@@ -248,7 +257,7 @@ import plotly.express as px
 fig2=go.Figure()
 runs = fig2.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over',marker_color='purple'))
 wicket_text = temp_df['wickets_in_over'].astype(str)
-wicket_y = temp_df['runs_after_over']+temp_df['wickets_in_over']*0.4  # adjust y-position based on wickets
+wicket_y = temp_df['runs_after_over']+temp_df['wickets_in_over']  # adjust y-position based on wickets
 wicket_y[wicket_y == temp_df['runs_after_over']] = None  # hide scatter points for 0 wickets
 wicket = fig2.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y,  # use adjusted y-position
                                   mode='markers', name='Wickets in Over',
