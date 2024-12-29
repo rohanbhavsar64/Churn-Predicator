@@ -153,7 +153,7 @@ fig.update_layout(title='Score Comperison',
 gf=df
 
 import pickle
-with open('C:\Users\SMART COMPUTER\Desktop\pipeline.pkl', 'rb') as file:
+with open('pipeline.pkl', 'rb') as file:
     pipe = pickle.load(file)
 
 # Now you can use the loaded pipeline to make prediction
