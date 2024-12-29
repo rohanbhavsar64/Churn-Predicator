@@ -34,6 +34,8 @@ else:
     list_wickets1 = []
     list_over1 = []
     elements = b.find_all(class_='ds-cursor-pointer ds-pt-1')
+    
+    # Extract data for the first innings
     for i, element in enumerate(elements):
         if element.text.split('/'):
             if i % 2 != 0:  # Odd indices
@@ -41,27 +43,29 @@ else:
                 list_wickets.append(int(element.text.split('/')[1].split('(')[0]))
             else:  # Even indices
                 list_over.append(i // 2 + 1)  # Convert to over number
+    
+    # Extract data for the second innings
     for i, element in enumerate(elements):
-      if element.text.split('/'):
-        if i % 2 == 0:
-          list_score1.append(int(element.text.split('/')[0]))
-          list_wickets1.append(int(element.text.split('/')[1].split('(')[0]))
-        else:
-          list_over1.append(i // 2 + 1)  # Convert to over number
-       
-    # Create DataFrame
+        if element.text.split('/'):
+            if i % 2 == 0:
+                list_score1.append(int(element.text.split('/')[0]))
+                list_wickets1.append(int(element.text.split('/')[1].split('(')[0]))
+            else:
+                list_over1.append(i // 2 + 1)  # Convert to over number
+
+    # Create DataFrames for both innings
     df = pd.DataFrame({
         'score': list_score,
         'wickets': list_wickets,
         'over': list_over[:len(list_score)]  # Ensure matching lengths
     })
-    df1= pd.DataFrame({
+    df1 = pd.DataFrame({
         'score1': list_score1,
         'wickets1': list_wickets1,
-        'over1': list_over[:len(list_score1)]  # Ensure matching lengths
+        'over1': list_over1[:len(list_score1)]  # Ensure matching lengths
     })
 
-    # Add computed columns
+    # Add computed columns for the first innings (df)
     df['target'] = df['score'].max() + 1  # Example target
     df['crr'] = df['score'] / df['over']
     df['rrr'] = (df['target'] - df['score']) / (50 - df['over'])
@@ -81,30 +85,30 @@ else:
         st.write(f"CRR: {df.iloc[-1]['crr']:.2f}, RRR: {df.iloc[-1]['rrr']:.2f}")
         st.write(f"Runs Left: {df.iloc[-1]['target'] - df.iloc[-1]['score']} in {df.iloc[-1]['balls_left']} balls")
     
-    # Display plots
+    # Display plots for the score comparison
     fig = go.Figure(data=[
         go.Scatter(x=df['over'], y=df['score'], mode='lines+markers', name="Score Progression", line_color='green')
     ])
     fig.update_layout(title='Score Comparison', xaxis_title='Over', yaxis_title='Score')
     st.plotly_chart(fig)
 
-# Handling negative indices in df (This was the source of your error)
-if 'score1' in df1.columns:  # Ensure df1 exists before proceeding
-    neg_idx = df[df['score1'] < 0].index
-    if not neg_idx.empty:
-        df = df[:neg_idx[0]]
+    # Handle cases when 'score1' exists in df1
+    if 'score1' in df1.columns:  # Ensure df1 exists and has the 'score1' column
+        neg_idx = df[df['score1'] < 0].index
+        if not neg_idx.empty:
+            df = df[:neg_idx[0]]
 
-# Truncate dataframe if `o` is less than 50
-lf = df
-lf = lf[:int(o)]
+    # Truncate dataframe if `o` is less than 50
+    lf = df
+    lf = lf[:int(o)]
 
-# Display sections
-selected_section = st.radio("Select Section", ['Score Comparison', 'Win Probability'])
-if selected_section == 'Score Comparison':
-    st.write(fig)
-elif selected_section == 'Win Probability':
-    fig3 = go.Figure()
-    # Example code for plotting win probability (requires actual logic or data for win/lose columns)
-    fig3.add_trace(go.Scatter(x=lf['over'], y=lf['score'], mode='lines', name="Win Probability", line_color='blue', line_width=4))
-    fig3.update_layout(title=f"Win Probability of Teams (Target: {df['target'].max()})", height=700)
-    st.write(fig3)
+    # Display selected section for analysis
+    selected_section = st.radio("Select Section", ['Score Comparison', 'Win Probability'])
+    if selected_section == 'Score Comparison':
+        st.write(fig)
+    elif selected_section == 'Win Probability':
+        fig3 = go.Figure()
+        # Example code for plotting win probability (requires actual logic or data for win/lose columns)
+        fig3.add_trace(go.Scatter(x=lf['over'], y=lf['score'], mode='lines', name="Win Probability", line_color='blue', line_width=4))
+        fig3.update_layout(title=f"Win Probability of Teams (Target: {df['target'].max()})", height=700)
+        st.write(fig3)
