@@ -55,7 +55,7 @@ else:
         'wickets': list_wickets,
         'over': list_over[:len(list_score)]  # Ensure matching lengths
     })
- df1= pd.DataFrame({
+    df1= pd.DataFrame({
         'score1': list_score1,
         'wickets1': list_wickets1,
         'over1': list_over[:len(list_score1)]  # Ensure matching lengths
