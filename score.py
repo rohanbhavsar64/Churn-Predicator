@@ -155,7 +155,7 @@ wicket_y =lf['score']+lf['wic'] # adjust y-position based on wickets
 wicket_y[wicket_y == lf['score']] = None  # hide scatter points for 0 wickets
 wicket = fig.add_trace(go.Scatter(x=lf['over'], y=wicket_y,  # use adjusted y-position
                                   mode='markers', name='Wickets in Over',
-                                  marker_color='orange',marker_size=11,
+                                  marker_color='green',marker_size=11,
                                   text=wicket_text, textposition='top center'))
 fig.update_layout(title='Score Comperison',
                   xaxis_title='Over',
