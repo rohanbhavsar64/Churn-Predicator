@@ -156,9 +156,7 @@ import pickle
 with open('pipeline.pkl', 'rb') as file:
     pipe = pickle.load(file)
 
-# Now you can use the loaded pipeline to make predictions
-predictions =pipe.predict(X_test)
-print(predictions)
+# Now you can use the loaded pipeline to make prediction
 if int(o)!=50:
     gf = gf[:int(o)]
 neg_idx = gf[gf['runs'] < 0].index
