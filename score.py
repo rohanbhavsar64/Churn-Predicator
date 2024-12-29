@@ -289,5 +289,5 @@ elif selected_section == 'Current Predictor':
   if o!=50:  
     st.write(fig4)
   else:
-    st.write(Match Over)
+    st.write('Match Over')
     
