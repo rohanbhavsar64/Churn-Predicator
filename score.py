@@ -200,7 +200,8 @@ import numpy as np
 o = 50  # Example value for o (change this as per your requirement)
   # Replace with actual prediction pipeline
 gf = df  # Replace with actual data
-
+with open('pipeline.pkl', 'rb') as file:
+    pipe = pickle.load(file)
 # Check if 'o' is not equal to 50
 if o != 50:
     # Execute the logic only if o != 50
