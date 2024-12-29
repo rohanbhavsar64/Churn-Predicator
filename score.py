@@ -7,7 +7,7 @@ sf=pd.read_csv('flags_iso.csv')
 st.header('ODI MATCH ANALYSIS')
 st.sidebar.header('Analysis')
 selected_section = st.sidebar.radio('Select a Section:', 
-                                     ('Score Comparison', 'Session Distribution', 'Innings Progression', 'Win Probability','Summary', 'Current Predictor'))
+                                     ('Score Comparison', 'Session Distribution', 'Innings Progression', 'Win Probability','Current Predictor'))
 
 # Define the function for Score Comparison
 o=st.number_input('Over No.(Not Greater Than Overs Played in 2nd Innings)') or 50
@@ -277,12 +277,6 @@ if o!=50:
     fig4.update_layout(title='Current Predicator')
 
 
-# Streamlit app
-st.title("Cricket Match Highlights")
-
-# Example URL and class name
-#url2 = "https://www.espncricinfo.com/your_video_page"  # Replace with the actual URL
-class_name = "vjs-tech"  # Replace with the actual class name of the video tag
 if selected_section == 'Score Comparison':
     st.write(fig)
 elif selected_section == 'Session Distribution':
@@ -291,10 +285,5 @@ elif selected_section == 'Innings Progression':
     st.write(fig2)
 elif selected_section == 'Win Probability':
     st.write(fig3)
-elif selected_section == 'Summary':
-  r = requests.get(url2)
-  b=BeautifulSoup(r.text,'html')
-  st.write(b.find_all(class_='ci-html-content ds-leading-[24px] ds-py-2 ds-px-3 xl:ds-pr-12')[0].text)
-    
 elif selected_section == 'Current Predictor':
     st.write(fig4)
