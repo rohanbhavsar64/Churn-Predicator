@@ -2,6 +2,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests 
 import streamlit as st 
+import numpy as np
 sf=pd.read_csv('flags_iso.csv')
 st.header('ODI MATCH ANALYSIS')
 st.sidebar.header('Analysis')
