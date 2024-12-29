@@ -192,6 +192,120 @@ fig.add_trace(go.Scatter(x=lf['over'], y=wicket_y, mode='markers', name='Wickets
 fig.add_trace(go.Scatter(x=df1['over'], y=wicket_y1, mode='markers', name='Wickets', marker_color='red', marker_size=8, text=wicket_text1, textposition='top center'))
 
 fig.update_layout(title='Score Comparison', xaxis_title='Over', yaxis_title='Score')
+import streamlit as st
+import plotly.graph_objects as go
+import numpy as np
+
+# Assuming these are defined or passed in elsewhere
+o = 50  # Example value for o (change this as per your requirement)
+  # Replace with actual prediction pipeline
+gf = df  # Replace with actual data
+
+# Check if 'o' is not equal to 50
+if o != 50:
+    # Execute the logic only if o != 50
+
+    # match_progression function
+    def match_progression(x_df, match_id, pipe):
+        match = x_df[x_df['match_id'] == match_id]
+        match = match[(match['balls_left'] % 6 == 0)]
+        temp_df = match[['batting_team', 'bowling_team', 'venue', 'score', 'wickets', 'runs_left', 'balls_left', 'crr', 'rrr', 'last_10', 'last_10_wicket']].fillna(0)
+        temp_df = temp_df[temp_df['balls_left'] != 0]
+        
+        if temp_df.empty:
+            print("Error: Match is not Existed")
+            return None, None
+        
+        result = pipe.predict_proba(temp_df)
+        temp_df['lose'] = np.round(result.T[0] * 100, 1)
+        temp_df['win'] = np.round(result.T[1] * 100, 1)
+        temp_df['end_of_over'] = (300 - temp_df['balls_left']) / 6
+        target = (temp_df['score'] + temp_df['runs_left'] + 1).values[0]
+        
+        # Handle runs
+        runs = temp_df['runs_left'].tolist()
+        new_runs = runs[:]
+        new_runs.insert(0, target)
+        temp_df['runs_after_over'] = np.array(runs)[:-1] - np.array(new_runs)
+        
+        # Handle wickets
+        wickets = (10 - temp_df['wickets']).tolist()
+        new_wickets = wickets[:]
+        new_wickets.insert(0, 10)
+        wickets.append(0)
+        w = np.array(wickets)
+        nw = np.array(new_wickets)
+        temp_df['wickets_in_over'] = (nw - w)[0:temp_df.shape[0]]
+        temp_df['wickets'] = temp_df['wickets_in_over'].cumsum()
+
+        # Add remaining columns
+        temp_df['batting_team'] = match['batting_team']
+        temp_df['bowling_team'] = match['bowling_team']
+        temp_df['venue'] = match['venue']
+        temp_df['score'] = match['score']
+        
+        print("Target-", target)
+        
+        # Return the processed dataframe and target score
+        temp_df = temp_df[['batting_team', 'bowling_team', 'end_of_over', 'runs_after_over', 'wickets_in_over', 'score', 'wickets', 'lose', 'win', 'venue']]
+        return temp_df, target
+
+    # Call match_progression with parameters
+    temp_df, target = match_progression(gf, 100001, pipe)
+    
+    # Filter and clean data
+    temp_df = temp_df[temp_df['runs_after_over'] >= 0]
+    temp_df = temp_df[temp_df['wickets_in_over'] >= 0]
+
+    # Plotting the progressions using plotly
+    fig2 = go.Figure()
+
+    # Plot runs after over
+    runs = fig2.add_trace(go.Bar(x=temp_df['end_of_over'], y=temp_df['runs_after_over'], name='Runs in Over', marker_color='purple'))
+
+    # Plot wickets in over
+    wicket_text = temp_df['wickets_in_over'].astype(str)
+    wicket_y = temp_df['runs_after_over'] + temp_df['wickets_in_over']
+    wicket_y[wicket_y == temp_df['runs_after_over']] = None  # Hide for zero wickets
+    wicket = fig2.add_trace(go.Scatter(x=temp_df['end_of_over'], y=wicket_y, mode='markers', name='Wickets in Over', marker_color='orange', marker_size=11, text=wicket_text, textposition='top center'))
+
+    # Set layout
+    fig2.update_layout(title='Innings Progression')
+
+    # Create win probability graph
+    fig3 = go.Figure()
+    batting_team = fig3.add_trace(go.Scatter(x=temp_df.iloc[10:, :]['end_of_over'], y=temp_df.iloc[10:, :]['win'], mode='lines', name=temp_df['batting_team'].unique()[0], line_color='green', line_width=4))
+    bowling_team = fig3.add_trace(go.Scatter(x=temp_df.iloc[10:, :]['end_of_over'], y=temp_df.iloc[10:, :]['lose'], mode='lines', name=temp_df['bowling_team'].unique()[0], line_color='red', line_width=4))
+    
+    # Set layout for win probability chart
+    fig3.update_layout(title='Win Probability Of Teams : Target-' + str(target), height=700)
+
+    # Current prediction pie chart
+    tf = gf[['batting_team', 'bowling_team', 'venue', 'score', 'wickets', 'runs_left', 'balls_left', 'crr', 'rrr', 'last_10', 'last_10_wicket']]
+    n = pipe.predict_proba(pd.DataFrame(columns=['batting_team', 'bowling_team', 'venue', 'score', 'wickets', 'runs_left', 'balls_left', 'crr', 'rrr', 'last_10', 'last_10_wicket'], data=np.array(tf.iloc[-1, :]).reshape(1, 11))).astype(float)
+    probablity1 = int(n[0][1] * 100)
+    probablity2 = int(n[0][0] * 100)
+    data = [probablity1, probablity2]
+    data1 = [temp_df['bowling_team'].unique()[0], temp_df['batting_team'].unique()[0]]
+
+    fig4 = go.Figure(data=[go.Pie(labels=data1, values=data, hole=.5)])
+    fig4.update_layout(title='Current Predictor')
+
+    # Display the figures in streamlit
+    if selected_section == 'Score Comparison':
+        st.write(fig)
+    elif selected_section == 'Session Distribution':
+        st.write(fig1)
+    elif selected_section == 'Innings Progression':
+        st.write(fig2)
+    elif selected_section == 'Win Probability':
+        st.write(fig3)
+    elif selected_section == 'Current Predictor':
+        st.write(fig4)
+
+else:
+    # Handle match over case
+    st.write('Match Over')
 
 # Display different sections based on the sidebar selection
 if selected_section == 'Score Comparison':
