@@ -6,4 +6,4 @@ matplotlib
 plotly
 bs4
 requests
-pickel
+pickle
