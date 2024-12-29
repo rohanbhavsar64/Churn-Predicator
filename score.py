@@ -334,21 +334,4 @@ def match_progression(x_df, match_id, pipe):
     elif selected_section == 'Current Predictor':
         st.write(fig4)
 
-else:
-    # Handle match over case
-    st.write('Match Over')
 
-# Display different sections based on the sidebar selection
-if selected_section == 'Score Comparison':
-    st.write(fig)
-elif selected_section == 'Innings Progression':
-    # Assuming fig1 is defined in your code for innings progression
-    st.write(fig1)
-elif selected_section == 'Win Probability':
-    # Assuming fig3 is defined in your code for win probability
-    st.write(fig3)
-elif selected_section == 'Current Predictor':
-    if o != 50:
-        st.write(fig4)  # Show current prediction pie chart
-    else:
-        st.write('Match Over')
