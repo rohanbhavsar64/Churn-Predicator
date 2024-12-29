@@ -298,12 +298,3 @@ elif selected_section == 'Summary':
     
 elif selected_section == 'Current Predictor':
     st.write(fig4)
-if o==50:
-    def result(raw):
-        return 1 if(raw['batting_team']==raw['winner']) else 0
-        gf['winner']=gf.apply(result,axis=1)
-        if ((h=='https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/australia-vs-south-africa-2nd-semi-final-1384438/match-overs-comparison') or (o!=50)):
-            new_df=new_df
-        else:
-            new_df = pd.concat([new_df, gf[['batting_team','bowling_team','venue','score','wickets','runs_left','balls_left','crr','rrr','last_10','last_10_wicket','winner']]])
-new_df.drop_duplicates(inplace=True)
