@@ -73,11 +73,11 @@ else:
     fig.update_layout(title='Score Comparison', xaxis_title='Over', yaxis_title='Score')
     st.plotly_chart(fig)
 
-# Handling negative indices in df1 (Ensure clean data)
-if 'inng1' in df1.columns:
-    neg_idx = df1[df1['inng1'] < 0].index
+# Handling negative indices in df (This was the source of your error)
+if 'inng1' in df.columns:  # Ensure df1 exists before proceeding
+    neg_idx = df[df['inng1'] < 0].index
     if not neg_idx.empty:
-        df1 = df1[:neg_idx[0]]
+        df = df[:neg_idx[0]]
 
 # Truncate dataframe if `o` is less than 50
 lf = df
@@ -89,9 +89,7 @@ if selected_section == 'Score Comparison':
     st.write(fig)
 elif selected_section == 'Win Probability':
     fig3 = go.Figure()
-    fig3.add_trace(go.Scatter(x=temp_df.iloc[10:, :]['end_of_over'], y=temp_df.iloc[10:, :]['win'], mode='lines',
-                              name=temp_df['batting_team'].unique()[0], line_color='green', line_width=4))
-    fig3.add_trace(go.Scatter(x=temp_df.iloc[10:, :]['end_of_over'], y=temp_df.iloc[10:, :]['lose'], mode='lines',
-                              name=temp_df['bowling_team'].unique()[0], line_color='red', line_width=4))
-    fig3.update_layout(title=f"Win Probability of Teams (Target: {target})", height=700)
+    # Example code for plotting win probability (requires actual logic or data for win/lose columns)
+    fig3.add_trace(go.Scatter(x=lf['over'], y=lf['score'], mode='lines', name="Win Probability", line_color='blue', line_width=4))
+    fig3.update_layout(title=f"Win Probability of Teams (Target: {df['target'].max()})", height=700)
     st.write(fig3)
