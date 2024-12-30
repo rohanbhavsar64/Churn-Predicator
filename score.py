@@ -173,7 +173,6 @@ if 'winner' in df.columns and not df['winner'].empty:
         st.write("Winner information not available.")
 gf = df
 
-# Plotting Score Comparison
 fig = go.Figure(data=[
     go.Scatter(x=df1['over'], y=df1['inng1'], line_width=3, line_color='red', name=df['bowling_team'].unique()[0]),
     go.Scatter(x=lf['over'], y=lf['score'], line_width=3, line_color='green', name=df['batting_team'].unique()[0])
